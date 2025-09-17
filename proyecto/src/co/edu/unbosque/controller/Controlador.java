@@ -103,7 +103,7 @@ public class Controlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String boton = e.getActionCommand();
-		
+
 		if (boton.contains("Producto_")) {
 			vp.mostrarMensaje(boton);
 		}
@@ -310,21 +310,21 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarVehiculos();
 				break;
-			case "ComboBox Ventana Comprar":
-				agregarProductosVentanaComprar();
-				break;
 			default:
 				break;
 			}
 			//////////////////////////////////////////////
 			break;
+		case "ComboBox Ventana Comprar":
+			agregarProductosVentanaComprar();
+			break;
 		case "Boton Registrar Producto":
-			
+
 			//////////////////////////////////////////////
-			
+
 			leerIDSExistentes();
 			String seleccion = vp.getMp().getVen().getCategorias().getSelectedItem().toString();
-			
+
 			switch (seleccion) {
 			case "Seleccione":
 				vp.mostrarError("Seleccione una categoria valida");
@@ -402,9 +402,9 @@ public class Controlador implements ActionListener {
 			default:
 				break;
 			}
-			
+
 			//////////////////////////////////////////////
-			
+
 			break;
 		default:
 			break;
@@ -477,6 +477,7 @@ public class Controlador implements ActionListener {
 						producto.getId(), this);
 			});
 		}
+		vp.actualizar();
 	}
 
 	private void leerIDSExistentes() {
