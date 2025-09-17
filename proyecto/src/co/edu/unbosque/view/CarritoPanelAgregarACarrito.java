@@ -21,7 +21,7 @@ public class CarritoPanelAgregarACarrito extends JPanel {
 		this.setLayout(null);
 
 		selec = new JButton();
-		selec.setActionCommand("CarritoSele-" + nombre);
+		selec.setActionCommand("CarritoACA-" + nombre);
 		selec.addActionListener(e);
 		selec.setBounds(0, 0, 483, 100);
 		selec.setContentAreaFilled(false);

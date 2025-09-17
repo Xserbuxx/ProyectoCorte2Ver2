@@ -25,11 +25,8 @@ public class ConfirmarCompra extends JPanel {
 		arriba.setBackground(Color.WHITE);
 
 		volver = new JButton(new ImageIcon(
-		        new ImageIcon("volver.png")
-		                .getImage()
-		                .getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)
-		));
-		volver.setBounds(340, 170, 50, 50);
+				new ImageIcon("volver.png").getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
+		volver.setBounds(325, 225, 50, 50);
 		volver.setBorder(new LineBorder(Color.GRAY, 1, true));
 		volver.setBackground(Color.WHITE);
 		volver.setFocusPainted(false);
@@ -46,12 +43,12 @@ public class ConfirmarCompra extends JPanel {
 		this.add(arriba);
 	}
 
-	public void mostrarTitulo(float precio) {
-		if(precioLabel != null) {
+	public void mostrarTitulo(double precio) {
+		if (precioLabel != null) {
 			this.remove(precioLabel);
-			
+
 		}
-		
+
 		crearLabel("Estas a punto de realizar una compra por:", 435, 260, 460, 50, Color.black, 22);
 
 		precioLabel = new JLabel("$" + precio);
@@ -62,13 +59,14 @@ public class ConfirmarCompra extends JPanel {
 		this.add(precioLabel);
 		this.setComponentZOrder(precioLabel, 0);
 	}
-	
+
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
 		label.setForeground(color);
 		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
 		this.add(label);
+		this.setComponentZOrder(label, 0);
 	}
 
 	public void setVolver(JButton volver) {
@@ -86,5 +84,5 @@ public class ConfirmarCompra extends JPanel {
 	public JButton getComprar() {
 		return comprar;
 	}
-	
+
 }

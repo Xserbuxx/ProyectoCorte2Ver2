@@ -3,6 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -83,16 +84,21 @@ public class VentanaFactura extends JPanel {
 		scroll.revalidate();
 		scroll.repaint();
 	}
+	
+	public void limpiarLabels() {
+		for (Component comp : derecha.getComponents()) {
+			if (comp instanceof JLabel) {
+				derecha.remove(comp);
+			}
+		}
+	}
 
-	public void mostrarProductos(String nombre, float precio, String ruta) {
-		panelProductos.add(new FacturaProducto(nombre, precio, ruta));
-		panelProductos.revalidate();
+	public void mostrarProductos(String nombre, double precio, String ruta, int id, ActionListener e) {
+		panelProductos.add(new FacturaProducto(nombre, precio, ruta, id, e));
 	}
 
 	public void limpiarProductos() {
 		panelProductos.removeAll();
-		panelProductos.revalidate();
-		panelProductos.repaint();
 	}
 	
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

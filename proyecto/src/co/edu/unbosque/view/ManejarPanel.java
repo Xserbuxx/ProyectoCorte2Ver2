@@ -18,6 +18,8 @@ public class ManejarPanel extends JPanel{
 	private VentanaFactura fac;
 	private ConfirmarEliminar ce;
 	private ConfirmarCompra cc;
+	private Pago pa;;
+	private Recivo rec;
 	
 	public ManejarPanel() {
 		iniciarComponentes();
@@ -39,6 +41,8 @@ public class ManejarPanel extends JPanel{
 		fac = new VentanaFactura();
 		ce = new ConfirmarEliminar();
 		cc = new ConfirmarCompra();
+		pa = new Pago();
+		rec = new Recivo();
 		
 		this.add(vis, "vis");
 		this.add(reg, "reg");
@@ -148,6 +152,22 @@ public class ManejarPanel extends JPanel{
 
 	public void setCc(ConfirmarCompra cc) {
 		this.cc = cc;
+	}
+
+	public Pago getPa() {
+		return pa;
+	}
+
+	public void setPa(Pago pa) {
+		this.pa = pa;
+	}
+
+	public Recivo getRec() {
+		return rec;
+	}
+
+	public void setRec(Recivo rec) {
+		this.rec = rec;
 	}
 	
 }

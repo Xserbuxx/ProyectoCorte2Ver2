@@ -71,7 +71,6 @@ public class VentanaCarritos extends JPanel {
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
         );
         scroll.setBounds(50, 100, 1180, 460);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
 
         JPanel abajo = new JPanel();
         abajo.setBounds(0, 600, 1280, 100);
@@ -105,6 +104,12 @@ public class VentanaCarritos extends JPanel {
     public void mostrarProductos(String nombre, ActionListener e) {
         panelProductos.add(new CarritoPanelVentanaCarritos(nombre, e));
     }
+    
+    public void eliminarCarritos() {
+		panelProductos.removeAll();
+		scroll.revalidate();
+		scroll.repaint();
+	}
 
     public void limpiarBotones() {
         for (Component comp : panelProductos.getComponents()) {

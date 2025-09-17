@@ -78,7 +78,7 @@ public class VentanaVenta extends JPanel {
         logo.setBounds(20, 10, 130, 60);
         mercadoLibre.add(logo);
         
-        crearLabel("Categorías:",180,20,300,40,Color.BLACK,16);
+        crearLabel("Categorías:",180,20,300,40,Color.BLACK,20);
         
         String[] cate = { "Seleccione", "Belleza", "Deportes", "Hogar", "Juguetes", "Libros", "Mascotas", "Musica", "Ropa",
                 "Tecnologia", "Vehiculos" };

@@ -22,7 +22,7 @@ public class CarritoPanelVentanaCarritos extends JPanel {
         this.setLayout(null);
 
         selec = new JButton();
-        selec.setActionCommand("CarritoCom-" + nombre);
+        selec.setActionCommand("CarritoCar-" + nombre);
         selec.addActionListener(e);
         selec.setBounds(0, 0, 1180, 100);
         selec.setContentAreaFilled(false);

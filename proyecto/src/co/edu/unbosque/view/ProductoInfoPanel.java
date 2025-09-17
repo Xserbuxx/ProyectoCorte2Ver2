@@ -63,7 +63,7 @@ public class ProductoInfoPanel extends JPanel {
         this.add(mercadoLibre);
     }
 
-    public void mostrarProductoInfo(float precio, String nombre, String descripcion, int unidades, String url, String atributo1, String atributo2) {
+    public void mostrarProductoInfo(double precio, String nombre, String descripcion, int unidades, String url, String atributo1, String atributo2) {
     	cajaFondoProducto.removeAll();
 
         ImageIcon icon = new ImageIcon(url);

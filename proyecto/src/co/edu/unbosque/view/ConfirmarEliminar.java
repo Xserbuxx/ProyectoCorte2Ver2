@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,15 +41,23 @@ public class ConfirmarEliminar extends JPanel{
 		volver.setFocusPainted(false);
 		volver.setBorderPainted(false);
 		
-		eliminar = new JButton("Eliminar Carrito");
+		this.add(volver);
+		this.add(arriba);
+	}
+	
+	public void crearBotonEliminar(String nombre, ActionListener e) {
+		if(this.getComponents()[2].equals(eliminar)) {
+			this.remove(eliminar);
+		}
+		eliminar = new JButton("Eliminar Carrito " + nombre.split("_")[0]);
+		eliminar.setActionCommand("EliminarCarritoCE-" + nombre);
+		eliminar.addActionListener(e);
 		eliminar.setBounds(420, 350, 460, 50);
 		eliminar.setFont(new Font("Arial", Font.BOLD, 20));
 		eliminar.setBackground(new Color(255, 230, 0));
 		eliminar.setFocusPainted(false);
 		
 		this.add(eliminar);
-		this.add(volver);
-		this.add(arriba);
 	}
 	
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

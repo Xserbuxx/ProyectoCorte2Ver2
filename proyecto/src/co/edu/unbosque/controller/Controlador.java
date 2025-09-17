@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+import javax.swing.SwingUtilities;
+
 import co.edu.unbosque.model.*;
 import co.edu.unbosque.util.persistence.*;
 import co.edu.unbosque.view.VentanaPrincipal;
@@ -15,7 +17,9 @@ public class Controlador implements ActionListener {
 	private ModelFacade mf;
 	private Usuario usuarioActual;
 	private Producto productoTemp;
+	private Carrito carritoTemp;
 	private ArrayList<Integer> idsExistentes;
+	private double total = 0;
 
 	public Controlador() {
 		mf = new ModelFacade();
@@ -40,10 +44,10 @@ public class Controlador implements ActionListener {
 		vp.getMp().getReg().getBotonRegistro().setActionCommand("Boton Registro");
 
 		vp.getMp().getCom().getCambiarModo().addActionListener(this);
-		vp.getMp().getCom().getCambiarModo().setActionCommand("Boton Cambiar A Modo Venta");
+		vp.getMp().getCom().getCambiarModo().setActionCommand("Boton Cambiar Modo Venta");
 
 		vp.getMp().getVen().getCambiarModo().addActionListener(this);
-		vp.getMp().getVen().getCambiarModo().setActionCommand("Boton Cambiar A Modo Compra");
+		vp.getMp().getVen().getCambiarModo().setActionCommand("Boton Cambiar Modo Compra");
 
 		vp.getMp().getVen().getCerrarSesion().addActionListener(this);
 		vp.getMp().getVen().getCerrarSesion().setActionCommand("Boton Cerrar Sesion");
@@ -98,6 +102,15 @@ public class Controlador implements ActionListener {
 
 		vp.getMp().getCc().getVolver().addActionListener(this);
 		vp.getMp().getCc().getVolver().setActionCommand("Boton Volver Ventana CC");
+
+		vp.getMp().getCc().getComprar().addActionListener(this);
+		vp.getMp().getCc().getComprar().setActionCommand("Boton Comprar Ventana CC");
+
+		vp.getMp().getPa().getPagar().addActionListener(this);
+		vp.getMp().getPa().getPagar().setActionCommand("Boton Pagar Ventana PA");
+
+		vp.getMp().getPa().getVolver().addActionListener(this);
+		vp.getMp().getPa().getVolver().setActionCommand("Boton Volver Ventana PA");
 	}
 
 	@Override
@@ -105,7 +118,148 @@ public class Controlador implements ActionListener {
 		String boton = e.getActionCommand();
 
 		if (boton.contains("Producto_")) {
-			vp.mostrarMensaje(boton);
+
+			vp.getMp().getPip().limpiarLabels();
+			vp.getMp().mostrarPanel("pip");
+
+			int id = Integer.parseInt(boton.split("_")[1]);
+
+			encontrarProducto(id);
+			Producto producto = productoTemp;
+
+			if (producto != null) {
+
+				String atributo1 = producto.toString().split(";")[6];
+				String atributo2 = producto.toString().split(";")[7];
+
+				vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+						producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(), atributo1,
+						atributo2);
+			} else {
+				vp.mostrarError("No se encontro el producto");
+				return;
+			}
+		}
+
+		if (boton.contains("CarritoACA-")) {
+			vp.mostrarMensaje("Producto agregado al carrito " + boton.split("-")[1].split("_")[0] + " exitosamente");
+
+			mf.getCaDAO().agregarProducto(boton.split("-")[1], productoTemp);
+
+		}
+
+		if (boton.contains("CarritoCar-")) {
+
+			total = 0;
+
+			// pasar codigo a view
+			vp.getMp().getCar().add(vp.getMp().getFac());
+			vp.getMp().getFac().setEnabled(true);
+			vp.getMp().getFac().setVisible(true);
+			vp.getMp().getCar().getVolver().setEnabled(false);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(false);
+			vp.getMp().getCar().getFiltro().setEnabled(false);
+			vp.getMp().getCar().getFiltrar().setEnabled(false);
+			vp.getMp().getCar().limpiarBotones();
+			vp.getMp().getCar().setComponentZOrder(vp.getMp().getFac(), 0);
+
+			vp.getMp().getFac().getPanelProductos().removeAll();
+			for (Carrito carrito : mf.getCaDAO().getLista()) {
+				if (carrito.getNombre().equals(boton.split("-")[1])) {
+					carritoTemp = carrito;
+					for (Producto producto : carrito.getProductos()) {
+						vp.getMp().getFac().mostrarProductos(producto.getNombre(), producto.getPrecio(),
+								producto.getRutaFoto(), producto.getId(), this);
+						total += producto.getPrecio();
+					}
+					break;
+
+				}
+			}
+			vp.getMp().getFac().limpiarLabels();
+			vp.getMp().getFac().mostrarTotal(total + "");
+			SwingUtilities.invokeLater(() -> {
+				vp.getMp().getFac().getScroll().revalidate();
+				vp.getMp().getFac().getScroll().repaint();
+				vp.getMp().getCar().revalidate();
+				vp.getMp().getCar().repaint();
+			});
+
+		}
+
+		if (boton.contains("EliminarCarrito-")) {
+
+			vp.getMp().getCar().add(vp.getMp().getCe());
+
+			vp.getMp().getCe().setEnabled(true);
+			vp.getMp().getCe().setVisible(true);
+			vp.getMp().getCar().getVolver().setEnabled(false);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(false);
+			vp.getMp().getCar().getFiltro().setEnabled(false);
+			vp.getMp().getCar().getFiltrar().setEnabled(false);
+			vp.getMp().getCar().limpiarBotones();
+			vp.getMp().getCar().setComponentZOrder(vp.getMp().getCe(), 0);
+
+			vp.getMp().getCe().crearBotonEliminar(boton.split("-")[1], this);
+
+			vp.getMp().getCe().setComponentZOrder(vp.getMp().getCe().getEliminar(), 0);
+
+			SwingUtilities.invokeLater(() -> {
+				vp.actualizar();
+			});
+		}
+
+		if (boton.contains("EliminarCarritoCE-")) {
+			for (Carrito carrito : mf.getCaDAO().getLista()) {
+				if (carrito.getNombre().equals(boton.split("-")[1])) {
+					mf.getCaDAO().eliminar(carrito);
+					break;
+				}
+			}
+
+			vp.mostrarMensaje("Carrito eliminado exitosamente");
+
+			vp.getMp().getCe().setEnabled(false);
+			vp.getMp().getCe().setVisible(false);
+			vp.getMp().getCar().remove(vp.getMp().getCe());
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			agregarCarritos();
+			vp.actualizar();
+		}
+
+		if (boton.contains("EliminarProductoFac-")) {
+			for (Carrito carrito : mf.getCaDAO().getLista()) {
+				if (carrito.getNombre().equals(carritoTemp.getNombre())) {
+					for (Producto producto : carrito.getProductos()) {
+						if (producto.getId() == Integer.parseInt(boton.split("-")[1])) {
+							carrito.getProductos().remove(producto);
+							mf.getCaDAO().escribirArchivoSerializado();
+
+							total = 0;
+
+							vp.getMp().getFac().getPanelProductos().removeAll();
+
+							for (Producto prod : carrito.getProductos()) {
+								vp.getMp().getFac().mostrarProductos(prod.getNombre(), prod.getPrecio(),
+										prod.getRutaFoto(), prod.getId(), this);
+								total += prod.getPrecio();
+							}
+
+							break;
+						}
+					}
+					break;
+				}
+			}
+
+			vp.getMp().getFac().limpiarLabels();
+			vp.getMp().getFac().mostrarTotal(total + "");
+			vp.mostrarMensaje("Producto eliminado del carrito exitosamente");
+
 		}
 
 		switch (boton) {
@@ -211,12 +365,12 @@ public class Controlador implements ActionListener {
 				break;
 			}
 			break;
-		case "Boton Cambiar A Modo Compra":
+		case "Boton Cambiar Modo Compra":
 			agregarProductosVentanaComprar();
 			vp.getMp().mostrarPanel("com");
 			vp.actualizar();
 			break;
-		case "Boton Cambiar A Modo Venta":
+		case "Boton Cambiar Modo Venta":
 			vp.getMp().mostrarPanel("ven");
 			vp.actualizar();
 			break;
@@ -315,9 +469,11 @@ public class Controlador implements ActionListener {
 			}
 			//////////////////////////////////////////////
 			break;
+
 		case "ComboBox Ventana Comprar":
 			agregarProductosVentanaComprar();
 			break;
+
 		case "Boton Registrar Producto":
 
 			//////////////////////////////////////////////
@@ -406,13 +562,297 @@ public class Controlador implements ActionListener {
 			//////////////////////////////////////////////
 
 			break;
+		case "Boton Agregar Producto A Carrito":
+
+			// cambiar a ventana aca
+			vp.getMp().getAca().setVisible(true);
+			vp.getMp().getAca().setEnabled(true);
+			vp.getMp().getPip().add(vp.getMp().getAca());
+
+			vp.getMp().getPip().getVolver().setEnabled(false);
+			vp.getMp().getPip().getAgregarCarrito().setEnabled(false);
+
+			vp.getMp().getPip().setComponentZOrder(vp.getMp().getAca(), 0);
+
+			agregarCarritosPip();
+			SwingUtilities.invokeLater(() -> {
+				vp.actualizar();
+			});
+			break;
+		case "Boton Carritos":
+			vp.getMp().mostrarPanel("car");
+			agregarCarritos();
+
+			vp.actualizar();
+			break;
+
+		case "Boton Crear Carrito":
+
+			// pasar codigo a view
+			vp.getMp().getCrc().setVisible(true);
+			vp.getMp().getCrc().setEnabled(true);
+			vp.getMp().getCar().add(vp.getMp().getCrc());
+
+			vp.getMp().getCar().getVolver().setEnabled(false);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(false);
+			vp.getMp().getCar().getFiltro().setEnabled(false);
+			vp.getMp().getCar().getFiltrar().setEnabled(false);
+			vp.getMp().getCar().limpiarBotones();
+
+			vp.getMp().getCar().setComponentZOrder(vp.getMp().getCrc(), 0);
+
+			vp.actualizar();
+			break;
+		case "Boton Volver Ventana CRC":
+			// pasar codigo a view
+			vp.getMp().getCar().remove(vp.getMp().getCrc());
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.getMp().getCrc().getNombreC().setText("");
+
+			agregarCarritos();
+
+			vp.actualizar();
+
+			break;
+		case "Boton Crear Carrito Ventana CRC":
+
+			// pasar codigo a view
+			try {
+				String nombreCarrito = vp.getMp().getCrc().getNombreC().getText();
+				LanzadorExcepciones.verificarNombre(nombreCarrito);
+				if (nombreCarrito.isBlank()) {
+					vp.mostrarError("El nombre del carrito no puede estar vacio");
+					break;
+				}
+				nombreCarrito = nombreCarrito + "_" + usuarioActual.getNombre();
+
+				boolean existe = false;
+				for (Carrito car : mf.getCaDAO().getLista()) {
+					if (car.getNombre().equals(nombreCarrito)) {
+						vp.mostrarError("Ya existe un carrito con ese nombre");
+						existe = true;
+						break;
+					}
+				}
+				if (existe) {
+					break;
+				}
+
+				Carrito nuevoCarrito = new Carrito(nombreCarrito, new ArrayList<>());
+				mf.getCaDAO().crear(nuevoCarrito);
+
+				vp.mostrarMensaje("Carrito creado exitosamente");
+
+				vp.getMp().getCar().remove(vp.getMp().getCrc());
+
+				vp.getMp().getCar().getVolver().setEnabled(true);
+				vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+				vp.getMp().getCar().getFiltro().setEnabled(true);
+				vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+				vp.getMp().getCrc().getNombreC().setText("");
+
+				agregarCarritos();
+
+				vp.actualizar();
+			} catch (NombreException ne) {
+				vp.mostrarError(ne.getMessage());
+			} catch (Exception ex) {
+				vp.mostrarError("Error al crear el carrito" + ex.getMessage());
+			}
+
+			break;
+		case "Boton Volver Ventana ACA":
+			// pasar codigo a view
+			vp.getMp().getAca().setVisible(false);
+			vp.getMp().getAca().setEnabled(false);
+			vp.getMp().getPip().remove(vp.getMp().getAca());
+
+			vp.getMp().getPip().getVolver().setEnabled(true);
+			vp.getMp().getPip().getAgregarCarrito().setEnabled(true);
+
+			vp.actualizar();
+			break;
+		case "Boton Filtrar":
+			agregarCarritos();
+			break;
+		case "Boton Volver Ventana FAC":
+			// pasar codigo a view
+			vp.getMp().getFac().setVisible(false);
+			vp.getMp().getFac().setEnabled(false);
+
+			vp.getMp().getCar().remove(vp.getMp().getFac());
+
+			agregarCarritos();
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.actualizar();
+			break;
+		case "Boton Volver Ventana CE":
+			// pasar codigo a view
+			vp.getMp().getCe().setVisible(false);
+			vp.getMp().getCe().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getCe());
+
+			agregarCarritos();
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.actualizar();
+			break;
+		case "Boton Comprar Ventana FAC":
+			if (total == 0) {
+				vp.mostrarError("El carrito esta vacio");
+				break;
+			}
+			vp.getMp().getFac().setVisible(false);
+			vp.getMp().getFac().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getFac());
+
+			vp.getMp().getCar().add(vp.getMp().getCc());
+			vp.getMp().getCc().setEnabled(true);
+			vp.getMp().getCc().setVisible(true);
+			vp.getMp().getCar().setComponentZOrder(vp.getMp().getCc(), 0);
+
+			vp.getMp().getCc().mostrarTitulo(total);
+
+			vp.actualizar();
+			break;
+
+		case "Boton Volver Ventana CC":
+			vp.getMp().getCc().setVisible(false);
+			vp.getMp().getCc().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getCc());
+
+			agregarCarritos();
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.getMp().getCc().revalidate();
+			vp.getMp().getCc().repaint();
+			break;
+
+		case "Boton Comprar Ventana CC":
+			vp.getMp().getCc().setVisible(false);
+			vp.getMp().getCc().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getCc());
+
+			vp.getMp().getPa().setVisible(true);
+			vp.getMp().getPa().setEnabled(true);
+			vp.getMp().getCar().add(vp.getMp().getPa());
+
+			vp.getMp().getCar().setComponentZOrder(vp.getMp().getPa(), 0);
+
+			vp.actualizar();
+			break;
+		case "Boton Pagar Ventana PA":
+
+			try {
+				LanzadorExcepciones.verificarNumeroTarjeta(vp.getMp().getPa().getNumeroTarjeta().getText());
+				LanzadorExcepciones.verificarFechaVencimiento(vp.getMp().getPa().getFechaVencimiento().getText());
+				LanzadorExcepciones.verificarCodigoSeguridad(vp.getMp().getPa().getCodigoSeguridad().getText());
+
+				vp.mostrarMensaje("Compra realizada exitosamente");
+
+				vp.getMp().getPa().setVisible(false);
+				vp.getMp().getPa().setEnabled(false);
+				vp.getMp().getCar().remove(vp.getMp().getPa());
+				
+				vp.getMp().getRec().setVisible(true);
+				vp.getMp().getRec().setEnabled(true);
+				vp.getMp().getCar().add(vp.getMp().getRec());
+				
+				vp.getMp().getCar().setComponentZOrder(vp.getMp().getRec(), 0);
+				
+				vp.getMp().getRec().eliminarProductos();
+				
+				for (Producto producto : carritoTemp.getProductos()) {
+					vp.getMp().getRec().agregarProducto(producto.getNombre(), producto.getPrecio());					
+				}
+				
+				vp.getMp().getRec().eliminarTotal();
+				vp.getMp().getRec().mostrarTotal(total);
+				
+				vp.actualizar();
+				
+
+			} catch (NumeroTarjetaException ex) {
+				vp.mostrarError(ex.getMessage());
+			} catch (CodigoSeguridadException ex) {
+				vp.mostrarError(ex.getMessage());
+			} catch (FechaVencimientoException ex) {
+				vp.mostrarError(ex.getMessage());
+			}
+			break;
+		case "Boton Volver Ventana PA":
+			vp.getMp().getPa().setVisible(false);
+			vp.getMp().getPa().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getPa());
+
+			agregarCarritos();
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.actualizar();
+			break;
+			// poner boton volver Rec y borrar carrito en if de boton pagar 
 		default:
 			break;
 		}
-
 	}
 
-	public void agregarProductosVentanaComprar() {
+	private void encontrarProducto(int id) {
+		mf.agregarProductos();
+		for (Producto producto : mf.getProductos()) {
+			if (producto.getId() == id) {
+				productoTemp = producto;
+			}
+		}
+	}
+
+	private void agregarCarritos() {
+		vp.getMp().getCar().eliminarCarritos();
+		mf.getCaDAO().getLista().forEach((carrito) -> {
+			if (carrito.getNombre().split("_")[1].equals(usuarioActual.getNombre())
+					&& carrito.getNombre().split("_")[0].contains(vp.getMp().getCar().getFiltro().getText())) {
+				vp.getMp().getCar().mostrarProductos(carrito.getNombre(), this);
+			}
+		});
+		vp.actualizar();
+	}
+
+	private void agregarCarritosPip() {
+		// pasar codigo a view
+		vp.getMp().getAca().getPanelProductos().removeAll();
+		mf.getCaDAO().getLista().forEach((carrito) -> {
+			if (carrito.getNombre().split("_")[1].equals(usuarioActual.getNombre())) {
+				vp.getMp().getAca().mostrarProductos(carrito.getNombre(), this);
+			}
+		});
+
+		vp.getMp().getAca().getScroll().revalidate();
+		vp.getMp().getAca().getScroll().repaint();
+	}
+
+	private void agregarProductosVentanaComprar() {
 		vp.getMp().getCom().limpiarProductos();
 
 		if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Todo")) {
@@ -502,6 +942,7 @@ public class Controlador implements ActionListener {
 			LanzadorExcepciones.verificarNumeroNegativo(precio);
 			String tipoProducto = vp.getMp().getVen().getTipoProductoBe().getText();
 			String fechaExpiracion = vp.getMp().getVen().getFechaExpiracion().getText();
+			LanzadorExcepciones.verificarFechaVencimientoBelleza(fechaExpiracion);
 
 			return new Belleza(nombre, descripcion, rutaFoto, id, unidades, precio, tipoProducto, fechaExpiracion);
 
@@ -513,6 +954,8 @@ public class Controlador implements ActionListener {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (FechaVencimientoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;

@@ -31,7 +31,7 @@ public class AgregarACarrito extends JPanel {
 		arriba.setBackground(new Color(255, 230, 0)); 
 		arriba.setLayout(null);
 		
-		crearLabel("Seleccione el carrito", 120, 10, 300, 30, Color.BLACK, 20);
+		crearLabel("Seleccione el carrito", 450, 30, 300, 30, Color.BLACK, 20);
 		
 		panelProductos = new JPanel();
 		panelProductos.setLayout(new BoxLayout(panelProductos, BoxLayout.Y_AXIS));

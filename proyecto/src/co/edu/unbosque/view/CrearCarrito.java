@@ -34,7 +34,7 @@ public class CrearCarrito extends JPanel{
 		                .getImage()
 		                .getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)
 		));
-		volver.setBounds(340, 120, 50, 50);
+		volver.setBounds(325, 175, 50, 50);
 		volver.setBorder(new LineBorder(Color.GRAY, 1, true));
 		volver.setBackground(Color.WHITE);
 		volver.setFocusPainted(false);
