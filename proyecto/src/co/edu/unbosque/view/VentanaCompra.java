@@ -87,14 +87,12 @@ public class VentanaCompra extends JPanel {
 		this.add(mercadoLibre);
 	}
 
-	public void mostrarProductos(String nombre, float precio, String ruta, int id, ActionListener e) {
+	public void mostrarProductos(String nombre, double precio, String ruta, int id, ActionListener e) {
 		panelProductos.add(new CompraProducto(nombre, precio, ruta, id, e));
 	}
 
 	public void limpiarProductos() {
 		panelProductos.removeAll();
-		panelProductos.revalidate();
-		panelProductos.repaint();
 	}
 	
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

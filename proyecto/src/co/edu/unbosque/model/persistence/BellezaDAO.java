@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.Belleza;
 
 public class BellezaDAO implements DAO<Belleza> {
-	
+
 	private ArrayList<Belleza> lista;
 	private String SERIAL_FILE_NAME = "belleza.secn";
-	
+
 	public BellezaDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
@@ -16,11 +16,17 @@ public class BellezaDAO implements DAO<Belleza> {
 
 	@Override
 	public void cargarArchivoSerializado() {
-		Object contenido = FileHandler.leerArchivoSerializado(SERIAL_FILE_NAME);
-		if (contenido != null) {
-			lista = (ArrayList<Belleza>) contenido;
-		}
-		else {
+		
+		//quitar try en todos los daos
+		
+		try {
+			Object contenido = FileHandler.leerArchivoSerializado(SERIAL_FILE_NAME);
+			if (contenido != null) {
+				lista = (ArrayList<Belleza>) contenido;
+			} else {
+				lista = new ArrayList<>();
+			}
+		} catch (Exception e) {
 			lista = new ArrayList<>();
 		}
 	}
@@ -34,7 +40,7 @@ public class BellezaDAO implements DAO<Belleza> {
 	public void crear(Belleza nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
-		
+
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class BellezaDAO implements DAO<Belleza> {
 		for (Belleza belleza : lista) {
 			contenido += belleza.toString() + "\n";
 		}
-		
+
 		return contenido;
 	}
 
@@ -81,5 +87,5 @@ public class BellezaDAO implements DAO<Belleza> {
 	public void setLista(ArrayList<Belleza> lista) {
 		this.lista = lista;
 	}
-	
+
 }

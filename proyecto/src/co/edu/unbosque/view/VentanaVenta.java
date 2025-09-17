@@ -27,23 +27,23 @@ public class VentanaVenta extends JPanel {
 	private JButton registrarProducto;
 
 	// belleza
-	private JTextField tipoProducto;
+	private JTextField tipoProductoBe;
 	private JTextField fechaExpiracion;
 	// deportes
 	private JTextField tipoDeporte;
-	private JTextField materialDe;
+	private JTextField marcaDe;
 	// hogar
-	private JTextField tipoMaterial;
-	private JTextField dimensiones;
+	private JTextField materialHo;
+	private JTextField tipoProductoHo;
 	// juguetes
 	private JTextField edadRecomendada;
 	private JTextField materialJu;
 	// libros
 	private JTextField autor;
-	private JTextField numeroPaginas;
+	private JTextField isbn;
 	// mascotas
 	private JTextField tipoAnimal;
-	private JTextField tamaño;
+	private JTextField tamano;
 	// musica
 	private JTextField formato;
 	private JTextField artista;
@@ -51,10 +51,10 @@ public class VentanaVenta extends JPanel {
 	private JTextField talla;
 	private JTextField color;
 	// tecnologia
-	private JTextField marca;
+	private JTextField marcaTec;
 	private JTextField modeloTec;
 	// vehiculo
-	private JTextField año;
+	private JTextField ano;
 	private JTextField modeloVE;
 
 	public VentanaVenta() {
@@ -80,7 +80,7 @@ public class VentanaVenta extends JPanel {
         
         crearLabel("Categorías:",180,20,300,40,Color.BLACK,16);
         
-        String[] cate = { "Todo", "Belleza", "Deportes", "Hogar", "Juguetes", "Libros", "Mascotas", "Musica", "Ropa",
+        String[] cate = { "Seleccione", "Belleza", "Deportes", "Hogar", "Juguetes", "Libros", "Mascotas", "Musica", "Ropa",
                 "Tecnologia", "Vehiculos" };
         categorias = new JComboBox<>(cate);
         categorias.setBounds(320, 25, 200, 30);
@@ -113,7 +113,17 @@ public class VentanaVenta extends JPanel {
 		registrarProducto.setFont(new Font("Arial", Font.BOLD, 16));
 		registrarProducto.setBackground(new Color(255, 230, 0));
 		registrarProducto.setFocusPainted(false);
-
+		
+		mostrarCampos();
+		
+		this.add(registrarProducto);
+		this.add(cerrarSesion);
+		this.add(cambiarModo);
+		this.add(categorias);
+		this.add(mercadoLibre);
+	}
+	
+	public void mostrarCampos() {
 		precio = new JTextField();
 		precio.setBounds(120, 150, 430, 50);
 		precio.setFont(new Font("Arial", Font.BOLD, 22));
@@ -138,32 +148,22 @@ public class VentanaVenta extends JPanel {
 		id.setBounds(700, 250, 430, 50);
 		id.setFont(new Font("Arial", Font.BOLD, 22));
 		
-		crearLabel("Precio:", 120, 75, 100, 100, Color.BLACK, 20);
-		crearLabel("Nombre:", 120, 175, 100, 100, Color.BLACK, 20);
-		crearLabel("Descripcion:", 120, 275, 200, 100, Color.BLACK, 20);
-		crearLabel("Unidades:", 120, 375, 100, 100, Color.BLACK, 20);
-		crearLabel("rutaFoto:", 700, 75, 100, 100, Color.BLACK, 20);
-		crearLabel("ID:", 700, 175, 100, 100, Color.BLACK, 20);
-		
-		this.add(registrarProducto);
 		this.add(precio);
 		this.add(nombre);
 		this.add(descripcion);
 		this.add(unidades);
 		this.add(rutaFoto);
 		this.add(id);
-		this.add(cerrarSesion);
-		this.add(cambiarModo);
-		this.add(categorias);
-		this.add(mercadoLibre);
 	}
 
 	public void mostrarBelleza() {
-		tipoProducto = new JTextField();
+		iniciarLabels();
+		mostrarCampos();
+		tipoProductoBe = new JTextField();
 		fechaExpiracion = new JTextField();
 
-		tipoProducto.setBounds(700, 350, 430, 50);
-		tipoProducto.setFont(new Font("Arial", Font.BOLD, 22));
+		tipoProductoBe.setBounds(700, 350, 430, 50);
+		tipoProductoBe.setFont(new Font("Arial", Font.BOLD, 22));
 
 		fechaExpiracion.setBounds(700, 450, 430, 50);
 		fechaExpiracion.setFont(new Font("Arial", Font.BOLD, 22));
@@ -171,46 +171,52 @@ public class VentanaVenta extends JPanel {
 		crearLabel("tipo de producto:", 700, 275, 430, 100, Color.BLACK, 20);
 		crearLabel("fecha de expiracion:", 700, 375, 430, 100, Color.BLACK, 20);
 
-		this.add(tipoProducto);
+		this.add(tipoProductoBe);
 		this.add(fechaExpiracion);
 
 	}
 
 	public void mostrarDeportes() {
+		iniciarLabels();
+		mostrarCampos();
 		tipoDeporte = new JTextField();
-		materialDe = new JTextField();
+		marcaDe = new JTextField();
 
 		tipoDeporte.setBounds(700, 350, 430, 50);
 		tipoDeporte.setFont(new Font("Arial", Font.BOLD, 22));
 
-		materialDe.setBounds(700, 450, 430, 50);
-		materialDe.setFont(new Font("Arial", Font.BOLD, 22));
+		marcaDe.setBounds(700, 450, 430, 50);
+		marcaDe.setFont(new Font("Arial", Font.BOLD, 22));
 
 		crearLabel("tipo de deporte:", 700, 275, 430, 100, Color.BLACK, 20);
-		crearLabel("material:", 700, 375, 430, 100, Color.BLACK, 20);
+		crearLabel("marca:", 700, 375, 430, 100, Color.BLACK, 20);
 
 		this.add(tipoDeporte);
-		this.add(materialDe);
+		this.add(marcaDe);
 	}
 
 	public void mostrarHogar() {
-		tipoMaterial = new JTextField();
-		dimensiones = new JTextField();
+		iniciarLabels();
+		mostrarCampos();
+		materialHo = new JTextField();
+		tipoProductoHo = new JTextField();
 
-		tipoMaterial.setBounds(700, 350, 430, 50);
-		tipoMaterial.setFont(new Font("Arial", Font.BOLD, 22));
+		materialHo.setBounds(700, 350, 430, 50);
+		materialHo.setFont(new Font("Arial", Font.BOLD, 22));
 
-		dimensiones.setBounds(700, 450, 430, 50);
-		dimensiones.setFont(new Font("Arial", Font.BOLD, 22));
+		tipoProductoHo.setBounds(700, 450, 430, 50);
+		tipoProductoHo.setFont(new Font("Arial", Font.BOLD, 22));
 
 		crearLabel("tipo de material:", 700, 275, 430, 100, Color.BLACK, 20);
-		crearLabel("dimensiones:", 700, 375, 430, 100, Color.BLACK, 20);
+		crearLabel("tipo de producto:", 700, 375, 430, 100, Color.BLACK, 20);
 
-		this.add(tipoMaterial);
-		this.add(dimensiones);
+		this.add(materialHo);
+		this.add(tipoProductoHo);
 	}
 
 	public void mostrarJuguetes() {
+		iniciarLabels();
+		mostrarCampos();
 		edadRecomendada = new JTextField();
 		materialJu = new JTextField();
 
@@ -228,40 +234,46 @@ public class VentanaVenta extends JPanel {
 	}
 
 	public void mostrarLibros() {
+		iniciarLabels();
+		mostrarCampos();
 		autor = new JTextField();
-		numeroPaginas = new JTextField();
+		isbn = new JTextField();
 
 		autor.setBounds(700, 350, 430, 50);
 		autor.setFont(new Font("Arial", Font.BOLD, 22));
 
-		numeroPaginas.setBounds(700, 450, 430, 50);
-		numeroPaginas.setFont(new Font("Arial", Font.BOLD, 22));
+		isbn.setBounds(700, 450, 430, 50);
+		isbn.setFont(new Font("Arial", Font.BOLD, 22));
 
 		crearLabel("Autor:", 700, 275, 430, 100, Color.BLACK, 20);
-		crearLabel("Numero de paginas:", 700, 375, 430, 100, Color.BLACK, 20);
+		crearLabel("isbn:", 700, 375, 430, 100, Color.BLACK, 20);
 
 		this.add(autor);
-		this.add(numeroPaginas);
+		this.add(isbn);
 	}
 
 	public void mostrarMascotas() {
+		iniciarLabels();
+		mostrarCampos();
 		tipoAnimal = new JTextField();
-		tamaño = new JTextField();
+		tamano = new JTextField();
 
 		tipoAnimal.setBounds(700, 350, 430, 50);
 		tipoAnimal.setFont(new Font("Arial", Font.BOLD, 22));
 
-		tamaño.setBounds(700, 450, 430, 50);
-		tamaño.setFont(new Font("Arial", Font.BOLD, 22));
+		tamano.setBounds(700, 450, 430, 50);
+		tamano.setFont(new Font("Arial", Font.BOLD, 22));
 
 		crearLabel("tipo de mascota:", 700, 275, 430, 100, Color.BLACK, 20);
 		crearLabel("tamaño:", 700, 375, 430, 100, Color.BLACK, 20);
 
 		this.add(tipoAnimal);
-		this.add(tamaño);
+		this.add(tamano);
 	}
 
 	public void mostrarMusica() {
+		iniciarLabels();
+		mostrarCampos();
 		formato = new JTextField();
 		artista = new JTextField();
 
@@ -279,6 +291,8 @@ public class VentanaVenta extends JPanel {
 	}
 
 	public void mostrarRopa() {
+		iniciarLabels();
+		mostrarCampos();
 		talla = new JTextField();
 		color = new JTextField();
 
@@ -296,11 +310,13 @@ public class VentanaVenta extends JPanel {
 	}
 
 	public void mostrarTecnologia() {
-		marca = new JTextField();
+		iniciarLabels();
+		mostrarCampos();
+		marcaTec = new JTextField();
 		modeloTec = new JTextField();
 
-		marca.setBounds(700, 350, 430, 50);
-		marca.setFont(new Font("Arial", Font.BOLD, 22));
+		marcaTec.setBounds(700, 350, 430, 50);
+		marcaTec.setFont(new Font("Arial", Font.BOLD, 22));
 
 		modeloTec.setBounds(700, 450, 430, 50);
 		modeloTec.setFont(new Font("Arial", Font.BOLD, 22));
@@ -308,16 +324,18 @@ public class VentanaVenta extends JPanel {
 		crearLabel("marca:", 700, 275, 430, 100, Color.BLACK, 20);
 		crearLabel("modelo:", 700, 375, 430, 100, Color.BLACK, 20);
 
-		this.add(marca);
+		this.add(marcaTec);
 		this.add(modeloTec);
 	}
 
 	public void mostrarVehiculos() {
-		año = new JTextField();
+		iniciarLabels();
+		mostrarCampos();
+		ano = new JTextField();
 		modeloVE = new JTextField();
 
-		año.setBounds(700, 350, 430, 50);
-		año.setFont(new Font("Arial", Font.BOLD, 22));
+		ano.setBounds(700, 350, 430, 50);
+		ano.setFont(new Font("Arial", Font.BOLD, 22));
 
 		modeloVE.setBounds(700, 450, 430, 50);
 		modeloVE.setFont(new Font("Arial", Font.BOLD, 22));
@@ -325,7 +343,7 @@ public class VentanaVenta extends JPanel {
 		crearLabel("año:", 700, 275, 430, 100, Color.BLACK, 20);
 		crearLabel("modelo:", 700, 375, 430, 100, Color.BLACK, 20);
 
-		this.add(año);
+		this.add(ano);
 		this.add(modeloVE);
 	}
 
@@ -341,30 +359,20 @@ public class VentanaVenta extends JPanel {
 	}
 
 	public void limpiarCampos() {
-		try {
-			this.remove(tipoProducto);
-			this.remove(fechaExpiracion);
-			this.remove(tipoDeporte);
-			this.remove(materialDe);
-			this.remove(tipoMaterial);
-			this.remove(dimensiones);
-			this.remove(edadRecomendada);
-			this.remove(materialJu);
-			this.remove(autor);
-			this.remove(numeroPaginas);
-			this.remove(tipoAnimal);
-			this.remove(tamaño);
-			this.remove(formato);
-			this.remove(artista);
-			this.remove(talla);
-			this.remove(color);
-			this.remove(marca);
-			this.remove(modeloTec);
-			this.remove(año);
-			this.remove(modeloVE);
-		} catch (Exception e) {
-
+		for (Component comp : this.getComponents()) {
+			if (comp instanceof JTextField) {
+				this.remove(comp);
+			}
 		}
+	}
+	
+	private void iniciarLabels() {
+		crearLabel("Precio:", 120, 75, 100, 100, Color.BLACK, 20);
+		crearLabel("Nombre:", 120, 175, 100, 100, Color.BLACK, 20);
+		crearLabel("Descripcion:", 120, 275, 200, 100, Color.BLACK, 20);
+		crearLabel("Unidades:", 120, 375, 100, 100, Color.BLACK, 20);
+		crearLabel("rutaFoto:", 700, 75, 100, 100, Color.BLACK, 20);
+		crearLabel("ID:", 700, 175, 100, 100, Color.BLACK, 20);
 	}
 
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
@@ -455,12 +463,12 @@ public class VentanaVenta extends JPanel {
 		this.id = id;
 	}
 
-	public JTextField getTipoProducto() {
-		return tipoProducto;
+	public JTextField getTipoProductoBe() {
+		return tipoProductoBe;
 	}
 
-	public void setTipoProducto(JTextField tipoProducto) {
-		this.tipoProducto = tipoProducto;
+	public void setTipoProductoBe(JTextField tipoProductoBe) {
+		this.tipoProductoBe = tipoProductoBe;
 	}
 
 	public JTextField getFechaExpiracion() {
@@ -479,28 +487,28 @@ public class VentanaVenta extends JPanel {
 		this.tipoDeporte = tipoDeporte;
 	}
 
-	public JTextField getMaterialDe() {
-		return materialDe;
+	public JTextField getMarcaDe() {
+		return marcaDe;
 	}
 
-	public void setMaterialDe(JTextField materialDe) {
-		this.materialDe = materialDe;
+	public void setMaterialDe(JTextField marcaDe) {
+		this.marcaDe = marcaDe;
 	}
 
-	public JTextField getTipoMaterial() {
-		return tipoMaterial;
+	public JTextField getMaterialHo() {
+		return materialHo;
 	}
 
-	public void setTipoMaterial(JTextField tipoMaterial) {
-		this.tipoMaterial = tipoMaterial;
+	public void setMaterialHo(JTextField tipoMaterialHo) {
+		this.materialHo = tipoMaterialHo;
 	}
 
-	public JTextField getDimensiones() {
-		return dimensiones;
+	public JTextField getTipoProductoHo() {
+		return tipoProductoHo;
 	}
 
-	public void setDimensiones(JTextField dimensiones) {
-		this.dimensiones = dimensiones;
+	public void setTipoProductoHo(JTextField tipoProductoHo) {
+		this.tipoProductoHo = tipoProductoHo;
 	}
 
 	public JTextField getEdadRecomendada() {
@@ -527,12 +535,12 @@ public class VentanaVenta extends JPanel {
 		this.autor = autor;
 	}
 
-	public JTextField getNumeroPaginas() {
-		return numeroPaginas;
+	public JTextField getIsbn() {
+		return isbn;
 	}
 
-	public void setNumeroPaginas(JTextField numeroPaginas) {
-		this.numeroPaginas = numeroPaginas;
+	public void setIsbn(JTextField isbn) {
+		this.isbn = isbn;
 	}
 
 	public JTextField getTipoAnimal() {
@@ -543,12 +551,12 @@ public class VentanaVenta extends JPanel {
 		this.tipoAnimal = tipoAnimal;
 	}
 
-	public JTextField getTamaño() {
-		return tamaño;
+	public JTextField getTamano() {
+		return tamano;
 	}
 
-	public void setTamaño(JTextField tamaño) {
-		this.tamaño = tamaño;
+	public void setTamano(JTextField tamano) {
+		this.tamano = tamano;
 	}
 
 	public JTextField getFormato() {
@@ -583,12 +591,12 @@ public class VentanaVenta extends JPanel {
 		this.color = color;
 	}
 
-	public JTextField getMarca() {
-		return marca;
+	public JTextField getMarcaTec() {
+		return marcaTec;
 	}
 
-	public void setMarca(JTextField marca) {
-		this.marca = marca;
+	public void setMarcaTec(JTextField marcaTec) {
+		this.marcaTec = marcaTec;
 	}
 
 	public JTextField getModeloTec() {
@@ -599,12 +607,12 @@ public class VentanaVenta extends JPanel {
 		this.modeloTec = modeloTec;
 	}
 
-	public JTextField getAño() {
-		return año;
+	public JTextField getAno() {
+		return ano;
 	}
 
-	public void setAño(JTextField año) {
-		this.año = año;
+	public void setAno(JTextField ano) {
+		this.ano = ano;
 	}
 
 	public JTextField getModeloVE() {

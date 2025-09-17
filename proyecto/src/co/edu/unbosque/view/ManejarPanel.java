@@ -134,12 +134,12 @@ public class ManejarPanel extends JPanel{
 		this.fac = fac;
 	}
 
-	public ConfirmarEliminar getEc() {
+	public ConfirmarEliminar getCe() {
 		return ce;
 	}
 
-	public void setEc(ConfirmarEliminar ec) {
-		this.ce = ec;
+	public void setCe(ConfirmarEliminar ce) {
+		this.ce = ce;
 	}
 
 	public ConfirmarCompra getCc() {

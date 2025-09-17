@@ -17,7 +17,7 @@ public class CompraProducto extends JPanel {
     
     private JButton info;
 
-    public CompraProducto(String nombre, float precio, String rutaFoto, int id, ActionListener e) {
+    public CompraProducto(String nombre, double precio, String rutaFoto, int id, ActionListener e) {
 
     	this.setPreferredSize(new Dimension(250, 370));
         this.setBackground(Color.WHITE);

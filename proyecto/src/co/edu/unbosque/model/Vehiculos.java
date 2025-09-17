@@ -2,16 +2,16 @@ package co.edu.unbosque.model;
 
 public class Vehiculos extends Producto {
 
-	private String Año;
+	private int anio;
 	private String modelo;
 
 	public Vehiculos() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vehiculos(String año, String modelo) {
+	public Vehiculos(int anio, String modelo) {
 		super();
-		Año = año;
+		this.anio = anio;
 		this.modelo = modelo;
 	}
 
@@ -21,18 +21,18 @@ public class Vehiculos extends Producto {
 	}
 
 	public Vehiculos(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio,
-			String año, String modelo) {
+			int anio, String modelo) {
 		super(nombre, descripcion, rutaFoto, id, unidades, precio);
-		Año = año;
+		this.anio = anio;
 		this.modelo = modelo;
 	}
 
-	public String getAño() {
-		return Año;
+	public int getAnio() {
+		return anio;
 	}
 
-	public void setAño(String año) {
-		Año = año;
+	public void setYear(int anio) {
+		this.anio = anio;
 	}
 
 	public String getModelo() {
@@ -45,7 +45,7 @@ public class Vehiculos extends Producto {
 
 	@Override
 	public String toString() {
-		return super.toString() + Año + ";" + modelo;
+		return super.toString() + anio + ";" + modelo;
 	}
 
 }

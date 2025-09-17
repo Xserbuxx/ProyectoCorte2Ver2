@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 public class Registrarse extends JPanel{
 	
 	private JTextField usuario;
-	private JTextField contraseña;
+	private JTextField contrasena;
 	private JButton botonInicioSesion;
 	private JButton botonRegistro;
 	private JPanel cajaFondoRegistro;
@@ -61,14 +61,14 @@ public class Registrarse extends JPanel{
         
         crearLabel("Contraseña", 40, 190, 200, 25, Color.BLACK, 16);
 
-        contraseña = new JTextField();
-        contraseña.setBounds(40, 220, 400, 40);
-        contraseña.setFont(new Font("Arial", Font.PLAIN, 18));
-        contraseña.setBorder(BorderFactory.createCompoundBorder(
+        contrasena = new JTextField();
+        contrasena.setBounds(40, 220, 400, 40);
+        contrasena.setFont(new Font("Arial", Font.PLAIN, 18));
+        contrasena.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2, true),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
-        cajaFondoRegistro.add(contraseña);
+        cajaFondoRegistro.add(contrasena);
 
         botonRegistro = new JButton("Registrarse");
         botonRegistro.setBounds(40, 280, 400, 50);
@@ -101,6 +101,11 @@ public class Registrarse extends JPanel{
 		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
 		cajaFondoRegistro.add(label);
 	}
+	
+	public void limpiarCampos() {
+		usuario.setText("");
+		contrasena.setText("");
+	}
 
 	public JTextField getUsuario() {
 		return usuario;
@@ -110,12 +115,12 @@ public class Registrarse extends JPanel{
 		this.usuario = usuario;
 	}
 
-	public JTextField getContraseña() {
-		return contraseña;
+	public JTextField getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(JTextField contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(JTextField contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public JButton getBotonInicioSesion() {

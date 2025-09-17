@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -95,11 +96,13 @@ public class FileHandler {
 			fis.close();
 			return contenido;
 
-		} catch (IOException e) {
-			System.out.println("Error al leer archivo deserializado" + "\n");
-			e.printStackTrace();
+		} catch (EOFException e) {
+			return null;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al deserializar los datos del archivo: " + "\n");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Error al leer archivo deserializado" + "\n");
 			e.printStackTrace();
 		}
 		return null;

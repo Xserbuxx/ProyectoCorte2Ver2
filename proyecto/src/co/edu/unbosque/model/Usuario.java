@@ -1,18 +1,24 @@
 package co.edu.unbosque.model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
-	private String contraseña;
+	private String contrasena;
 	
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Usuario(String nombre, String contraseña) {
+	public Usuario(String nombre, String contrasena) {
 		super();
 		this.nombre = nombre;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
 	}
 	
 	public String getNombre() {
@@ -23,17 +29,17 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 	
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 	
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	
 	@Override
 	public String toString() {
-		return nombre + ";" + contraseña;
+		return nombre + ";" + contrasena;
 	}
 	
 }

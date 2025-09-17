@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame{
 	
@@ -20,6 +21,21 @@ public class VentanaPrincipal extends JFrame{
 		this.setResizable(false);
 		this.setTitle("Mercado Libre - Copia");
 		
+		this.setVisible(true);
+		
+	}
+	
+	public void actualizar() {
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void mostrarError(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void mostrarMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public ManejarPanel getMp() {

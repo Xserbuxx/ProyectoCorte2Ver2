@@ -2,23 +2,23 @@ package co.edu.unbosque.model;
 
 public class Juguete extends Producto {
 
-	private String tipoJuguete;
+	private int edadRecomendada;
 	private String material;
 
 	public Juguete() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Juguete(String tipoJuguete, String material) {
+	public Juguete(int edadRecomendada, String material) {
 		super();
-		this.tipoJuguete = tipoJuguete;
+		this.edadRecomendada = edadRecomendada;
 		this.material = material;
 	}
 
 	public Juguete(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio,
-			String tipoJuguete, String material) {
+			int edadRecomendada, String material) {
 		super(nombre, descripcion, rutaFoto, id, unidades, precio);
-		this.tipoJuguete = tipoJuguete;
+		this.edadRecomendada = edadRecomendada;
 		this.material = material;
 	}
 
@@ -27,12 +27,12 @@ public class Juguete extends Producto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getTipoJuguete() {
-		return tipoJuguete;
+	public int getEdadRecomendada() {
+		return edadRecomendada;
 	}
 
-	public void setTipoJuguete(String tipoJuguete) {
-		this.tipoJuguete = tipoJuguete;
+	public void setEdadRecomendada(int edadRecomendada) {
+		this.edadRecomendada = edadRecomendada;
 	}
 
 	public String getMaterial() {
@@ -45,7 +45,7 @@ public class Juguete extends Producto {
 	
 	@Override
 	public String toString() {
-		return super.toString()+tipoJuguete+";"+material;
+		return super.toString()+edadRecomendada+";"+material;
 	}
 
 }
