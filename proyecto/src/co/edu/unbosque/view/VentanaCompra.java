@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -38,18 +39,14 @@ public class VentanaCompra extends JPanel {
 				new ImageIcon("logoMercadoLibre.png").getImage().getScaledInstance(130, 60, Image.SCALE_SMOOTH)));
 		logo.setBounds(20, 10, 130, 60);
 		mercadoLibre.add(logo);
-		
-		crearLabel("Categorías:", 180,20,300,40,Color.BLACK,20);
 
-		String[] cate = { "Todo", "Belleza", "Deportes", "Hogar", "Juguetes", "Libros", "Mascotas", "Musica", "Ropa",
-				"Tecnologia", "Vehiculos" };
-		categorias = new JComboBox<>(cate);
+		categorias = new JComboBox<>();
 		categorias.setBounds(320, 25, 200, 30);
 		categorias.setBackground(Color.WHITE);
 		categorias.setFont(new Font("Arial", Font.PLAIN, 14));
 		mercadoLibre.add(categorias);
 
-		cambiarModo = new JButton("Vendedor");
+		cambiarModo = new JButton();
 		cambiarModo.setBounds(960, 25, 120, 35);
 		cambiarModo.setFont(new Font("Arial", Font.BOLD, 14));
 		cambiarModo.setBackground(new Color(52, 131, 250));
@@ -75,13 +72,12 @@ public class VentanaCompra extends JPanel {
 		mercadoLibre.add(cerrarSesion);
 
 		panelProductos = new JPanel();
-		panelProductos.setLayout(new java.awt.GridLayout(0, 4, 10, 10));
-		
+		panelProductos.setLayout(new GridLayout(0, 4, 10, 10));
+
 		scroll = new JScrollPane(panelProductos, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		scroll.setBounds(0, 90, 1265, 600);
-		scroll.getVerticalScrollBar().setUnitIncrement(16);
 
 		this.add(scroll);
 		this.add(mercadoLibre);
@@ -94,7 +90,31 @@ public class VentanaCompra extends JPanel {
 	public void limpiarProductos() {
 		panelProductos.removeAll();
 	}
-	
+
+	public void mostrarLabels(String categoria, String todo, String belleza, String deportes, String hogar, String juguetes,
+			String libros, String mascotas, String musica, String ropa, String tecnologia, String vehiculos,
+			String vendedor) {
+		crearLabel(categoria, 180, 20, 300, 40, Color.BLACK, 20);
+		categorias.removeAll();
+		categorias.addItem(todo);
+		categorias.addItem(belleza);
+		categorias.addItem(deportes);
+		categorias.addItem(hogar);
+		categorias.addItem(juguetes);
+		categorias.addItem(libros);
+		categorias.addItem(mascotas);
+		categorias.addItem(musica);
+		categorias.addItem(ropa);
+		categorias.addItem(tecnologia);
+		categorias.addItem(vehiculos);
+
+		cambiarModo.setText(vendedor);
+		
+		categorias.revalidate();
+		categorias.repaint();
+
+	}
+
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);

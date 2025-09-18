@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.swing.SwingUtilities;
@@ -22,6 +23,7 @@ public class Controlador implements ActionListener {
 	private Carrito carritoTemp;
 	private ArrayList<Integer> idsExistentes;
 	private double total = 0;
+	private Properties prop;
 
 	public Controlador() {
 		mf = new ModelFacade();
@@ -29,7 +31,12 @@ public class Controlador implements ActionListener {
 	}
 
 	public void runGUI() {
+		prop = new Properties();
+		;
+		prop = FileHandler.cargarArchivoDePropiedades("es.properties");
+		agregarIdioma();
 		agregarOyentes();
+
 	}
 
 	private void agregarOyentes() {
@@ -1113,7 +1120,8 @@ public class Controlador implements ActionListener {
 			String nombre = vp.getMp().getVen().getNombre().getText();
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
-			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, "La ruta no puede estar vacia", "El formato de la foto es incorrecto");
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, "La ruta no puede estar vacia",
+					"El formato de la foto es incorrecto");
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
 			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
 			LanzadorExcepciones.verificarNumeroNegativo(id);
@@ -1422,8 +1430,21 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-	
+
 	private void agregarIdioma() {
-		
+		vp.getMp().getVis().mostrarLabels(prop.getProperty("iniciosesion.titulo"),
+				prop.getProperty("iniciosesion.usuario"), prop.getProperty("iniciosesion.contrasena"),
+				prop.getProperty("iniciosesion.nocuenta"), prop.getProperty("iniciosesion.iniciarsesion.boton"),
+				prop.getProperty("iniciosesion.registro.boton"));
+		vp.getMp().getReg().mostrarLabels(prop.getProperty("registro.titulo"), prop.getProperty("registro.usuario"),
+				prop.getProperty("registro.contrasena"), prop.getProperty("registro.tienecuenta"),
+				prop.getProperty("registro.registrarse.boton"), prop.getProperty("registro.iniciosesion.boton"));
+		vp.getMp().getCom().mostrarLabels(prop.getProperty("comprar.categorias"),prop.getProperty("categoria.comprar.todo"),
+				prop.getProperty("categoria.belleza"), prop.getProperty("categoria.deportes"),
+				prop.getProperty("categoria.hogar"),
+				prop.getProperty("categoria.juguetes"), prop.getProperty("categoria.libros"),
+				prop.getProperty("categoria.mascotas"), prop.getProperty("categoria.musica"),
+				prop.getProperty("categoria.ropa"), prop.getProperty("categoria.tecnologia"),
+				prop.getProperty("categoria.vehiculos"),prop.getProperty("comprar.modo.vender"));
 	}
 }

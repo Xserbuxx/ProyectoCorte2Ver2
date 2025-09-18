@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -21,6 +22,8 @@ public class FileHandler {
 	public static ObjectInputStream ois;
 	public static FileOutputStream fos;
 	public static ObjectOutputStream oos;
+	
+	public static Properties prop;
 
 
 	public static void escribirEnArchivoTexto(String url, String contenido) {
@@ -106,6 +109,38 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static Properties cargarArchivoDePropiedades(String url) {
+		try {
+			archivo = new File(url);
+			if (!archivo.exists()) {
+				archivo.createNewFile();
+			}
+			
+			prop = new Properties();
+			prop.load(new FileInputStream(archivo));
+			return prop;
+		} catch (Exception e) {
+			System.out.println("Error al cargar el archivo de propiedades");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static void escribirArchivoDePropiedades(String url, Properties propiedades) {
+		try {
+			archivo = new File(url);
+			if (!archivo.exists()) {
+				archivo.createNewFile();
+			}
+			
+			prop = new Properties();
+			prop.load(new FileInputStream(archivo));
+		} catch (Exception e) {
+			System.out.println("Error al cargar el archivo de propiedades");
+			e.printStackTrace();
+		}
 	}
 
 }
