@@ -853,20 +853,21 @@ public class Controlador implements ActionListener {
 
 				SwingUtilities.invokeLater(() -> {
 					mf.getCaDAO().eliminar(carritoTemp);
-					
+
 					String contenido = "Producto;Precio\n";
 
 					for (Producto producto : carritoTemp.getProductos()) {
 						contenido += producto.getNombre() + ";" + producto.getPrecio() + "\n";
 					}
-					
+
 					contenido += "Total;" + total + "\n";
-					
+
 					Random random = new Random();
-					FileHandler.escribirEnArchivoTexto("Recivo Carrito " + carritoTemp.getNombre() + "_" +random.nextLong()+ ".csv", contenido);
-					
+					FileHandler.escribirEnArchivoTexto(
+							"Recivo Carrito " + carritoTemp.getNombre() + "_" + random.nextLong() + ".csv", contenido);
+
 					vp.mostrarMensaje("Se ha generado un recibo de la compra en formato .csv");
-					
+
 					vp.getMp().getRec().eliminarTotal();
 					vp.getMp().getRec().mostrarTotal(total);
 
@@ -1112,6 +1113,7 @@ public class Controlador implements ActionListener {
 			String nombre = vp.getMp().getVen().getNombre().getText();
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, "La ruta no puede estar vacia", "El formato de la foto es incorrecto");
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
 			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
 			LanzadorExcepciones.verificarNumeroNegativo(id);
@@ -1135,6 +1137,8 @@ public class Controlador implements ActionListener {
 			vp.mostrarError(nne.getMessage());
 		} catch (FechaVencimientoException e) {
 			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarMensaje(e.getMessage());
 		}
 
 		return null;
@@ -1417,5 +1421,9 @@ public class Controlador implements ActionListener {
 		}
 
 		return null;
+	}
+	
+	private void agregarIdioma() {
+		
 	}
 }

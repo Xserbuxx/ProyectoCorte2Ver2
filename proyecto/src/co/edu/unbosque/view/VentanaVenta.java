@@ -8,9 +8,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class VentanaVenta extends JPanel {
 
@@ -23,6 +25,7 @@ public class VentanaVenta extends JPanel {
 	private JTextField descripcion;
 	private JTextField unidades;
 	private JTextField rutaFoto;
+	private JButton btnExaminar;
 	private JTextField id;
 	private JButton registrarProducto;
 
@@ -141,13 +144,27 @@ public class VentanaVenta extends JPanel {
 		unidades.setFont(new Font("Arial", Font.BOLD, 22));
 
 		rutaFoto = new JTextField();
-		rutaFoto.setBounds(700, 150, 430, 50);
+		rutaFoto.setBounds(700, 150, 330, 50);
 		rutaFoto.setFont(new Font("Arial", Font.BOLD, 22));
+		rutaFoto.setEditable(false);
+		
+		
+		btnExaminar = new JButton("Examinar");
+		btnExaminar.setBounds(1040, 150, 90, 50);
+		btnExaminar.addActionListener(e -> {
+	        JFileChooser fc = new JFileChooser();
+	        fc.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png"));
+	        
+	        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+	            rutaFoto.setText(fc.getSelectedFile().getAbsolutePath());
+	        }
+	    });
 
 		id = new JTextField();
 		id.setBounds(700, 250, 430, 50);
 		id.setFont(new Font("Arial", Font.BOLD, 22));
 		
+		this.add(btnExaminar);
 		this.add(precio);
 		this.add(nombre);
 		this.add(descripcion);

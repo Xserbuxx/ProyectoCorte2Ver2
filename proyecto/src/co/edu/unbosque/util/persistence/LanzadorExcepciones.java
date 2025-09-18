@@ -122,4 +122,15 @@ public class LanzadorExcepciones {
 			throw new UnidadesProductoException(mensaje);
 		}
 	}
+	
+	public static void verificarFormatoFoto(String nombreArchivo, String exceptionvacio, String formatoinvalido) throws FormatoFotoException {
+		if (nombreArchivo == null || nombreArchivo.isEmpty()) {
+			throw new FormatoFotoException(exceptionvacio);
+		}
+
+		if (!nombreArchivo.endsWith(".jpg") && !nombreArchivo.endsWith(".png") && !nombreArchivo.endsWith(".jpeg")) {
+			throw new FormatoFotoException(formatoinvalido);
+		} 	
+		
+	}
 }
