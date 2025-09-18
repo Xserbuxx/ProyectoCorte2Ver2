@@ -59,6 +59,38 @@ public class MusicaDAO implements DAO<Musica> {
 			return true;
 		}
 	}
+	
+	public boolean eliminar(Musica producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			lista.remove(producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean bajarUnidades(Musica producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() - 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean subirUnidades(Musica producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() + 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
 
 	@Override
 	public String mostrarDatos() {

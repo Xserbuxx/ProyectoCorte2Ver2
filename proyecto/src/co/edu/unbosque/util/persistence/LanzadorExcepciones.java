@@ -116,4 +116,10 @@ public class LanzadorExcepciones {
 		}
 		
 	}
+	
+	public static void verificarUnidadesDisponibles(int unidades, String mensaje) throws UnidadesProductoException{
+		if (unidades <= 0) {
+			throw new UnidadesProductoException(mensaje);
+		}
+	}
 }

@@ -59,6 +59,38 @@ public class MascotasDAO implements DAO<Mascotas> {
 			return true;
 		}
 	}
+	
+	public boolean eliminar(Mascotas producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			lista.remove(producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean bajarUnidades(Mascotas producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() - 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean subirUnidades(Mascotas producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() + 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
 
 	@Override
 	public String mostrarDatos() {

@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 
 import javax.swing.SwingUtilities;
 
 import co.edu.unbosque.model.*;
+import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.persistence.*;
 import co.edu.unbosque.view.VentanaPrincipal;
 
@@ -111,6 +113,9 @@ public class Controlador implements ActionListener {
 
 		vp.getMp().getPa().getVolver().addActionListener(this);
 		vp.getMp().getPa().getVolver().setActionCommand("Boton Volver Ventana PA");
+
+		vp.getMp().getRec().getVolver().addActionListener(this);
+		vp.getMp().getRec().getVolver().setActionCommand("Boton Volver Ventana REC");
 	}
 
 	@Override
@@ -142,9 +147,21 @@ public class Controlador implements ActionListener {
 		}
 
 		if (boton.contains("CarritoACA-")) {
+
+			try {
+				LanzadorExcepciones.verificarUnidadesDisponibles(productoTemp.getUnidades(),
+						"El producto no tiene unidades disponibles");
+			} catch (UnidadesProductoException e1) {
+				vp.mostrarError(e1.getMessage());
+				return;
+			}
+
+			bajarUnidadesProductos();
+
 			vp.mostrarMensaje("Producto agregado al carrito " + boton.split("-")[1].split("_")[0] + " exitosamente");
 
 			mf.getCaDAO().agregarProducto(boton.split("-")[1], productoTemp);
+			vp.actualizar();
 
 		}
 
@@ -210,6 +227,17 @@ public class Controlador implements ActionListener {
 		}
 
 		if (boton.contains("EliminarCarritoCE-")) {
+
+			for (Carrito carrito : mf.getCaDAO().getLista()) {
+				if (carrito.getNombre().equals(boton.split("-")[1])) {
+					carritoTemp = carrito;
+					break;
+
+				}
+			}
+
+			subirUnidadesProductos();
+
 			for (Carrito carrito : mf.getCaDAO().getLista()) {
 				if (carrito.getNombre().equals(boton.split("-")[1])) {
 					mf.getCaDAO().eliminar(carrito);
@@ -366,7 +394,28 @@ public class Controlador implements ActionListener {
 			}
 			break;
 		case "Boton Cambiar Modo Compra":
+
+			mf.agregarProductos();
+
+			for (Producto producto : new ArrayList<>(mf.getProductos())) {
+				boolean existeEnCarrito = false;
+				for (Carrito carrito : mf.getCaDAO().getLista()) {
+					for (Producto prodCarrito : carrito.getProductos()) {
+						if (producto == prodCarrito) {
+							existeEnCarrito = true;
+							break;
+						}
+					}
+					if (existeEnCarrito)
+						break;
+				}
+				if (!existeEnCarrito && producto.getUnidades() == 0) {
+					eliminarProducto(producto);
+				}
+			}
+
 			agregarProductosVentanaComprar();
+
 			vp.getMp().mostrarPanel("com");
 			vp.actualizar();
 			break;
@@ -676,6 +725,19 @@ public class Controlador implements ActionListener {
 			vp.getMp().getPip().getVolver().setEnabled(true);
 			vp.getMp().getPip().getAgregarCarrito().setEnabled(true);
 
+			if (productoTemp != null) {
+
+				String atributo1 = productoTemp.toString().split(";")[6];
+				String atributo2 = productoTemp.toString().split(";")[7];
+
+				vp.getMp().getPip().mostrarProductoInfo(productoTemp.getPrecio(), productoTemp.getNombre(),
+						productoTemp.getDescripcion(), productoTemp.getUnidades(), productoTemp.getRutaFoto(),
+						atributo1, atributo2);
+			} else {
+				vp.mostrarError("No se encontro el producto");
+				return;
+			}
+
 			vp.actualizar();
 			break;
 		case "Boton Filtrar":
@@ -713,22 +775,26 @@ public class Controlador implements ActionListener {
 			vp.actualizar();
 			break;
 		case "Boton Comprar Ventana FAC":
-			if (total == 0) {
-				vp.mostrarError("El carrito esta vacio");
-				break;
+			try {
+				if (total == 0) {
+					vp.mostrarError("El carrito esta vacio");
+					break;
+				}
+				vp.getMp().getFac().setVisible(false);
+				vp.getMp().getFac().setEnabled(false);
+				vp.getMp().getCar().remove(vp.getMp().getFac());
+
+				vp.getMp().getCar().add(vp.getMp().getCc());
+				vp.getMp().getCc().setEnabled(true);
+				vp.getMp().getCc().setVisible(true);
+				vp.getMp().getCar().setComponentZOrder(vp.getMp().getCc(), 0);
+
+				vp.getMp().getCc().mostrarTitulo(total);
+
+				vp.actualizar();
+			} catch (Exception ue) {
+				vp.mostrarError(ue.getMessage());
 			}
-			vp.getMp().getFac().setVisible(false);
-			vp.getMp().getFac().setEnabled(false);
-			vp.getMp().getCar().remove(vp.getMp().getFac());
-
-			vp.getMp().getCar().add(vp.getMp().getCc());
-			vp.getMp().getCc().setEnabled(true);
-			vp.getMp().getCc().setVisible(true);
-			vp.getMp().getCar().setComponentZOrder(vp.getMp().getCc(), 0);
-
-			vp.getMp().getCc().mostrarTitulo(total);
-
-			vp.actualizar();
 			break;
 
 		case "Boton Volver Ventana CC":
@@ -772,24 +838,40 @@ public class Controlador implements ActionListener {
 				vp.getMp().getPa().setVisible(false);
 				vp.getMp().getPa().setEnabled(false);
 				vp.getMp().getCar().remove(vp.getMp().getPa());
-				
+
 				vp.getMp().getRec().setVisible(true);
 				vp.getMp().getRec().setEnabled(true);
 				vp.getMp().getCar().add(vp.getMp().getRec());
-				
+
 				vp.getMp().getCar().setComponentZOrder(vp.getMp().getRec(), 0);
-				
+
 				vp.getMp().getRec().eliminarProductos();
-				
+
 				for (Producto producto : carritoTemp.getProductos()) {
-					vp.getMp().getRec().agregarProducto(producto.getNombre(), producto.getPrecio());					
+					vp.getMp().getRec().agregarProducto(producto.getNombre(), producto.getPrecio());
 				}
-				
-				vp.getMp().getRec().eliminarTotal();
-				vp.getMp().getRec().mostrarTotal(total);
-				
-				vp.actualizar();
-				
+
+				SwingUtilities.invokeLater(() -> {
+					mf.getCaDAO().eliminar(carritoTemp);
+					
+					String contenido = "Producto;Precio\n";
+
+					for (Producto producto : carritoTemp.getProductos()) {
+						contenido += producto.getNombre() + ";" + producto.getPrecio() + "\n";
+					}
+					
+					contenido += "Total;" + total + "\n";
+					
+					Random random = new Random();
+					FileHandler.escribirEnArchivoTexto("Recivo Carrito " + carritoTemp.getNombre() + "_" +random.nextLong()+ ".csv", contenido);
+					
+					vp.mostrarMensaje("Se ha generado un recibo de la compra en formato .csv");
+					
+					vp.getMp().getRec().eliminarTotal();
+					vp.getMp().getRec().mostrarTotal(total);
+
+					vp.actualizar();
+				});
 
 			} catch (NumeroTarjetaException ex) {
 				vp.mostrarError(ex.getMessage());
@@ -813,7 +895,21 @@ public class Controlador implements ActionListener {
 
 			vp.actualizar();
 			break;
-			// poner boton volver Rec y borrar carrito en if de boton pagar 
+		// poner boton volver Rec y borrar carrito en if de boton pagar
+		case "Boton Volver Ventana REC":
+			vp.getMp().getRec().setVisible(false);
+			vp.getMp().getRec().setEnabled(false);
+			vp.getMp().getCar().remove(vp.getMp().getRec());
+
+			agregarCarritos();
+
+			vp.getMp().getCar().getVolver().setEnabled(true);
+			vp.getMp().getCar().getCrearCarrito().setEnabled(true);
+			vp.getMp().getCar().getFiltro().setEnabled(true);
+			vp.getMp().getCar().getFiltrar().setEnabled(true);
+
+			vp.actualizar();
+			break;
 		default:
 			break;
 		}
@@ -850,6 +946,89 @@ public class Controlador implements ActionListener {
 
 		vp.getMp().getAca().getScroll().revalidate();
 		vp.getMp().getAca().getScroll().repaint();
+	}
+
+	private void eliminarProducto(Producto producto) {
+		if (producto instanceof Belleza) {
+			mf.getBeDAO().eliminar((Belleza) producto);
+		} else if (producto instanceof Deporte) {
+			mf.getDeDAO().eliminar((Deporte) producto);
+		} else if (producto instanceof Hogar) {
+			mf.getHoDAO().eliminar((Hogar) producto);
+		} else if (producto instanceof Juguete) {
+			mf.getJuDAO().eliminar((Juguete) producto);
+		} else if (producto instanceof Libro) {
+			mf.getLiDAO().eliminar((Libro) producto);
+		} else if (producto instanceof Mascotas) {
+			mf.getMaDAO().eliminar((Mascotas) producto);
+		} else if (producto instanceof Musica) {
+			mf.getMuDAO().eliminar((Musica) producto);
+		} else if (producto instanceof Ropa) {
+			mf.getRoDAO().eliminar((Ropa) producto);
+		} else if (producto instanceof Tecnologia) {
+			mf.getTeDAO().eliminar((Tecnologia) producto);
+		} else if (producto instanceof Vehiculos) {
+			mf.getVeDAO().eliminar((Vehiculos) producto);
+		}
+		mf.agregarProductos();
+	}
+
+	private void bajarUnidadesProductos() {
+		if (productoTemp instanceof Belleza) {
+			mf.getBeDAO().bajarUnidades((Belleza) productoTemp);
+		} else if (productoTemp instanceof Deporte) {
+			mf.getDeDAO().bajarUnidades((Deporte) productoTemp);
+		} else if (productoTemp instanceof Hogar) {
+			mf.getHoDAO().bajarUnidades((Hogar) productoTemp);
+		} else if (productoTemp instanceof Juguete) {
+			mf.getJuDAO().bajarUnidades((Juguete) productoTemp);
+		} else if (productoTemp instanceof Libro) {
+			mf.getLiDAO().bajarUnidades((Libro) productoTemp);
+		} else if (productoTemp instanceof Mascotas) {
+			mf.getMaDAO().bajarUnidades((Mascotas) productoTemp);
+		} else if (productoTemp instanceof Musica) {
+			mf.getMuDAO().bajarUnidades((Musica) productoTemp);
+		} else if (productoTemp instanceof Ropa) {
+			mf.getRoDAO().bajarUnidades((Ropa) productoTemp);
+		} else if (productoTemp instanceof Tecnologia) {
+			mf.getTeDAO().bajarUnidades((Tecnologia) productoTemp);
+		} else if (productoTemp instanceof Vehiculos) {
+			mf.getVeDAO().bajarUnidades((Vehiculos) productoTemp);
+		}
+		mf.agregarProductos();
+
+	}
+
+	private void subirUnidadesProductos() {
+		for (Carrito carrito : mf.getCaDAO().getLista()) {
+			if (carrito.getNombre().equals(carritoTemp.getNombre())) {
+				for (Producto producto : carrito.getProductos()) {
+					if (producto instanceof Belleza) {
+						mf.getBeDAO().subirUnidades((Belleza) producto);
+					} else if (producto instanceof Deporte) {
+						mf.getDeDAO().subirUnidades((Deporte) producto);
+					} else if (producto instanceof Hogar) {
+						mf.getHoDAO().subirUnidades((Hogar) producto);
+					} else if (producto instanceof Juguete) {
+						mf.getJuDAO().subirUnidades((Juguete) producto);
+					} else if (producto instanceof Libro) {
+						mf.getLiDAO().subirUnidades((Libro) producto);
+					} else if (producto instanceof Mascotas) {
+						mf.getMaDAO().subirUnidades((Mascotas) producto);
+					} else if (producto instanceof Musica) {
+						mf.getMuDAO().subirUnidades((Musica) producto);
+					} else if (producto instanceof Ropa) {
+						mf.getRoDAO().subirUnidades((Ropa) producto);
+					} else if (producto instanceof Tecnologia) {
+						mf.getTeDAO().subirUnidades((Tecnologia) producto);
+					} else if (producto instanceof Vehiculos) {
+						mf.getVeDAO().subirUnidades((Vehiculos) producto);
+					}
+				}
+			}
+
+		}
+
 	}
 
 	private void agregarProductosVentanaComprar() {

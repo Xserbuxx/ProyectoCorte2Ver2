@@ -59,6 +59,36 @@ public class HogarDAO implements DAO<Hogar> {
 			return true;
 		}
 	}
+	public boolean eliminar(Hogar producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			lista.remove(producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean bajarUnidades(Hogar producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() - 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	public boolean subirUnidades(Hogar producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() + 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
 
 	@Override
 	public String mostrarDatos() {

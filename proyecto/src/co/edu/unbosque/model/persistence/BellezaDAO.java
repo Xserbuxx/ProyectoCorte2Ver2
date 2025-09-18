@@ -64,6 +64,38 @@ public class BellezaDAO implements DAO<Belleza> {
 			return true;
 		}
 	}
+	
+	public boolean eliminar(Belleza producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			lista.remove(producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean bajarUnidades(Belleza producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() - 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean subirUnidades(Belleza producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() + 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
 
 	@Override
 	public String mostrarDatos() {

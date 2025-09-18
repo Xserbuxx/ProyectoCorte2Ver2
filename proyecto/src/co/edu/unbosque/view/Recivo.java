@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BoxLayout;
@@ -89,7 +90,7 @@ public class Recivo extends JPanel {
 	public void agregarProducto(String nombre, double precio) {
 		JPanel productoPanel = new JPanel();
 		productoPanel.setLayout(null);
-		productoPanel.setBounds(0, 0, 350, 50);
+		productoPanel.setPreferredSize(new Dimension(350,50));
 		productoPanel.setBackground(Color.WHITE);
 		productoPanel.setBorder(null);
 

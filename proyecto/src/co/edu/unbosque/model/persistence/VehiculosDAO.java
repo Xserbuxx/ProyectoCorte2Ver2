@@ -59,6 +59,38 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 			return true;
 		}
 	}
+	
+	public boolean eliminar(Vehiculos producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			lista.remove(producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean bajarUnidades(Vehiculos producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() - 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
+	
+	public boolean subirUnidades(Vehiculos producto) {
+		if (producto == null || !lista.contains(producto)) {
+			return false;
+		} else {
+			producto.setUnidades(producto.getUnidades() + 1);
+			lista.set(lista.indexOf(producto), producto);
+			escribirArchivoSerializado();
+			return true;
+		}
+	}
 
 	@Override
 	public String mostrarDatos() {
