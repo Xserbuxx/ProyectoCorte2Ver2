@@ -12,16 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class FacturaProducto extends JPanel{
+public class FacturaProducto extends JPanel {
 	public FacturaProducto(String nombre, double precio, String ruta, int id, ActionListener e) {
 		this.setPreferredSize(new Dimension(500, 100));
 		this.setBackground(Color.WHITE);
 		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		this.setLayout(null);
-		
-		crearLabel("$" + precio,70, 50, 220, 50, Color.BLACK, 25);		
+
+		crearLabel("$" + precio, 70, 50, 220, 50, Color.BLACK, 25);
 		crearLabel(nombre, 70, 10, 220, 50, Color.BLACK, 35);
-		
+
 		JButton eliminar = new JButton("X");
 		eliminar.addActionListener(e);
 		eliminar.setActionCommand("EliminarProductoFac-" + id);
@@ -36,11 +36,11 @@ public class FacturaProducto extends JPanel{
 		Image iconEscalado = icon.getImage().getScaledInstance(50, 80, Image.SCALE_SMOOTH);
 		JLabel icono = new JLabel(new ImageIcon(iconEscalado));
 		icono.setBounds(10, 10, 50, 80);
-		
+
 		this.add(eliminar);
 		this.add(icono);
 	}
-	
+
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);

@@ -144,11 +144,68 @@ public class Controlador implements ActionListener {
 				String atributo1 = producto.toString().split(";")[6];
 				String atributo2 = producto.toString().split(";")[7];
 
-				vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
-						producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(), atributo1,
-						atributo2);
+				if (producto instanceof Belleza) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipoproductobelleza") + atributo1,
+							prop.getProperty("vender.fechavencimiento") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Deporte) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipodeporte") + atributo1,
+							prop.getProperty("vender.deportemarca") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Hogar) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.materialhogar") + atributo1,
+							prop.getProperty("vender.tipoproductohogar") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Juguete) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.edadjuguete") + atributo1,
+							prop.getProperty("vender.materialjuguete") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Libro) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.autor") + atributo1, prop.getProperty("vender.isbn") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Mascotas) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipoanimal") + atributo1,
+							prop.getProperty("vender.tamanoanimal") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Musica) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.formatomusica") + atributo1,
+							prop.getProperty("vender.artista") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Ropa) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.talla") + atributo1, prop.getProperty("vender.color") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Tecnologia) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.marcatec") + atributo1,
+							prop.getProperty("vender.modelotec") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Vehiculos) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.anove") + atributo1,
+							prop.getProperty("vender.modelove") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				}
+
 			} else {
-				vp.mostrarError("No se encontro el producto");
+				vp.mostrarError(prop.getProperty("error.producto.noencontrado"));
 				return;
 			}
 		}
@@ -157,7 +214,7 @@ public class Controlador implements ActionListener {
 
 			try {
 				LanzadorExcepciones.verificarUnidadesDisponibles(productoTemp.getUnidades(),
-						"El producto no tiene unidades disponibles");
+						prop.getProperty("error.unidadesinsuficientes"));
 			} catch (UnidadesProductoException e1) {
 				vp.mostrarError(e1.getMessage());
 				return;
@@ -165,7 +222,8 @@ public class Controlador implements ActionListener {
 
 			bajarUnidadesProductos();
 
-			vp.mostrarMensaje("Producto agregado al carrito " + boton.split("-")[1].split("_")[0] + " exitosamente");
+			vp.mostrarMensaje(prop.getProperty("mensaje.producto.agregado") + boton.split("-")[1].split("_")[0]
+					+ prop.getProperty("mensaje.producto.agregado.exito"));
 
 			mf.getCaDAO().agregarProducto(boton.split("-")[1], productoTemp);
 			vp.actualizar();
@@ -201,7 +259,7 @@ public class Controlador implements ActionListener {
 				}
 			}
 			vp.getMp().getFac().limpiarLabels();
-			vp.getMp().getFac().mostrarTotal(total + "");
+			vp.getMp().getFac().mostrarTotal(total + "", prop.getProperty("factura.total.precio"));
 			SwingUtilities.invokeLater(() -> {
 				vp.getMp().getFac().getScroll().revalidate();
 				vp.getMp().getFac().getScroll().repaint();
@@ -224,7 +282,7 @@ public class Controlador implements ActionListener {
 			vp.getMp().getCar().limpiarBotones();
 			vp.getMp().getCar().setComponentZOrder(vp.getMp().getCe(), 0);
 
-			vp.getMp().getCe().crearBotonEliminar(boton.split("-")[1], this);
+			vp.getMp().getCe().crearBotonEliminar(boton.split("-")[1], prop.getProperty("eliminar.boton"), this);
 
 			vp.getMp().getCe().setComponentZOrder(vp.getMp().getCe().getEliminar(), 0);
 
@@ -252,7 +310,7 @@ public class Controlador implements ActionListener {
 				}
 			}
 
-			vp.mostrarMensaje("Carrito eliminado exitosamente");
+			vp.mostrarMensaje(prop.getProperty("mensaje.carrito.eliminado"));
 
 			vp.getMp().getCe().setEnabled(false);
 			vp.getMp().getCe().setVisible(false);
@@ -292,8 +350,8 @@ public class Controlador implements ActionListener {
 			}
 
 			vp.getMp().getFac().limpiarLabels();
-			vp.getMp().getFac().mostrarTotal(total + "");
-			vp.mostrarMensaje("Producto eliminado del carrito exitosamente");
+			vp.getMp().getFac().mostrarTotal(total + "", prop.getProperty("factura.total.precio"));
+			vp.mostrarMensaje(prop.getProperty("mensaje.producto.carrito.eliminado"));
 
 		}
 
@@ -315,13 +373,15 @@ public class Controlador implements ActionListener {
 				String usuario = vp.getMp().getVis().getUsuario().getText();
 				String contrasena = new String(vp.getMp().getVis().getContrasena().getText());
 
-				LanzadorExcepciones.verificarNombre(usuario);
-				LanzadorExcepciones.verificarContrasena(contrasena);
+				LanzadorExcepciones.verificarNombre(usuario, prop.getProperty("error.verificarnombre.error1"),
+						prop.getProperty("error.verificarnombre.error2"),
+						prop.getProperty("error.verificarnombre.error3"));
+				LanzadorExcepciones.verificarContrasena(contrasena, prop.getProperty("error.verificarcontrasena"));
 
 				for (Usuario usu : mf.getUsDAO().getLista()) {
 					if (usu.getNombre().equals(usuario) && usu.getContrasena().equals(contrasena)) {
 						usuarioActual = usu;
-						vp.mostrarMensaje("Inicio de sesion exitoso");
+						vp.mostrarMensaje(prop.getProperty("mensaje.iniciosesion.exito"));
 						vp.getMp().getCom().getCategorias().setSelectedIndex(0);
 						agregarProductosVentanaComprar();
 						vp.getMp().mostrarPanel("com");
@@ -337,7 +397,7 @@ public class Controlador implements ActionListener {
 				for (Usuario usu : mf.getUsDAO().getLista()) {
 					if (usu.getNombre().equals(usuario)) {
 						usuarioActual = usu;
-						vp.mostrarError("La contrasena es incorrecta");
+						vp.mostrarError(prop.getProperty("error.contrasena.incorrecta"));
 						romper = true;
 						break;
 					}
@@ -347,7 +407,7 @@ public class Controlador implements ActionListener {
 					break;
 				}
 
-				vp.mostrarError("El usuario no existe");
+				vp.mostrarError(prop.getProperty("error.usuario.noexiste"));
 
 			} catch (NombreException ne) {
 				vp.mostrarError(ne.getMessage());
@@ -367,12 +427,14 @@ public class Controlador implements ActionListener {
 				String usuario = vp.getMp().getReg().getUsuario().getText();
 				String contrasena = new String(vp.getMp().getReg().getContrasena().getText());
 
-				LanzadorExcepciones.verificarNombre(usuario);
-				LanzadorExcepciones.verificarContrasena(contrasena);
+				LanzadorExcepciones.verificarNombre(usuario, prop.getProperty("error.verificarnombre.error1"),
+						prop.getProperty("error.verificarnombre.error2"),
+						prop.getProperty("error.verificarnombre.error3"));
+				LanzadorExcepciones.verificarContrasena(contrasena, prop.getProperty("error.verificarcontrasena"));
 
 				for (Usuario usu : mf.getUsDAO().getLista()) {
 					if (usu.getNombre().equals(usuario)) {
-						vp.mostrarError("El usuario ya existe");
+						vp.mostrarError(prop.getProperty("error.usuario.yaexiste"));
 						existe = true;
 						return;
 					}
@@ -385,6 +447,7 @@ public class Controlador implements ActionListener {
 				Usuario nuevoUsuario = new Usuario(usuario, contrasena);
 
 				mf.getUsDAO().crear(nuevoUsuario);
+				vp.mostrarMensaje(prop.getProperty("mensaje.registro.exito"));
 				usuarioActual = nuevoUsuario;
 
 				vp.getMp().getCom().getCategorias().setSelectedIndex(0);
@@ -445,80 +508,143 @@ public class Controlador implements ActionListener {
 			switch (selec) {
 
 			case "Seleccione":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
 				vp.getMp().getVen().mostrarCampos();
 				break;
 
 			case "Belleza":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarBelleza();
+				vp.getMp().getVen().mostrarBelleza(prop.getProperty("vender.tipoproductobelleza"),
+						prop.getProperty("vender.fechavencimiento"));
 				break;
 
 			case "Deportes":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarDeportes();
+				vp.getMp().getVen().mostrarDeportes(prop.getProperty("vender.tipodeporte"),
+						prop.getProperty("vender.deportemarca"));
 				break;
 
 			case "Hogar":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarHogar();
+				vp.getMp().getVen().mostrarHogar(prop.getProperty("vender.materialhogar"),
+						prop.getProperty("vender.tipoproductohogar"));
 				break;
 
 			case "Juguetes":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarJuguetes();
+				vp.getMp().getVen().mostrarJuguetes(prop.getProperty("vender.edadjuguete"),
+						prop.getProperty("vender.materialjuguete"));
 				break;
 
 			case "Libros":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarLibros();
+				vp.getMp().getVen().mostrarLibros(prop.getProperty("vender.autor"), prop.getProperty("vender.isbn"));
 				break;
 
 			case "Mascotas":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarMascotas();
+				vp.getMp().getVen().mostrarMascotas(prop.getProperty("vender.tipoanimal"),
+						prop.getProperty("vender.tamanoanimal"));
 				break;
 
 			case "Musica":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarMusica();
+				vp.getMp().getVen().mostrarMusica(prop.getProperty("vender.artista"),
+						prop.getProperty("vender.formatomusica"));
 				break;
 
 			case "Ropa":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarRopa();
+				vp.getMp().getVen().mostrarRopa(prop.getProperty("vender.talla"), prop.getProperty("vender.color"));
 				break;
 
 			case "Tecnologia":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarTecnologia();
+				vp.getMp().getVen().mostrarTecnologia(prop.getProperty("vender.marcatec"),
+						prop.getProperty("vender.modelotec"));
 				break;
 
 			case "Vehiculos":
-				vp.getMp().getVen().limpiarLabels();
+				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
+						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+						prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+						prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+						prop.getProperty("vender.examinar"));
 				vp.getMp().getVen().limpiarCampos();
 
-				vp.getMp().getVen().mostrarVehiculos();
+				vp.getMp().getVen().mostrarVehiculos(prop.getProperty("vender.anove"),
+						prop.getProperty("vender.modelove"));
 				break;
 			default:
 				break;
@@ -539,76 +665,76 @@ public class Controlador implements ActionListener {
 
 			switch (seleccion) {
 			case "Seleccione":
-				vp.mostrarError("Seleccione una categoria valida");
+				vp.mostrarError(prop.getProperty("error.categoria.invalida"));
 				break;
 			case "Belleza":
 				Belleza belleza = leerDatosBelleza();
 				if (belleza != null) {
 					mf.getBeDAO().crear(belleza);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Deportes":
 				Deporte deporte = leerDatosDeportes();
 				if (deporte != null) {
 					mf.getDeDAO().crear(deporte);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Hogar":
 				Hogar hogar = leerDatosHogar();
 				if (hogar != null) {
 					mf.getHoDAO().crear(hogar);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Juguetes":
 				Juguete juguete = leerDatosJuguetes();
 				if (juguete != null) {
 					mf.getJuDAO().crear(juguete);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Libros":
 				Libro libro = leerDatosLibros();
 				if (libro != null) {
 					mf.getLiDAO().crear(libro);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Mascotas":
 				Mascotas mascotas = leerDatosMascotas();
 				if (mascotas != null) {
 					mf.getMaDAO().crear(mascotas);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Musica":
 				Musica musica = leerDatosMusica();
 				if (musica != null) {
 					mf.getMuDAO().crear(musica);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Ropa":
 				Ropa ropa = leerDatosRopa();
 				if (ropa != null) {
 					mf.getRoDAO().crear(ropa);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Tecnologia":
 				Tecnologia tecnologia = leerDatosTecnologia();
 				if (tecnologia != null) {
 					mf.getTeDAO().crear(tecnologia);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			case "Vehiculos":
 				Vehiculos vehiculo = leerDatosVehiculos();
 				if (vehiculo != null) {
 					mf.getVeDAO().crear(vehiculo);
-					vp.mostrarMensaje("Producto registrado exitosamente");
+					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 				break;
 			default:
@@ -680,9 +806,11 @@ public class Controlador implements ActionListener {
 			// pasar codigo a view
 			try {
 				String nombreCarrito = vp.getMp().getCrc().getNombreC().getText();
-				LanzadorExcepciones.verificarNombre(nombreCarrito);
+				LanzadorExcepciones.verificarNombre(nombreCarrito, prop.getProperty("error.verificarnombre.error1"),
+						prop.getProperty("error.verificarnombre.error2"),
+						prop.getProperty("error.verificarnombre.error3"));
 				if (nombreCarrito.isBlank()) {
-					vp.mostrarError("El nombre del carrito no puede estar vacio");
+					vp.mostrarError(prop.getProperty("error.nombre.carrito.vacio"));
 					break;
 				}
 				nombreCarrito = nombreCarrito + "_" + usuarioActual.getNombre();
@@ -690,7 +818,7 @@ public class Controlador implements ActionListener {
 				boolean existe = false;
 				for (Carrito car : mf.getCaDAO().getLista()) {
 					if (car.getNombre().equals(nombreCarrito)) {
-						vp.mostrarError("Ya existe un carrito con ese nombre");
+						vp.mostrarError(prop.getProperty("error.carrito.yaexiste"));
 						existe = true;
 						break;
 					}
@@ -702,7 +830,7 @@ public class Controlador implements ActionListener {
 				Carrito nuevoCarrito = new Carrito(nombreCarrito, new ArrayList<>());
 				mf.getCaDAO().crear(nuevoCarrito);
 
-				vp.mostrarMensaje("Carrito creado exitosamente");
+				vp.mostrarMensaje(prop.getProperty("mensaje.carrito.creado"));
 
 				vp.getMp().getCar().remove(vp.getMp().getCrc());
 
@@ -719,10 +847,11 @@ public class Controlador implements ActionListener {
 			} catch (NombreException ne) {
 				vp.mostrarError(ne.getMessage());
 			} catch (Exception ex) {
-				vp.mostrarError("Error al crear el carrito" + ex.getMessage());
+				vp.mostrarError(prop.getProperty("error.carrito.crear") + ex.getMessage());
 			}
 
 			break;
+
 		case "Boton Volver Ventana ACA":
 			// pasar codigo a view
 			vp.getMp().getAca().setVisible(false);
@@ -737,11 +866,69 @@ public class Controlador implements ActionListener {
 				String atributo1 = productoTemp.toString().split(";")[6];
 				String atributo2 = productoTemp.toString().split(";")[7];
 
-				vp.getMp().getPip().mostrarProductoInfo(productoTemp.getPrecio(), productoTemp.getNombre(),
-						productoTemp.getDescripcion(), productoTemp.getUnidades(), productoTemp.getRutaFoto(),
-						atributo1, atributo2);
+				Producto producto = productoTemp;
+
+				if (producto instanceof Belleza) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipoproductobelleza") + atributo1,
+							prop.getProperty("vender.fechavencimiento") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Deporte) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipodeporte") + atributo1,
+							prop.getProperty("vender.deportemarca") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Hogar) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.materialhogar") + atributo1,
+							prop.getProperty("vender.tipoproductohogar") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Juguete) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.edadjuguete") + atributo1,
+							prop.getProperty("vender.materialjuguete") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Libro) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.autor") + atributo1, prop.getProperty("vender.isbn") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Mascotas) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.tipoanimal") + atributo1,
+							prop.getProperty("vender.tamanoanimal") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Musica) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.formatomusica") + atributo1,
+							prop.getProperty("vender.artista") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Ropa) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.talla") + atributo1, prop.getProperty("vender.color") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Tecnologia) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.marcatec") + atributo1,
+							prop.getProperty("vender.modelotec") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				} else if (producto instanceof Vehiculos) {
+					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
+							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
+							prop.getProperty("vender.anove") + atributo1,
+							prop.getProperty("vender.modelove") + atributo2,
+							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
+				}
 			} else {
-				vp.mostrarError("No se encontro el producto");
+				vp.mostrarError(prop.getProperty("error.producto.noencontrado"));
 				return;
 			}
 
@@ -784,7 +971,7 @@ public class Controlador implements ActionListener {
 		case "Boton Comprar Ventana FAC":
 			try {
 				if (total == 0) {
-					vp.mostrarError("El carrito esta vacio");
+					vp.mostrarError(prop.getProperty("error.carrito.vacio"));
 					break;
 				}
 				vp.getMp().getFac().setVisible(false);
@@ -796,7 +983,7 @@ public class Controlador implements ActionListener {
 				vp.getMp().getCc().setVisible(true);
 				vp.getMp().getCar().setComponentZOrder(vp.getMp().getCc(), 0);
 
-				vp.getMp().getCc().mostrarTitulo(total);
+				vp.getMp().getCc().mostrarTitulo(total, prop.getProperty("confirmar.compra.mensaje"));
 
 				vp.actualizar();
 			} catch (Exception ue) {
@@ -836,11 +1023,19 @@ public class Controlador implements ActionListener {
 		case "Boton Pagar Ventana PA":
 
 			try {
-				LanzadorExcepciones.verificarNumeroTarjeta(vp.getMp().getPa().getNumeroTarjeta().getText());
-				LanzadorExcepciones.verificarFechaVencimiento(vp.getMp().getPa().getFechaVencimiento().getText());
-				LanzadorExcepciones.verificarCodigoSeguridad(vp.getMp().getPa().getCodigoSeguridad().getText());
+				LanzadorExcepciones.verificarNumeroTarjeta(vp.getMp().getPa().getNumeroTarjeta().getText(),
+						prop.getProperty("error.verificarnumerotarjeta.error1"),
+						prop.getProperty("error.verificarnumerotarjeta.error2"),
+						prop.getProperty("error.verificarnumerotarjeta.error3"));
+				LanzadorExcepciones.verificarFechaVencimiento(vp.getMp().getPa().getFechaVencimiento().getText(),
+						prop.getProperty("error.verificarfechatarjeta.error1"),
+						prop.getProperty("error.verificarfechatarjeta.error2"));
+				LanzadorExcepciones.verificarCodigoSeguridad(vp.getMp().getPa().getCodigoSeguridad().getText(),
+						prop.getProperty("error.verificarcodigoseguridad.error1"),
+						prop.getProperty("error.verificarcodigoseguridad.error2"),
+						prop.getProperty("error.verificarcodigoseguridad.error3"));
 
-				vp.mostrarMensaje("Compra realizada exitosamente");
+				vp.mostrarMensaje(prop.getProperty("mensaje.compra.exito"));
 
 				vp.getMp().getPa().setVisible(false);
 				vp.getMp().getPa().setEnabled(false);
@@ -861,22 +1056,22 @@ public class Controlador implements ActionListener {
 				SwingUtilities.invokeLater(() -> {
 					mf.getCaDAO().eliminar(carritoTemp);
 
-					String contenido = "Producto;Precio\n";
+					String contenido = prop.getProperty("mensaje.producto")+";"+prop.getProperty("mensaje.precio")+"\n";
 
 					for (Producto producto : carritoTemp.getProductos()) {
 						contenido += producto.getNombre() + ";" + producto.getPrecio() + "\n";
 					}
 
-					contenido += "Total;" + total + "\n";
+					contenido += prop.getProperty("mensaje.total")+";" + total + "\n";
 
 					Random random = new Random();
 					FileHandler.escribirEnArchivoTexto(
-							"Recivo Carrito " + carritoTemp.getNombre() + "_" + random.nextLong() + ".csv", contenido);
+							prop.getProperty("mensaje.recibo.carrito") + carritoTemp.getNombre() + "_" + random.nextLong() + ".csv", contenido);
 
-					vp.mostrarMensaje("Se ha generado un recibo de la compra en formato .csv");
+					vp.mostrarMensaje(prop.getProperty("mensaje.recibo.generado"));
 
 					vp.getMp().getRec().eliminarTotal();
-					vp.getMp().getRec().mostrarTotal(total);
+					vp.getMp().getRec().mostrarTotal(total, prop.getProperty("recibo.total.precio"));
 
 					vp.actualizar();
 				});
@@ -903,7 +1098,6 @@ public class Controlador implements ActionListener {
 
 			vp.actualizar();
 			break;
-		// poner boton volver Rec y borrar carrito en if de boton pagar
 		case "Boton Volver Ventana REC":
 			vp.getMp().getRec().setVisible(false);
 			vp.getMp().getRec().setEnabled(false);
@@ -1042,63 +1236,58 @@ public class Controlador implements ActionListener {
 	private void agregarProductosVentanaComprar() {
 		vp.getMp().getCom().limpiarProductos();
 
-		if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Todo")) {
+		if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.comprar.todo"))) {
 			mf.agregarProductos();
 			mf.getProductos().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Belleza")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.belleza"))) {
 			mf.getBeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Deportes")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.deportes"))) {
 			mf.getDeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Hogar")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.hogar"))) {
 			mf.getHoDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Juguetes")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.juguetes"))) {
 			mf.getJuDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Libros")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.libros"))) {
 			mf.getLiDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Belleza")) {
-			mf.getBeDAO().getLista().forEach((producto) -> {
-				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
-						producto.getId(), this);
-			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Mascotas")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.mascotas"))) {
 			mf.getMaDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Musica")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.musica"))) {
 			mf.getMuDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Ropa")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.ropa"))) {
 			mf.getRoDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Tecnologia")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.tecnologia"))) {
 			mf.getTeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals("Vehiculos")) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.vehiculos"))) {
 			mf.getVeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
@@ -1118,27 +1307,32 @@ public class Controlador implements ActionListener {
 	private Belleza leerDatosBelleza() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
-			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, "La ruta no puede estar vacia",
-					"El formato de la foto es incorrecto");
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String tipoProducto = vp.getMp().getVen().getTipoProductoBe().getText();
+			LanzadorExcepciones.verificarTextoVacio(tipoProducto, prop.getProperty("error.verificartextovacio"));
 			String fechaExpiracion = vp.getMp().getVen().getFechaExpiracion().getText();
-			LanzadorExcepciones.verificarFechaVencimientoBelleza(fechaExpiracion);
+			LanzadorExcepciones.verificarFechaVencimientoBelleza(fechaExpiracion,
+					prop.getProperty("error.verificarfechavencimientobelleza.error1"),
+					prop.getProperty("error.verificarfechavencimientobelleza.error2"));
 
 			return new Belleza(nombre, descripcion, rutaFoto, id, unidades, precio, tipoProducto, fechaExpiracion);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
@@ -1147,6 +1341,8 @@ public class Controlador implements ActionListener {
 			vp.mostrarError(e.getMessage());
 		} catch (FormatoFotoException e) {
 			vp.mostrarMensaje(e.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1155,28 +1351,38 @@ public class Controlador implements ActionListener {
 	private Deporte leerDatosDeportes() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String tipoDeporte = vp.getMp().getVen().getTipoDeporte().getText();
+			LanzadorExcepciones.verificarTextoVacio(tipoDeporte, prop.getProperty("error.verificartextovacio"));
 			String marca = vp.getMp().getVen().getMarcaDe().getText();
+			LanzadorExcepciones.verificarTextoVacio(marca, prop.getProperty("error.verificartextovacio"));
 
 			return new Deporte(nombre, descripcion, rutaFoto, id, unidades, precio, tipoDeporte, marca);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1185,28 +1391,38 @@ public class Controlador implements ActionListener {
 	private Hogar leerDatosHogar() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String material = vp.getMp().getVen().getMaterialHo().getText();
+			LanzadorExcepciones.verificarTextoVacio(material, prop.getProperty("error.verificartextovacio"));
 			String tipoProducto = vp.getMp().getVen().getTipoProductoHo().getText();
+			LanzadorExcepciones.verificarTextoVacio(tipoProducto, prop.getProperty("error.verificartextovacio"));
 
 			return new Hogar(nombre, descripcion, rutaFoto, id, unidades, precio, material, tipoProducto);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1215,29 +1431,39 @@ public class Controlador implements ActionListener {
 	private Juguete leerDatosJuguetes() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			int edadRecomendada = Integer.parseInt(vp.getMp().getVen().getEdadRecomendada().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(edadRecomendada);
+			LanzadorExcepciones.verificarNumeroNegativo(edadRecomendada,
+					prop.getProperty("error.verificarnumeronegativo"));
 			String material = vp.getMp().getVen().getMaterialJu().getText();
+			LanzadorExcepciones.verificarTextoVacio(material, prop.getProperty("error.verificartextovacio"));
 
 			return new Juguete(nombre, descripcion, rutaFoto, id, unidades, precio, edadRecomendada, material);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1246,31 +1472,40 @@ public class Controlador implements ActionListener {
 	private Libro leerDatosLibros() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String autor = vp.getMp().getVen().getAutor().getText();
-			LanzadorExcepciones.verificarNombre(autor);
+			LanzadorExcepciones.verificarNombre(autor, prop.getProperty("error.verificarnombre.error1"),
+					prop.getProperty("error.verificarnombre.error2"), prop.getProperty("error.verificarnombre.error3"));
 			long isbn = Long.parseLong(vp.getMp().getVen().getIsbn().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(isbn);
+			LanzadorExcepciones.verificarNumeroNegativo(isbn, prop.getProperty("error.verificarnumeronegativo"));
 
 			return new Libro(nombre, descripcion, rutaFoto, id, unidades, precio, autor, isbn);
 
 		} catch (InputMismatchException e) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException e) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException e) {
 			vp.mostrarError(e.getMessage());
 		} catch (NumeroNegativoException e) {
 			vp.mostrarError(e.getMessage());
 		} catch (NombreException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
 			vp.mostrarError(e.getMessage());
 		}
 
@@ -1280,28 +1515,38 @@ public class Controlador implements ActionListener {
 	private Mascotas leerDatosMascotas() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String tipoAnimal = vp.getMp().getVen().getTipoAnimal().getText();
+			LanzadorExcepciones.verificarTextoVacio(tipoAnimal, prop.getProperty("error.verificartextovacio"));
 			String tamano = vp.getMp().getVen().getTamano().getText();
+			LanzadorExcepciones.verificarTextoVacio(tamano, prop.getProperty("error.verificartextovacio"));
 
 			return new Mascotas(nombre, descripcion, rutaFoto, id, unidades, precio, tipoAnimal, tamano);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1310,31 +1555,41 @@ public class Controlador implements ActionListener {
 	private Musica leerDatosMusica() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String formato = vp.getMp().getVen().getFormato().getText();
+			LanzadorExcepciones.verificarTextoVacio(formato, prop.getProperty("error.verificartextovacio"));
 			String artista = vp.getMp().getVen().getArtista().getText();
-			LanzadorExcepciones.verificarNombre(artista);
+			LanzadorExcepciones.verificarNombre(artista, prop.getProperty("error.verificarnombre.error1"),
+					prop.getProperty("error.verificarnombre.error2"), prop.getProperty("error.verificarnombre.error3"));
 
 			return new Musica(nombre, descripcion, rutaFoto, id, unidades, precio, formato, artista);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
 		} catch (NombreException ne) {
 			vp.mostrarError(ne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1343,28 +1598,38 @@ public class Controlador implements ActionListener {
 	private Ropa leerDatosRopa() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String talla = vp.getMp().getVen().getTalla().getText();
+			LanzadorExcepciones.verificarTextoVacio(talla, prop.getProperty("error.verificartextovacio"));
 			String color = vp.getMp().getVen().getColor().getText();
+			LanzadorExcepciones.verificarTextoVacio(color, prop.getProperty("error.verificartextovacio"));
 
 			return new Ropa(nombre, descripcion, rutaFoto, id, unidades, precio, talla, color);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1373,28 +1638,38 @@ public class Controlador implements ActionListener {
 	private Tecnologia leerDatosTecnologia() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			String marca = vp.getMp().getVen().getMarcaTec().getText();
+			LanzadorExcepciones.verificarTextoVacio(marca, prop.getProperty("error.verificartextovacio"));
 			String modelo = vp.getMp().getVen().getModeloTec().getText();
+			LanzadorExcepciones.verificarTextoVacio(modelo, prop.getProperty("error.verificartextovacio"));
 
 			return new Tecnologia(nombre, descripcion, rutaFoto, id, unidades, precio, marca, modelo);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1403,29 +1678,38 @@ public class Controlador implements ActionListener {
 	private Vehiculos leerDatosVehiculos() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
+			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
 			String descripcion = vp.getMp().getVen().getDescripcion().getText();
+			LanzadorExcepciones.verificarTextoVacio(descripcion, prop.getProperty("error.verificartextovacio"));
 			String rutaFoto = vp.getMp().getVen().getRutaFoto().getText();
+			LanzadorExcepciones.verificarFormatoFoto(rutaFoto, prop.getProperty("error.ruta.vacia"),
+					prop.getProperty("error.ruta.incorrecto"));
 			int id = Integer.parseInt(vp.getMp().getVen().getId().getText());
-			LanzadorExcepciones.verificarIDExistente(id, idsExistentes);
-			LanzadorExcepciones.verificarNumeroNegativo(id);
+			LanzadorExcepciones.verificarIDExistente(id, idsExistentes, prop.getProperty("error.verificaridexistente"));
+			LanzadorExcepciones.verificarNumeroNegativo(id, prop.getProperty("error.verificarnumeronegativo"));
 			int unidades = Integer.parseInt(vp.getMp().getVen().getUnidades().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(unidades);
+			LanzadorExcepciones.verificarNumeroNegativo(unidades, prop.getProperty("error.verificarnumeronegativo"));
 			double precio = Double.parseDouble(vp.getMp().getVen().getPrecio().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(precio);
+			LanzadorExcepciones.verificarNumeroNegativo(precio, prop.getProperty("error.verificarnumeronegativo"));
 			int anio = Integer.parseInt(vp.getMp().getVen().getAno().getText());
-			LanzadorExcepciones.verificarNumeroNegativo(anio);
+			LanzadorExcepciones.verificarNumeroNegativo(anio, prop.getProperty("error.verificarnumeronegativo"));
 			String modelo = vp.getMp().getVen().getModeloVE().getText();
+			LanzadorExcepciones.verificarTextoVacio(modelo, prop.getProperty("error.verificartextovacio"));
 
 			return new Vehiculos(nombre, descripcion, rutaFoto, id, unidades, precio, anio, modelo);
 
 		} catch (InputMismatchException ime) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (NumberFormatException nfe) {
-			vp.mostrarError("El formato de algun numero es incorrecto");
+			vp.mostrarError(prop.getProperty("error.mismatch"));
 		} catch (IDExistenteException idee) {
 			vp.mostrarError(idee.getMessage());
 		} catch (NumeroNegativoException nne) {
 			vp.mostrarError(nne.getMessage());
+		} catch (TextoVacioException e) {
+			vp.mostrarError(e.getMessage());
+		} catch (FormatoFotoException e) {
+			vp.mostrarError(e.getMessage());
 		}
 
 		return null;
@@ -1439,12 +1723,41 @@ public class Controlador implements ActionListener {
 		vp.getMp().getReg().mostrarLabels(prop.getProperty("registro.titulo"), prop.getProperty("registro.usuario"),
 				prop.getProperty("registro.contrasena"), prop.getProperty("registro.tienecuenta"),
 				prop.getProperty("registro.registrarse.boton"), prop.getProperty("registro.iniciosesion.boton"));
-		vp.getMp().getCom().mostrarLabels(prop.getProperty("comprar.categorias"),prop.getProperty("categoria.comprar.todo"),
-				prop.getProperty("categoria.belleza"), prop.getProperty("categoria.deportes"),
-				prop.getProperty("categoria.hogar"),
+		vp.getMp().getCom().mostrarLabels(prop.getProperty("comprar.categorias"),
+				prop.getProperty("categoria.comprar.todo"), prop.getProperty("categoria.belleza"),
+				prop.getProperty("categoria.deportes"), prop.getProperty("categoria.hogar"),
 				prop.getProperty("categoria.juguetes"), prop.getProperty("categoria.libros"),
 				prop.getProperty("categoria.mascotas"), prop.getProperty("categoria.musica"),
 				prop.getProperty("categoria.ropa"), prop.getProperty("categoria.tecnologia"),
-				prop.getProperty("categoria.vehiculos"),prop.getProperty("comprar.modo.vender"));
+				prop.getProperty("categoria.vehiculos"), prop.getProperty("comprar.modo.vender"));
+		vp.getMp().getVen().iniciarLabels(prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
+				prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
+				prop.getProperty("vender.rutafoto"), prop.getProperty("vender.id"),
+				prop.getProperty("vender.categorias"), prop.getProperty("categoria.vender.seleccione"),
+				prop.getProperty("categoria.belleza"), prop.getProperty("categoria.deportes"),
+				prop.getProperty("categoria.hogar"), prop.getProperty("categoria.juguetes"),
+				prop.getProperty("categoria.libros"), prop.getProperty("categoria.mascotas"),
+				prop.getProperty("categoria.musica"), prop.getProperty("categoria.ropa"),
+				prop.getProperty("categoria.tecnologia"), prop.getProperty("categoria.vehiculos"),
+				prop.getProperty("vender.modo.comprar"), prop.getProperty("vender.registro.producto"),
+				prop.getProperty("vender.examinar"));
+		vp.getMp().getFac().iniciarLabels(prop.getProperty("factura.comprar.boton"),
+				prop.getProperty("factura.volver.boton"));
+
+		vp.getMp().getCar().iniciarLabels(prop.getProperty("carritos.titulo"), prop.getProperty("carritos.volver"),
+				prop.getProperty("carritos.crear"), prop.getProperty("carritos.filtrar"));
+		vp.getMp().getRec().iniciarLabels(prop.getProperty("recibo.titulo"), prop.getProperty("recibo.producto"),
+				prop.getProperty("recibo.precio"));
+		vp.getMp().getPa().iniciarLabels(prop.getProperty("pago.tarjeta.pagar"), prop.getProperty("pago.tarjeta.datos"),
+				prop.getProperty("pago.tarjeta.numero"), prop.getProperty("pago.tarjeta.fecha"),
+				prop.getProperty("pago.tarjeta.cvv"));
+		vp.getMp().getCrc().iniciarLabels(prop.getProperty("carrito.boton.crearcarrito"),
+				prop.getProperty("carrito.nombre"));
+		vp.getMp().getCc().iniciarLabels(prop.getProperty("confirmar.compra.boton"));
+		vp.getMp().getCe().iniciarLabels(prop.getProperty("eliminar.mensaje"));
+		vp.getMp().getAca().iniciarLabels(prop.getProperty("agregar.carrito.volver"),
+				prop.getProperty("agregar.carrito.mensaje"));
+		vp.getMp().getPip().iniciarLabels(prop.getProperty("producto.info.volver"),
+				prop.getProperty("producto.info.agregar"));
 	}
 }

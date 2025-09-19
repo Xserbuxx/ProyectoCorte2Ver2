@@ -35,27 +35,18 @@ public class Pago extends JPanel {
 		volver.setFocusPainted(false);
 		volver.setBorderPainted(false);
 		
-		pagar = new JButton("Pagar");
+		pagar = new JButton();
 		pagar.setBounds(600, 410, 100, 40);
 		pagar.setFont(new Font("Arial", Font.BOLD, 16));
 		pagar.setBackground(new Color(255, 230, 0));
 		pagar.setFocusPainted(false);
 		pagar.setBorderPainted(false);
 		
-		
-		crearLabel("Ingrese los datos de su tarjeta", 475, 200, 400, 30, Color.BLACK, 20);
-		
-		crearLabel("Numero de tarjeta", 475, 235, 200, 40, Color.BLACK, 16);
-		
 		numeroTarjeta = new JTextField();
 		numeroTarjeta.setBounds(475, 275, 350, 40);
 		
-		crearLabel("Fecha de vencimiento", 475, 315, 200, 40, Color.BLACK, 16);
-		
 		fechaVencimiento = new JTextField();
 		fechaVencimiento.setBounds(475, 350, 150, 40);
-		
-		crearLabel("Codigo de seguridad", 675, 315, 200, 40, Color.BLACK, 16);
 		
 		codigoSeguridad  = new JTextField();
 		codigoSeguridad.setBounds(675, 350, 150, 40);	
@@ -69,6 +60,14 @@ public class Pago extends JPanel {
 		this.add(arriba);
 		
 		
+	}
+	
+	public void iniciarLabels(String pagarLabel, String ingreseDatos, String numeroTarjeta, String fechaVencimiento, String codigoSeguridad) {
+		pagar.setText(pagarLabel);
+		crearLabel(ingreseDatos, 475, 200, 400, 30, Color.BLACK, 20);
+		crearLabel(numeroTarjeta, 475, 235, 200, 40, Color.BLACK, 16);
+		crearLabel(fechaVencimiento, 475, 315, 200, 40, Color.BLACK, 16);
+		crearLabel(codigoSeguridad, 675, 315, 200, 40, Color.BLACK, 16);
 	}
 
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

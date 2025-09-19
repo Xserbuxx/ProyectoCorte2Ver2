@@ -91,9 +91,9 @@ public class VentanaCompra extends JPanel {
 		panelProductos.removeAll();
 	}
 
-	public void mostrarLabels(String categoria, String todo, String belleza, String deportes, String hogar, String juguetes,
-			String libros, String mascotas, String musica, String ropa, String tecnologia, String vehiculos,
-			String vendedor) {
+	public void mostrarLabels(String categoria, String todo, String belleza, String deportes, String hogar,
+			String juguetes, String libros, String mascotas, String musica, String ropa, String tecnologia,
+			String vehiculos, String vendedor) {
 		crearLabel(categoria, 180, 20, 300, 40, Color.BLACK, 20);
 		categorias.removeAll();
 		categorias.addItem(todo);
@@ -109,7 +109,7 @@ public class VentanaCompra extends JPanel {
 		categorias.addItem(vehiculos);
 
 		cambiarModo.setText(vendedor);
-		
+
 		categorias.revalidate();
 		categorias.repaint();
 

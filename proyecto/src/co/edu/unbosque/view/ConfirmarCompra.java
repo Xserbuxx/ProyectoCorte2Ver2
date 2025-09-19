@@ -32,7 +32,7 @@ public class ConfirmarCompra extends JPanel {
 		volver.setFocusPainted(false);
 		volver.setBorderPainted(false);
 
-		comprar = new JButton("Comprar Carrito");
+		comprar = new JButton();
 		comprar.setBounds(420, 350, 460, 50);
 		comprar.setFont(new Font("Arial", Font.BOLD, 20));
 		comprar.setBackground(new Color(255, 230, 0));
@@ -42,14 +42,18 @@ public class ConfirmarCompra extends JPanel {
 		this.add(volver);
 		this.add(arriba);
 	}
+	
+	public void iniciarLabels(String comprarCarrito) {
+		this.comprar.setText(comprarCarrito);
+	}
 
-	public void mostrarTitulo(double precio) {
+	public void mostrarTitulo(double precio ,String  mensaje) {
 		if (precioLabel != null) {
 			this.remove(precioLabel);
 
 		}
 
-		crearLabel("Estas a punto de realizar una compra por:", 435, 260, 460, 50, Color.black, 22);
+		crearLabel(mensaje, 435, 260, 460, 50, Color.black, 22);
 
 		precioLabel = new JLabel("$" + precio);
 		precioLabel.setBounds(610, 290, 200, 50);

@@ -41,7 +41,7 @@ public class CrearCarrito extends JPanel{
 		volver.setBorderPainted(false);
 
 		
-		crearCarrito = new JButton("Crear Carrito");
+		crearCarrito = new JButton();
 		crearCarrito.setBounds(420, 350, 460, 50);
 		crearCarrito.setFont(new Font("Arial", Font.BOLD, 20));
 		crearCarrito.setBackground(new Color(255, 230, 0));
@@ -51,12 +51,15 @@ public class CrearCarrito extends JPanel{
 		nombreC.setBounds(420, 270, 460, 50);
 		nombreC.setFont(new Font("Arial", Font.BOLD, 22));
 		
-		crearLabel("Nombre:", 420, 200, 460, 50, Color.black, 20);
-		
 		this.add(crearCarrito);
 		this.add(nombreC);
 		this.add(volver);
 		this.add(arriba);
+	}
+	
+	public void iniciarLabels(String crearCarrito, String nombre) {
+		crearLabel(nombre, 420, 200, 460, 50, Color.black, 20);
+		this.crearCarrito.setText(crearCarrito);
 	}
 	
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

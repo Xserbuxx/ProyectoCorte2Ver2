@@ -100,19 +100,6 @@ public class InicioSesion extends JPanel {
 		botonRegistrarse.setText(registrarse);
 	}
 
-	public void limpiarLabels() {
-		for (Component comp : cajaFondoInicio.getComponents()) {
-			if (comp instanceof JLabel) {
-				cajaFondoInicio.remove(comp);
-			}
-		}
-		botonInicio.setText("");
-		botonRegistrarse.setText("");
-		cajaFondoInicio.revalidate();
-		cajaFondoInicio.repaint();
-
-	}
-
 	public void limpiarCampos() {
 		usuario.setText("");
 		contrasena.setText("");

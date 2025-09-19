@@ -31,12 +31,10 @@ public class AgregarACarrito extends JPanel {
 		arriba.setBackground(new Color(255, 230, 0)); 
 		arriba.setLayout(null);
 		
-		crearLabel("Seleccione el carrito", 450, 30, 300, 30, Color.BLACK, 20);
-		
 		panelProductos = new JPanel();
 		panelProductos.setLayout(new BoxLayout(panelProductos, BoxLayout.Y_AXIS));
 		
-		volver = new JButton("Volver");
+		volver = new JButton();
 		volver.setBounds(50, 25, 250, 50);
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
 		volver.setBackground(new Color(238,238,238));
@@ -51,6 +49,11 @@ public class AgregarACarrito extends JPanel {
 		this.add(volver);
 		this.add(scroll);
 		this.add(arriba);
+	}
+	
+	public void iniciarLabels(String volver, String seleccionarCarrito) {
+		crearLabel(seleccionarCarrito, 450, 30, 300, 30, Color.BLACK, 20);
+		this.volver.setText(volver);
 	}
 	
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

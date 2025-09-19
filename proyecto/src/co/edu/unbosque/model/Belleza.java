@@ -45,7 +45,7 @@ public class Belleza extends Producto{
 	
 	@Override
 	public String toString() {
-		return super.toString()+"Tipo de producto: "+tipoProducto+";"+"Fecha de expiracion: "+fechaExpiracion;
+		return super.toString()+tipoProducto+";"+fechaExpiracion;
 	}
 	
 }

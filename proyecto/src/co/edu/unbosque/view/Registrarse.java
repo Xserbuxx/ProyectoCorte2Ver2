@@ -100,19 +100,6 @@ public class Registrarse extends JPanel {
 		botonInicioSesion.setText(iniciarsesion);
 	}
 
-	public void limpiarLabels() {
-		for (Component comp : cajaFondoRegistro.getComponents()) {
-			if (comp instanceof JLabel) {
-				cajaFondoRegistro.remove(comp);
-			}
-		}
-		botonRegistro.setText("");
-		botonInicioSesion.setText("");
-		cajaFondoRegistro.revalidate();
-		cajaFondoRegistro.repaint();
-
-	}
-
 	public void limpiarCampos() {
 		usuario.setText("");
 		contrasena.setText("");

@@ -36,21 +36,20 @@ public class VentanaFactura extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBounds(50, 50, 750, 600);
 		scroll.setBorder(null);
-		scroll.getVerticalScrollBar().setUnitIncrement(16);
 
 		derecha = new JPanel();
 		derecha.setBounds(830, 50, 400, 600);
 		derecha.setBackground(Color.WHITE);
 		derecha.setLayout(null);
 
-		comprar = new JButton("Comprar");
+		comprar = new JButton();
 		comprar.setBounds(70, 120, 260, 50);
 		comprar.setFont(new Font("Arial", Font.BOLD, 20));
 		comprar.setBackground(new Color(255, 230, 0));
 		comprar.setFocusPainted(false);
 		comprar.setBorderPainted(false);
 
-		volver = new JButton("Volver");
+		volver = new JButton();
 		volver.setBounds(70, 200, 260, 50);
 		volver.setFont(new Font("Arial", Font.BOLD, 20));
 		volver.setBackground(new Color(52, 131, 250)); 
@@ -64,10 +63,15 @@ public class VentanaFactura extends JPanel {
 		this.add(scroll);
 		this.add(derecha);
 	}
+	
+	public void iniciarLabels(String comprarLabel, String volverLabel) {
+		comprar.setText(comprarLabel);
+		volver.setText(volverLabel);
+	}
 
-	public void mostrarTotal(String total) {
+	public void mostrarTotal(String total, String preciototal) {
 		
-		crearLabel("Precio total: $" + total, 50, 40, 300, 40, new Color(51, 51, 51), 20);
+		crearLabel(preciototal + total, 50, 40, 300, 40, new Color(51, 51, 51), 20);
 		
 		this.revalidate();
 		this.repaint();

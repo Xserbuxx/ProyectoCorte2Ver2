@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-public class Recivo extends JPanel {
+public class Recibo extends JPanel {
 
 	private JPanel panelProductos;
 	private JScrollPane scroll;
 	private JButton volver;
 
-	public Recivo() {
+	public Recibo() {
 
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -53,20 +53,22 @@ public class Recivo extends JPanel {
 		scroll.setBounds(470, 150, 400, 340);
 		scroll.setBorder(null);
 
-		crearLabel("Recivo de compra", 490, 60, 300, 30, Color.BLACK, 20);
-		crearLabel("Producto", 480, 110, 200, 30, Color.BLACK, 16);
-		crearLabel("Precio", 720, 110, 200, 30, Color.BLACK, 16);
-
 		this.add(arriba2);
 		this.add(arriba);
 		this.add(abajo);
 		this.add(scroll);
 		this.add(volver);
 	}
+	
+	public void iniciarLabels(String recivocompra, String producto, String precio) {
+		crearLabel(recivocompra, 490, 60, 300, 30, Color.BLACK, 20);
+		crearLabel(producto, 480, 110, 200, 30, Color.BLACK, 16);
+		crearLabel(precio, 720, 110, 200, 30, Color.BLACK, 16);
+	}
 
-	public void mostrarTotal(double total) {
+	public void mostrarTotal(double total, String totalLabel) {
 
-		crearLabel("Precio total: $" + total, 480, 490, 300, 50, new Color(51, 51, 51), 20);
+		crearLabel(totalLabel+ total, 480, 490, 300, 50, new Color(51, 51, 51), 20);
 
 		this.revalidate();
 		this.repaint();
