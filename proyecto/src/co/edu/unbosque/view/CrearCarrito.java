@@ -68,6 +68,7 @@ public class CrearCarrito extends JPanel{
 		label.setForeground(color);
 		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
 		this.add(label);
+		this.setComponentZOrder(label, 0);
 	}
 
 	public JButton getVolver() {

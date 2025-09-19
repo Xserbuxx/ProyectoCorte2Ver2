@@ -70,7 +70,7 @@ public class Registrarse extends JPanel {
 		cajaFondoRegistro.add(botonRegistro);
 
 		botonInicioSesion = new JButton();
-		botonInicioSesion.setBounds(240, 340, 140, 30);
+		botonInicioSesion.setBounds(240, 340, 200, 30);
 		botonInicioSesion.setFont(new Font("Arial", Font.BOLD, 14));
 		botonInicioSesion.setForeground(new Color(0, 102, 204));
 		botonInicioSesion.setContentAreaFilled(false);

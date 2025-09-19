@@ -411,7 +411,7 @@ public class VentanaVenta extends JPanel {
 		crearLabel(nombre, 120, 175, 100, 100, Color.BLACK, 20);
 		crearLabel(descripcion, 120, 275, 200, 100, Color.BLACK, 20);
 		crearLabel(unidades, 120, 375, 100, 100, Color.BLACK, 20);
-		crearLabel(rutaFoto, 700, 75, 100, 100, Color.BLACK, 20);
+		crearLabel(rutaFoto, 700, 75, 300, 100, Color.BLACK, 20);
 		crearLabel(id, 700, 175, 100, 100, Color.BLACK, 20);
 		crearLabel(categoria, 180, 20, 300, 40, Color.BLACK, 20);
 
@@ -434,6 +434,9 @@ public class VentanaVenta extends JPanel {
 
 		categorias.revalidate();
 		categorias.repaint();
+		
+		this.revalidate();
+		this.repaint();
 	}
 
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {

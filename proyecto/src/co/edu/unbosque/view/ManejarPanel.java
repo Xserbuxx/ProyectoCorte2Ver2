@@ -20,6 +20,7 @@ public class ManejarPanel extends JPanel{
 	private ConfirmarCompra cc;
 	private Pago pa;;
 	private Recibo rec;
+	private SeleccionarIdioma si;
 	
 	public ManejarPanel() {
 		iniciarComponentes();
@@ -43,6 +44,7 @@ public class ManejarPanel extends JPanel{
 		cc = new ConfirmarCompra();
 		pa = new Pago();
 		rec = new Recibo();
+		si = new SeleccionarIdioma();
 		
 		this.add(vis, "vis");
 		this.add(reg, "reg");
@@ -168,6 +170,14 @@ public class ManejarPanel extends JPanel{
 
 	public void setRec(Recibo rec) {
 		this.rec = rec;
+	}
+
+	public SeleccionarIdioma getSi() {
+		return si;
+	}
+
+	public void setSi(SeleccionarIdioma si) {
+		this.si = si;
 	}
 	
 }

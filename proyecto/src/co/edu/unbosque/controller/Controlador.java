@@ -32,9 +32,19 @@ public class Controlador implements ActionListener {
 
 	public void runGUI() {
 		prop = new Properties();
-		;
-		prop = FileHandler.cargarArchivoDePropiedades("es.properties");
-		agregarIdioma();
+
+		vp.getMp().getVis().setEnabled(false);
+		vp.getMp().getVis().getUsuario().setEnabled(false);
+		vp.getMp().getVis().getContrasena().setEnabled(false);
+		vp.getMp().getVis().getBotonInicio().setEnabled(false);
+		vp.getMp().getVis().getBotonRegistrarse().setEnabled(false);
+
+		SwingUtilities.invokeLater(() -> {
+			vp.getMp().getVis().add(vp.getMp().getSi());
+			vp.getMp().getVis().setComponentZOrder(vp.getMp().getSi(), 0);
+			vp.actualizar();
+		});
+
 		agregarOyentes();
 
 	}
@@ -123,6 +133,9 @@ public class Controlador implements ActionListener {
 
 		vp.getMp().getRec().getVolver().addActionListener(this);
 		vp.getMp().getRec().getVolver().setActionCommand("Boton Volver Ventana REC");
+
+		vp.getMp().getSi().getContinuar().addActionListener(this);
+		vp.getMp().getSi().getContinuar().setActionCommand("Boton Continuar Seleccionar Idioma");
 	}
 
 	@Override
@@ -356,6 +369,36 @@ public class Controlador implements ActionListener {
 		}
 
 		switch (boton) {
+
+		case "Boton Continuar Seleccionar Idioma":
+			String idioma = vp.getMp().getSi().getComboBox().getSelectedItem().toString();
+
+			switch (idioma) {
+			case "Spanish":
+				prop = FileHandler.cargarArchivoDePropiedades("es.properties");
+				break;
+			case "English":
+				prop = FileHandler.cargarArchivoDePropiedades("en.properties");
+				break;
+			case "Portuguese":
+				prop = FileHandler.cargarArchivoDePropiedades("pt.properties");
+				break;
+			case "Latin":
+				prop = FileHandler.cargarArchivoDePropiedades("la.properties");
+				break;
+			}
+
+			agregarIdioma();
+
+			vp.getMp().getVis().setEnabled(true);
+			vp.getMp().getVis().getUsuario().setEnabled(true);
+			vp.getMp().getVis().getContrasena().setEnabled(true);
+			vp.getMp().getVis().getBotonInicio().setEnabled(true);
+			vp.getMp().getVis().getBotonRegistrarse().setEnabled(true);
+
+			vp.getMp().getVis().remove(vp.getMp().getSi());
+
+			break;
 		case "Boton Registrarse":
 			vp.getMp().mostrarPanel("reg");
 			vp.actualizar();
@@ -505,9 +548,7 @@ public class Controlador implements ActionListener {
 			//////////////////////////////////////////////
 			String selec = vp.getMp().getVen().getCategorias().getSelectedItem().toString();
 
-			switch (selec) {
-
-			case "Seleccione":
+			if (selec.equals(prop.getProperty("categoria.vender.seleccione"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -517,9 +558,9 @@ public class Controlador implements ActionListener {
 				vp.getMp().getVen().limpiarCampos();
 
 				vp.getMp().getVen().mostrarCampos();
-				break;
+			}
 
-			case "Belleza":
+			else if (selec.equals(prop.getProperty("categoria.belleza"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -530,9 +571,7 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarBelleza(prop.getProperty("vender.tipoproductobelleza"),
 						prop.getProperty("vender.fechavencimiento"));
-				break;
-
-			case "Deportes":
+			} else if (selec.equals(prop.getProperty("categoria.deportes"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -543,9 +582,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarDeportes(prop.getProperty("vender.tipodeporte"),
 						prop.getProperty("vender.deportemarca"));
-				break;
 
-			case "Hogar":
+			} else if (selec.equals(prop.getProperty("categoria.hogar"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -556,9 +594,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarHogar(prop.getProperty("vender.materialhogar"),
 						prop.getProperty("vender.tipoproductohogar"));
-				break;
 
-			case "Juguetes":
+			} else if (selec.equals(prop.getProperty("categoria.juguetes"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -569,9 +606,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarJuguetes(prop.getProperty("vender.edadjuguete"),
 						prop.getProperty("vender.materialjuguete"));
-				break;
 
-			case "Libros":
+			} else if (selec.equals(prop.getProperty("categoria.libros"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -581,9 +617,8 @@ public class Controlador implements ActionListener {
 				vp.getMp().getVen().limpiarCampos();
 
 				vp.getMp().getVen().mostrarLibros(prop.getProperty("vender.autor"), prop.getProperty("vender.isbn"));
-				break;
 
-			case "Mascotas":
+			} else if (selec.equals(prop.getProperty("categoria.mascotas"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -594,9 +629,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarMascotas(prop.getProperty("vender.tipoanimal"),
 						prop.getProperty("vender.tamanoanimal"));
-				break;
 
-			case "Musica":
+			} else if (selec.equals(prop.getProperty("categoria.musica"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -607,9 +641,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarMusica(prop.getProperty("vender.artista"),
 						prop.getProperty("vender.formatomusica"));
-				break;
 
-			case "Ropa":
+			} else if (selec.equals(prop.getProperty("categoria.ropa"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -619,9 +652,8 @@ public class Controlador implements ActionListener {
 				vp.getMp().getVen().limpiarCampos();
 
 				vp.getMp().getVen().mostrarRopa(prop.getProperty("vender.talla"), prop.getProperty("vender.color"));
-				break;
 
-			case "Tecnologia":
+			} else if (selec.equals(prop.getProperty("categoria.tecnologia"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -632,9 +664,8 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarTecnologia(prop.getProperty("vender.marcatec"),
 						prop.getProperty("vender.modelotec"));
-				break;
 
-			case "Vehiculos":
+			} else if (selec.equals(prop.getProperty("categoria.vehiculos"))) {
 				vp.getMp().getVen().limpiarLabels(prop.getProperty("vender.categorias"),
 						prop.getProperty("vender.precio"), prop.getProperty("vender.nombre"),
 						prop.getProperty("vender.descripcion"), prop.getProperty("vender.unidades"),
@@ -645,9 +676,6 @@ public class Controlador implements ActionListener {
 
 				vp.getMp().getVen().mostrarVehiculos(prop.getProperty("vender.anove"),
 						prop.getProperty("vender.modelove"));
-				break;
-			default:
-				break;
 			}
 			//////////////////////////////////////////////
 			break;
@@ -1056,17 +1084,18 @@ public class Controlador implements ActionListener {
 				SwingUtilities.invokeLater(() -> {
 					mf.getCaDAO().eliminar(carritoTemp);
 
-					String contenido = prop.getProperty("mensaje.producto")+";"+prop.getProperty("mensaje.precio")+"\n";
+					String contenido = prop.getProperty("mensaje.producto") + ";" + prop.getProperty("mensaje.precio")
+							+ "\n";
 
 					for (Producto producto : carritoTemp.getProductos()) {
 						contenido += producto.getNombre() + ";" + producto.getPrecio() + "\n";
 					}
 
-					contenido += prop.getProperty("mensaje.total")+";" + total + "\n";
+					contenido += prop.getProperty("mensaje.total") + ";" + total + "\n";
 
 					Random random = new Random();
-					FileHandler.escribirEnArchivoTexto(
-							prop.getProperty("mensaje.recibo.carrito") + carritoTemp.getNombre() + "_" + random.nextLong() + ".csv", contenido);
+					FileHandler.escribirEnArchivoTexto(prop.getProperty("mensaje.recibo.carrito")
+							+ carritoTemp.getNombre() + "_" + random.nextLong() + ".csv", contenido);
 
 					vp.mostrarMensaje(prop.getProperty("mensaje.recibo.generado"));
 
@@ -1236,58 +1265,69 @@ public class Controlador implements ActionListener {
 	private void agregarProductosVentanaComprar() {
 		vp.getMp().getCom().limpiarProductos();
 
-		if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.comprar.todo"))) {
+		if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.comprar.todo"))) {
 			mf.agregarProductos();
 			mf.getProductos().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.belleza"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.belleza"))) {
 			mf.getBeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.deportes"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.deportes"))) {
 			mf.getDeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.hogar"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.hogar"))) {
 			mf.getHoDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.juguetes"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.juguetes"))) {
 			mf.getJuDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.libros"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.libros"))) {
 			mf.getLiDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.mascotas"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.mascotas"))) {
 			mf.getMaDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.musica"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.musica"))) {
 			mf.getMuDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.ropa"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.ropa"))) {
 			mf.getRoDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.tecnologia"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.tecnologia"))) {
 			mf.getTeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
 			});
-		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString().equals(prop.getProperty("categoria.vehiculos"))) {
+		} else if (vp.getMp().getCom().getCategorias().getSelectedItem().toString()
+				.equals(prop.getProperty("categoria.vehiculos"))) {
 			mf.getVeDAO().getLista().forEach((producto) -> {
 				vp.getMp().getCom().mostrarProductos(producto.getNombre(), producto.getPrecio(), producto.getRutaFoto(),
 						producto.getId(), this);
