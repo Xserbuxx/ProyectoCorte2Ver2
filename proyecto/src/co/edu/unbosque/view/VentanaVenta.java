@@ -140,20 +140,12 @@ public class VentanaVenta extends JPanel {
 
 		btnExaminar = new JButton();
 		btnExaminar.setBounds(1040, 150, 90, 50);
-		btnExaminar.addActionListener(e -> {
-			JFileChooser fc = new JFileChooser();
-			fc.setFileFilter(new FileNameExtensionFilter("Files (jpg,jpeg,png)", "jpg", "jpeg", "png"));
-
-			if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				rutaFoto.setText(fc.getSelectedFile().getAbsolutePath());
-			}
-		});
+		
 
 		id = new JTextField();
 		id.setBounds(700, 250, 430, 50);
 		id.setFont(new Font("Arial", Font.BOLD, 22));
 
-		this.add(btnExaminar);
 		this.add(precio);
 		this.add(nombre);
 		this.add(descripcion);
@@ -432,6 +424,17 @@ public class VentanaVenta extends JPanel {
 		registrarProducto.setText(registrarproducto);
 		btnExaminar.setText(examinar);
 
+		btnExaminar.addActionListener(e -> {
+			JFileChooser fc = new JFileChooser();
+			fc.setFileFilter(new FileNameExtensionFilter("Files (jpg,jpeg,png)", "jpg", "jpeg", "png"));
+
+			if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				this.rutaFoto.setText(fc.getSelectedFile().getAbsolutePath());
+			}
+		});
+		
+		this.add(btnExaminar);
+		
 		categorias.revalidate();
 		categorias.repaint();
 		
@@ -688,4 +691,8 @@ public class VentanaVenta extends JPanel {
 		this.modeloVE = modeloVE;
 	}
 
+	public JButton getBtnExaminar() {
+		return btnExaminar;
+	}
+	
 }

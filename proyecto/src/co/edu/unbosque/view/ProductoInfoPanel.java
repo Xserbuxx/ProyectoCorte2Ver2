@@ -48,7 +48,7 @@ public class ProductoInfoPanel extends JPanel {
 		volver.setFocusPainted(false);
 
 		agregarCarrito = new JButton();
-		agregarCarrito.setBounds(790, 400, 200, 40);
+		agregarCarrito.setBounds(790, 400, 250, 40);
 		agregarCarrito.setFont(new Font("Arial", Font.BOLD, 18));
 		agregarCarrito.setBackground(new Color(255, 230, 0));
 		agregarCarrito.setFocusPainted(false);

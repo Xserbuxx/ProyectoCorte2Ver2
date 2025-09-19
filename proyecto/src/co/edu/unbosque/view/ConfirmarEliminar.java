@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -29,8 +30,8 @@ public class ConfirmarEliminar extends JPanel {
 		arriba.setBackground(Color.WHITE);
 
 		volver = new JButton(new ImageIcon(
-				new ImageIcon("volver.png").getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
-		volver.setBounds(340, 170, 50, 50);
+				new ImageIcon("volver.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+		volver.setBounds(340, 225, 50, 50);
 		volver.setBorder(new LineBorder(Color.GRAY, 1, true));
 		volver.setBackground(Color.WHITE);
 		volver.setFocusPainted(false);
@@ -41,7 +42,7 @@ public class ConfirmarEliminar extends JPanel {
 	}
 
 	public void iniciarLabels(String mensaje) {
-		crearLabel(mensaje, 425, 260, 460, 50, Color.black, 26);
+		crearLabel(mensaje, 425, 260, 460, 50, Color.black, 20);
 	}
 
 	public void crearBotonEliminar(String nombre, String eliminarC, ActionListener e) {
@@ -65,6 +66,7 @@ public class ConfirmarEliminar extends JPanel {
 		label.setForeground(color);
 		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
 		this.add(label);
+		this.setComponentZOrder(label, 0);
 	}
 
 	public JButton getVolver() {

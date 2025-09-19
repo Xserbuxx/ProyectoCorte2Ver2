@@ -500,10 +500,8 @@ public class Controlador implements ActionListener {
 
 			} catch (NombreException ne) {
 				vp.mostrarError(ne.getMessage());
-				break;
 			} catch (ContrasenaException ce) {
 				vp.mostrarError(ce.getMessage());
-				break;
 			}
 			break;
 		case "Boton Cambiar Modo Compra":
@@ -691,82 +689,68 @@ public class Controlador implements ActionListener {
 			leerIDSExistentes();
 			String seleccion = vp.getMp().getVen().getCategorias().getSelectedItem().toString();
 
-			switch (seleccion) {
-			case "Seleccione":
+			if (seleccion.equals(prop.getProperty("categoria.vender.seleccione"))) {
 				vp.mostrarError(prop.getProperty("error.categoria.invalida"));
-				break;
-			case "Belleza":
+			} else if (seleccion.equals(prop.getProperty("categoria.belleza"))) {
 				Belleza belleza = leerDatosBelleza();
 				if (belleza != null) {
 					mf.getBeDAO().crear(belleza);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Deportes":
+			} else if (seleccion.equals(prop.getProperty("categoria.deportes"))) {
 				Deporte deporte = leerDatosDeportes();
 				if (deporte != null) {
 					mf.getDeDAO().crear(deporte);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Hogar":
+			} else if (seleccion.equals(prop.getProperty("categoria.hogar"))) {
 				Hogar hogar = leerDatosHogar();
 				if (hogar != null) {
 					mf.getHoDAO().crear(hogar);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Juguetes":
+			} else if (seleccion.equals(prop.getProperty("categoria.juguetes"))) {
 				Juguete juguete = leerDatosJuguetes();
 				if (juguete != null) {
 					mf.getJuDAO().crear(juguete);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Libros":
+			} else if (seleccion.equals(prop.getProperty("categoria.libros"))) {
 				Libro libro = leerDatosLibros();
 				if (libro != null) {
 					mf.getLiDAO().crear(libro);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Mascotas":
+			} else if (seleccion.equals(prop.getProperty("categoria.mascotas"))) {
 				Mascotas mascotas = leerDatosMascotas();
 				if (mascotas != null) {
 					mf.getMaDAO().crear(mascotas);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Musica":
+			} else if (seleccion.equals(prop.getProperty("categoria.musica"))) {
 				Musica musica = leerDatosMusica();
 				if (musica != null) {
 					mf.getMuDAO().crear(musica);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Ropa":
+			} else if (seleccion.equals(prop.getProperty("categoria.ropa"))) {
 				Ropa ropa = leerDatosRopa();
 				if (ropa != null) {
 					mf.getRoDAO().crear(ropa);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Tecnologia":
+			} else if (seleccion.equals(prop.getProperty("categoria.tecnologia"))) {
 				Tecnologia tecnologia = leerDatosTecnologia();
 				if (tecnologia != null) {
 					mf.getTeDAO().crear(tecnologia);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			case "Vehiculos":
+			} else if (seleccion.equals(prop.getProperty("categoria.vehiculos"))) {
 				Vehiculos vehiculo = leerDatosVehiculos();
 				if (vehiculo != null) {
 					mf.getVeDAO().crear(vehiculo);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
-				break;
-			default:
-				break;
 			}
 
 			//////////////////////////////////////////////
