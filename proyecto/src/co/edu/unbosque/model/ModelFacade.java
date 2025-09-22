@@ -8,12 +8,12 @@ import co.edu.unbosque.model.persistence.DeporteDAO;
 import co.edu.unbosque.model.persistence.HogarDAO;
 import co.edu.unbosque.model.persistence.JugueteDAO;
 import co.edu.unbosque.model.persistence.LibroDAO;
-import co.edu.unbosque.model.persistence.MascotasDAO;
+import co.edu.unbosque.model.persistence.MascotaDAO;
 import co.edu.unbosque.model.persistence.MusicaDAO;
 import co.edu.unbosque.model.persistence.RopaDAO;
 import co.edu.unbosque.model.persistence.TecnologiaDAO;
 import co.edu.unbosque.model.persistence.UsuarioDAO;
-import co.edu.unbosque.model.persistence.VehiculosDAO;
+import co.edu.unbosque.model.persistence.VehiculoDAO;
 
 public class ModelFacade {
 	
@@ -25,11 +25,11 @@ public class ModelFacade {
 	private HogarDAO hoDAO;
 	private JugueteDAO juDAO;
 	private LibroDAO liDAO;
-	private MascotasDAO maDAO;
+	private MascotaDAO maDAO;
 	private MusicaDAO muDAO;
 	private RopaDAO roDAO;
 	private TecnologiaDAO teDAO;
-	private VehiculosDAO veDAO;
+	private VehiculoDAO veDAO;
 	private CarritoDAO caDAO;
 	
 	public ModelFacade() {
@@ -39,11 +39,11 @@ public class ModelFacade {
 		hoDAO = new HogarDAO();
 		juDAO = new JugueteDAO();
 		liDAO = new LibroDAO();
-		maDAO = new MascotasDAO();
+		maDAO = new MascotaDAO();
 		muDAO = new MusicaDAO();
 		roDAO = new RopaDAO();
 		teDAO = new TecnologiaDAO();
-		veDAO = new VehiculosDAO();
+		veDAO = new VehiculoDAO();
 		caDAO = new CarritoDAO();
 		productos = new ArrayList<>();
 	}
@@ -139,11 +139,11 @@ public class ModelFacade {
 		this.liDAO = liDAO;
 	}
 
-	public MascotasDAO getMaDAO() {
+	public MascotaDAO getMaDAO() {
 		return maDAO;
 	}
 
-	public void setMaDAO(MascotasDAO maDAO) {
+	public void setMaDAO(MascotaDAO maDAO) {
 		this.maDAO = maDAO;
 	}
 
@@ -171,11 +171,11 @@ public class ModelFacade {
 		this.teDAO = teDAO;
 	}
 
-	public VehiculosDAO getVeDAO() {
+	public VehiculoDAO getVeDAO() {
 		return veDAO;
 	}
 
-	public void setVeDAO(VehiculosDAO veDAO) {
+	public void setVeDAO(VehiculoDAO veDAO) {
 		this.veDAO = veDAO;
 	}
 

@@ -1,14 +1,14 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
-import co.edu.unbosque.model.Mascotas;
+import co.edu.unbosque.model.Mascota;
 
-public class MascotasDAO implements DAO<Mascotas> {
+public class MascotaDAO implements DAO<Mascota> {
 
-	private ArrayList<Mascotas> lista;
+	private ArrayList<Mascota> lista;
 	private String SERIAL_FILE_NAME = "mascotas.secn";
 
-	public MascotasDAO() {
+	public MascotaDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
@@ -18,7 +18,7 @@ public class MascotasDAO implements DAO<Mascotas> {
 		try {
 			Object contenido = FileHandler.leerArchivoSerializado(SERIAL_FILE_NAME);
 			if (contenido != null) {
-				lista = (ArrayList<Mascotas>) contenido;
+				lista = (ArrayList<Mascota>) contenido;
 			} else {
 				lista = new ArrayList<>();
 			}
@@ -33,13 +33,13 @@ public class MascotasDAO implements DAO<Mascotas> {
 	}
 
 	@Override
-	public void crear(Mascotas nuevoDato) {
+	public void crear(Mascota nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
 	@Override
-	public boolean actualizar(int indice, Mascotas actualizarDato) {
+	public boolean actualizar(int indice, Mascota actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
 			return false;
 		} else {
@@ -60,7 +60,7 @@ public class MascotasDAO implements DAO<Mascotas> {
 		}
 	}
 	
-	public boolean eliminar(Mascotas producto) {
+	public boolean eliminar(Mascota producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -70,7 +70,7 @@ public class MascotasDAO implements DAO<Mascotas> {
 		}
 	}
 	
-	public boolean bajarUnidades(Mascotas producto) {
+	public boolean bajarUnidades(Mascota producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -81,7 +81,7 @@ public class MascotasDAO implements DAO<Mascotas> {
 		}
 	}
 	
-	public boolean subirUnidades(Mascotas producto) {
+	public boolean subirUnidades(Mascota producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -95,7 +95,7 @@ public class MascotasDAO implements DAO<Mascotas> {
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
-		for (Mascotas mascota : lista) {
+		for (Mascota mascota : lista) {
 			contenido.append(mascota.toString()).append("\n");
 		}
 		return contenido.toString();
@@ -106,11 +106,11 @@ public class MascotasDAO implements DAO<Mascotas> {
 		return lista.size();
 	}
 
-	public ArrayList<Mascotas> getLista() {
+	public ArrayList<Mascota> getLista() {
 		return lista;
 	}
 
-	public void setLista(ArrayList<Mascotas> lista) {
+	public void setLista(ArrayList<Mascota> lista) {
 		this.lista = lista;
 	}
 }

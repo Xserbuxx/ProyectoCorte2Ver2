@@ -30,6 +30,11 @@ public class Controlador implements ActionListener {
 		vp = new VentanaPrincipal();
 	}
 
+	/**
+	 * Método que inicia la interfaz gráfica del usuario (GUI). Configura las
+	 * propiedades iniciales de la vista y registra los oyentes de eventos.
+	 */
+
 	public void runGUI() {
 		prop = new Properties();
 
@@ -48,6 +53,12 @@ public class Controlador implements ActionListener {
 		agregarOyentes();
 
 	}
+
+	/**
+	 * Método que registra los oyentes para los componentes interactivos de la
+	 * vista. Asocia cada componente con una acción específica que será manejada a
+	 * través de eventos.
+	 */
 
 	private void agregarOyentes() {
 		vp.getMp().getVis().getBotonRegistrarse().addActionListener(this);
@@ -138,6 +149,11 @@ public class Controlador implements ActionListener {
 		vp.getMp().getSi().getContinuar().setActionCommand("Boton Continuar Seleccionar Idioma");
 	}
 
+	/**
+	 * Método manejador de eventos que responde a las interacciones de los usuarios
+	 * con los componentes de la interfaz gráfica.
+	 */
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String boton = e.getActionCommand();
@@ -186,7 +202,7 @@ public class Controlador implements ActionListener {
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.autor") + atributo1, prop.getProperty("vender.isbn") + atributo2,
 							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
-				} else if (producto instanceof Mascotas) {
+				} else if (producto instanceof Mascota) {
 					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.tipoanimal") + atributo1,
@@ -209,7 +225,7 @@ public class Controlador implements ActionListener {
 							prop.getProperty("vender.marcatec") + atributo1,
 							prop.getProperty("vender.modelotec") + atributo2,
 							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
-				} else if (producto instanceof Vehiculos) {
+				} else if (producto instanceof Vehiculo) {
 					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.anove") + atributo1,
@@ -722,7 +738,7 @@ public class Controlador implements ActionListener {
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 			} else if (seleccion.equals(prop.getProperty("categoria.mascotas"))) {
-				Mascotas mascotas = leerDatosMascotas();
+				Mascota mascotas = leerDatosMascotas();
 				if (mascotas != null) {
 					mf.getMaDAO().crear(mascotas);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
@@ -746,7 +762,7 @@ public class Controlador implements ActionListener {
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
 				}
 			} else if (seleccion.equals(prop.getProperty("categoria.vehiculos"))) {
-				Vehiculos vehiculo = leerDatosVehiculos();
+				Vehiculo vehiculo = leerDatosVehiculos();
 				if (vehiculo != null) {
 					mf.getVeDAO().crear(vehiculo);
 					vp.mostrarMensaje(prop.getProperty("mensaje.producto.registrado"));
@@ -909,7 +925,7 @@ public class Controlador implements ActionListener {
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.autor") + atributo1, prop.getProperty("vender.isbn") + atributo2,
 							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
-				} else if (producto instanceof Mascotas) {
+				} else if (producto instanceof Mascota) {
 					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.tipoanimal") + atributo1,
@@ -932,7 +948,7 @@ public class Controlador implements ActionListener {
 							prop.getProperty("vender.marcatec") + atributo1,
 							prop.getProperty("vender.modelotec") + atributo2,
 							prop.getProperty("producto.info.informacion"), prop.getProperty("producto.info.unidades"));
-				} else if (producto instanceof Vehiculos) {
+				} else if (producto instanceof Vehiculo) {
 					vp.getMp().getPip().mostrarProductoInfo(producto.getPrecio(), producto.getNombre(),
 							producto.getDescripcion(), producto.getUnidades(), producto.getRutaFoto(),
 							prop.getProperty("vender.anove") + atributo1,
@@ -1130,6 +1146,12 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Busca un producto en la lista de productos disponibles utilizando su
+	 * identificador único (ID). Si el producto es encontrado, se almacena en una
+	 * variable temporal para su posterior uso.
+	 */
+
 	private void encontrarProducto(int id) {
 		mf.agregarProductos();
 		for (Producto producto : mf.getProductos()) {
@@ -1138,6 +1160,11 @@ public class Controlador implements ActionListener {
 			}
 		}
 	}
+
+	/**
+	 * Actualiza la vista con la lista de carritos asociados al usuario actual.
+	 * Filtra los carritos según el texto ingresado en el campo de búsqueda.
+	 */
 
 	private void agregarCarritos() {
 		vp.getMp().getCar().eliminarCarritos();
@@ -1149,6 +1176,11 @@ public class Controlador implements ActionListener {
 		});
 		vp.actualizar();
 	}
+	
+    /**
+     * Agrega los carritos del usuario actual al panel de información del producto (PIP).
+     * Los carritos se muestran en una sección específica para su selección y uso.
+     */
 
 	private void agregarCarritosPip() {
 		// pasar codigo a view
@@ -1162,6 +1194,10 @@ public class Controlador implements ActionListener {
 		vp.getMp().getAca().getScroll().revalidate();
 		vp.getMp().getAca().getScroll().repaint();
 	}
+	
+	/**
+     * Elimina un producto del modelo y actualiza la lista de productos disponibles.
+     */
 
 	private void eliminarProducto(Producto producto) {
 		if (producto instanceof Belleza) {
@@ -1174,20 +1210,25 @@ public class Controlador implements ActionListener {
 			mf.getJuDAO().eliminar((Juguete) producto);
 		} else if (producto instanceof Libro) {
 			mf.getLiDAO().eliminar((Libro) producto);
-		} else if (producto instanceof Mascotas) {
-			mf.getMaDAO().eliminar((Mascotas) producto);
+		} else if (producto instanceof Mascota) {
+			mf.getMaDAO().eliminar((Mascota) producto);
 		} else if (producto instanceof Musica) {
 			mf.getMuDAO().eliminar((Musica) producto);
 		} else if (producto instanceof Ropa) {
 			mf.getRoDAO().eliminar((Ropa) producto);
 		} else if (producto instanceof Tecnologia) {
 			mf.getTeDAO().eliminar((Tecnologia) producto);
-		} else if (producto instanceof Vehiculos) {
-			mf.getVeDAO().eliminar((Vehiculos) producto);
+		} else if (producto instanceof Vehiculo) {
+			mf.getVeDAO().eliminar((Vehiculo) producto);
 		}
 		mf.agregarProductos();
 	}
-
+	
+    /**
+     * Reduce el número de unidades disponibles de un producto en el modelo.
+     * Actualiza la información en el almacenamiento persistente.
+     */
+	
 	private void bajarUnidadesProductos() {
 		if (productoTemp instanceof Belleza) {
 			mf.getBeDAO().bajarUnidades((Belleza) productoTemp);
@@ -1199,21 +1240,26 @@ public class Controlador implements ActionListener {
 			mf.getJuDAO().bajarUnidades((Juguete) productoTemp);
 		} else if (productoTemp instanceof Libro) {
 			mf.getLiDAO().bajarUnidades((Libro) productoTemp);
-		} else if (productoTemp instanceof Mascotas) {
-			mf.getMaDAO().bajarUnidades((Mascotas) productoTemp);
+		} else if (productoTemp instanceof Mascota) {
+			mf.getMaDAO().bajarUnidades((Mascota) productoTemp);
 		} else if (productoTemp instanceof Musica) {
 			mf.getMuDAO().bajarUnidades((Musica) productoTemp);
 		} else if (productoTemp instanceof Ropa) {
 			mf.getRoDAO().bajarUnidades((Ropa) productoTemp);
 		} else if (productoTemp instanceof Tecnologia) {
 			mf.getTeDAO().bajarUnidades((Tecnologia) productoTemp);
-		} else if (productoTemp instanceof Vehiculos) {
-			mf.getVeDAO().bajarUnidades((Vehiculos) productoTemp);
+		} else if (productoTemp instanceof Vehiculo) {
+			mf.getVeDAO().bajarUnidades((Vehiculo) productoTemp);
 		}
 		mf.agregarProductos();
 
 	}
-
+	
+    /**
+     * Aumenta el número de unidades disponibles de un producto en el modelo.
+     * Actualiza la información en el almacenamiento persistente.
+     */	
+	
 	private void subirUnidadesProductos() {
 		for (Carrito carrito : mf.getCaDAO().getLista()) {
 			if (carrito.getNombre().equals(carritoTemp.getNombre())) {
@@ -1228,16 +1274,16 @@ public class Controlador implements ActionListener {
 						mf.getJuDAO().subirUnidades((Juguete) producto);
 					} else if (producto instanceof Libro) {
 						mf.getLiDAO().subirUnidades((Libro) producto);
-					} else if (producto instanceof Mascotas) {
-						mf.getMaDAO().subirUnidades((Mascotas) producto);
+					} else if (producto instanceof Mascota) {
+						mf.getMaDAO().subirUnidades((Mascota) producto);
 					} else if (producto instanceof Musica) {
 						mf.getMuDAO().subirUnidades((Musica) producto);
 					} else if (producto instanceof Ropa) {
 						mf.getRoDAO().subirUnidades((Ropa) producto);
 					} else if (producto instanceof Tecnologia) {
 						mf.getTeDAO().subirUnidades((Tecnologia) producto);
-					} else if (producto instanceof Vehiculos) {
-						mf.getVeDAO().subirUnidades((Vehiculos) producto);
+					} else if (producto instanceof Vehiculo) {
+						mf.getVeDAO().subirUnidades((Vehiculo) producto);
 					}
 				}
 			}
@@ -1245,7 +1291,12 @@ public class Controlador implements ActionListener {
 		}
 
 	}
-
+	
+    /**
+     * Muestra los productos disponibles en la ventana de compra según la categoría seleccionada por el usuario.
+     * Si se selecciona "Todo", se muestran todos los productos.
+     */
+	
 	private void agregarProductosVentanaComprar() {
 		vp.getMp().getCom().limpiarProductos();
 
@@ -1319,6 +1370,11 @@ public class Controlador implements ActionListener {
 		}
 		vp.actualizar();
 	}
+	
+    /**
+     * Lee los identificadores únicos (IDs) de los productos existentes en el sistema.
+     * Los IDs se almacenan en una lista para evitar duplicados al registrar nuevos productos.
+     */
 
 	private void leerIDSExistentes() {
 		mf.agregarProductos();
@@ -1327,6 +1383,11 @@ public class Controlador implements ActionListener {
 			idsExistentes.add(producto.getId());
 		});
 	}
+	
+    /**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Belleza.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
 
 	private Belleza leerDatosBelleza() {
 		try {
@@ -1371,7 +1432,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+    /**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Deporte.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */	
+	
 	private Deporte leerDatosDeportes() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1411,7 +1477,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Hogar.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
 	private Hogar leerDatosHogar() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1451,7 +1522,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Juguete.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
 	private Juguete leerDatosJuguetes() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1492,7 +1568,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Libro.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
 	private Libro leerDatosLibros() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1535,8 +1616,13 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
-	private Mascotas leerDatosMascotas() {
+	
+	 /**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Mascotas.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
+	private Mascota leerDatosMascotas() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
 			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
@@ -1557,7 +1643,7 @@ public class Controlador implements ActionListener {
 			String tamano = vp.getMp().getVen().getTamano().getText();
 			LanzadorExcepciones.verificarTextoVacio(tamano, prop.getProperty("error.verificartextovacio"));
 
-			return new Mascotas(nombre, descripcion, rutaFoto, id, unidades, precio, tipoAnimal, tamano);
+			return new Mascota(nombre, descripcion, rutaFoto, id, unidades, precio, tipoAnimal, tamano);
 
 		} catch (InputMismatchException ime) {
 			vp.mostrarError(prop.getProperty("error.mismatch"));
@@ -1575,7 +1661,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	 /**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Música.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */	
+	
 	private Musica leerDatosMusica() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1619,6 +1710,12 @@ public class Controlador implements ActionListener {
 		return null;
 	}
 
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Tecnología.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
 	private Ropa leerDatosRopa() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1658,7 +1755,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Vehículos.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
 	private Tecnologia leerDatosTecnologia() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
@@ -1698,8 +1800,13 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
-	private Vehiculos leerDatosVehiculos() {
+	
+	/**
+     * Lee los datos ingresados por el usuario para crear un producto de tipo Vehículos.
+     * Valida que los datos cumplan con los requisitos antes de crear el objeto.
+     */
+	
+	private Vehiculo leerDatosVehiculos() {
 		try {
 			String nombre = vp.getMp().getVen().getNombre().getText();
 			LanzadorExcepciones.verificarTextoVacio(nombre, prop.getProperty("error.verificartextovacio"));
@@ -1720,7 +1827,7 @@ public class Controlador implements ActionListener {
 			String modelo = vp.getMp().getVen().getModeloVE().getText();
 			LanzadorExcepciones.verificarTextoVacio(modelo, prop.getProperty("error.verificartextovacio"));
 
-			return new Vehiculos(nombre, descripcion, rutaFoto, id, unidades, precio, anio, modelo);
+			return new Vehiculo(nombre, descripcion, rutaFoto, id, unidades, precio, anio, modelo);
 
 		} catch (InputMismatchException ime) {
 			vp.mostrarError(prop.getProperty("error.mismatch"));
@@ -1738,7 +1845,12 @@ public class Controlador implements ActionListener {
 
 		return null;
 	}
-
+	
+	/**
+     * Configura los textos de la vista en el idioma seleccionado por el usuario.
+     * Los textos se obtienen de un archivo de propiedades según el idioma elegido.
+     */
+	
 	private void agregarIdioma() {
 		vp.getMp().getVis().mostrarLabels(prop.getProperty("iniciosesion.titulo"),
 				prop.getProperty("iniciosesion.usuario"), prop.getProperty("iniciosesion.contrasena"),

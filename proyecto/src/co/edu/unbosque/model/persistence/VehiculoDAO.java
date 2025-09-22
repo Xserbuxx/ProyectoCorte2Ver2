@@ -1,14 +1,14 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
-import co.edu.unbosque.model.Vehiculos;
+import co.edu.unbosque.model.Vehiculo;
 
-public class VehiculosDAO implements DAO<Vehiculos> {
+public class VehiculoDAO implements DAO<Vehiculo> {
 
-	private ArrayList<Vehiculos> lista;
+	private ArrayList<Vehiculo> lista;
 	private String SERIAL_FILE_NAME = "vehiculos.secn";
 
-	public VehiculosDAO() {
+	public VehiculoDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
@@ -18,7 +18,7 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 		try {
 			Object contenido = FileHandler.leerArchivoSerializado(SERIAL_FILE_NAME);
 			if (contenido != null) {
-				lista = (ArrayList<Vehiculos>) contenido;
+				lista = (ArrayList<Vehiculo>) contenido;
 			} else {
 				lista = new ArrayList<>();
 			}
@@ -33,13 +33,13 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 	}
 
 	@Override
-	public void crear(Vehiculos nuevoDato) {
+	public void crear(Vehiculo nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
 	@Override
-	public boolean actualizar(int indice, Vehiculos actualizarDato) {
+	public boolean actualizar(int indice, Vehiculo actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
 			return false;
 		} else {
@@ -60,7 +60,7 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 		}
 	}
 	
-	public boolean eliminar(Vehiculos producto) {
+	public boolean eliminar(Vehiculo producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -70,7 +70,7 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 		}
 	}
 	
-	public boolean bajarUnidades(Vehiculos producto) {
+	public boolean bajarUnidades(Vehiculo producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -81,7 +81,7 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 		}
 	}
 	
-	public boolean subirUnidades(Vehiculos producto) {
+	public boolean subirUnidades(Vehiculo producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
 		} else {
@@ -95,7 +95,7 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
-		for (Vehiculos vehiculo : lista) {
+		for (Vehiculo vehiculo : lista) {
 			contenido.append(vehiculo.toString()).append("\n");
 		}
 		return contenido.toString();
@@ -106,11 +106,11 @@ public class VehiculosDAO implements DAO<Vehiculos> {
 		return lista.size();
 	}
 
-	public ArrayList<Vehiculos> getLista() {
+	public ArrayList<Vehiculo> getLista() {
 		return lista;
 	}
 
-	public void setLista(ArrayList<Vehiculos> lista) {
+	public void setLista(ArrayList<Vehiculo> lista) {
 		this.lista = lista;
 	}
 }

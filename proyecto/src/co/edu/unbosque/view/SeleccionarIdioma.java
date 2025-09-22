@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 
 public class SeleccionarIdioma extends JPanel {
 	
-	JComboBox<String> comboBox;
-	JButton continuar;
+	private JComboBox<String> comboBox;
+	private JButton continuar;
 
 	public SeleccionarIdioma() {
 		this.setBounds(0, 0, 1280, 720);

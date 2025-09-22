@@ -1,26 +1,26 @@
 package co.edu.unbosque.model;
 
-public class Mascotas extends Producto {
+public class Mascota extends Producto {
 
 	private String tipoAnimal;
 	private String tamaño;
 
-	public Mascotas() {
+	public Mascota() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mascotas(String tipoAnimal, String tamaño) {
+	public Mascota(String tipoAnimal, String tamaño) {
 		super();
 		this.tipoAnimal = tipoAnimal;
 		this.tamaño = tamaño;
 	}
 
-	public Mascotas(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio) {
+	public Mascota(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio) {
 		super(nombre, descripcion, rutaFoto, id, unidades, precio);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mascotas(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio,
+	public Mascota(String nombre, String descripcion, String rutaFoto, int id, int unidades, double precio,
 			String tipoAnimal, String tamaño) {
 		super(nombre, descripcion, rutaFoto, id, unidades, precio);
 		this.tipoAnimal = tipoAnimal;

@@ -31,4 +31,21 @@ public class Deporte extends Producto {
 	public String toString() {
 		return super.toString()+tipoDeporte+";"+marca;
 	}
+
+	public String getTipoDeporte() {
+		return tipoDeporte;
+	}
+
+	public void setTipoDeporte(String tipoDeporte) {
+		this.tipoDeporte = tipoDeporte;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	
 }
