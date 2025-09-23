@@ -17,8 +17,6 @@ public class BellezaDAO implements DAO<Belleza> {
 	@Override
 	public void cargarArchivoSerializado() {
 		
-		//quitar try en todos los daos
-		
 		try {
 			Object contenido = FileHandler.leerArchivoSerializado(SERIAL_FILE_NAME);
 			if (contenido != null) {
