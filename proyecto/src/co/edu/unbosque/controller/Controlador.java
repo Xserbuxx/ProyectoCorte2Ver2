@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 
 import co.edu.unbosque.model.*;
 import co.edu.unbosque.model.persistence.FileHandler;
-import co.edu.unbosque.util.persistence.*;
+import co.edu.unbosque.util.exception.*;
 import co.edu.unbosque.view.VentanaPrincipal;
 
 public class Controlador implements ActionListener {

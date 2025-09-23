@@ -1,4 +1,4 @@
-package co.edu.unbosque.util.persistence;
+package co.edu.unbosque.util.exception;
 
 public class ContrasenaException extends Exception{
 	
