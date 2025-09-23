@@ -8,11 +8,17 @@ public class JugueteDAO implements DAO<Juguete> {
 	private ArrayList<Juguete> lista;
 	private String SERIAL_FILE_NAME = "juguete.secn";
 
+	/**
+	 * Constructor que inicializa la lista y carga el archivo serializado.
+	 */
 	public JugueteDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
 
+	/**
+	 * Carga la lista desde el archivo serializado.
+	 */
 	@Override
 	public void cargarArchivoSerializado() {
 		try {
@@ -27,17 +33,26 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 
+	/**
+	 * Escribe la lista en el archivo serializado.
+	 */
 	@Override
 	public void escribirArchivoSerializado() {
 		FileHandler.escribirArchivoSerializado(SERIAL_FILE_NAME, lista);
 	}
 
+	/**
+	 * Crea un nuevo registro de Juguete y persiste el cambio.
+	 */
 	@Override
 	public void crear(Juguete nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
+	/**
+	 * Actualiza un registro en la posición indicada.
+	 */
 	@Override
 	public boolean actualizar(int indice, Juguete actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -49,6 +64,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 
+	/**
+	 * Elimina el registro en la posición indicada.
+	 */
 	@Override
 	public boolean eliminar(int indice) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -60,6 +78,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 	
+	/**
+	 * Elimina el producto indicado de la lista.
+	 */
 	public boolean eliminar(Juguete producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -70,6 +91,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 	
+	/**
+	 * Disminuye en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean bajarUnidades(Juguete producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -81,6 +105,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 	
+	/**
+	 * Aumenta en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean subirUnidades(Juguete producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -92,6 +119,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		}
 	}
 	
+	/**
+	 * Devuelve el contenido de la lista como texto (una línea por producto).
+	 */
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
@@ -101,6 +131,9 @@ public class JugueteDAO implements DAO<Juguete> {
 		return contenido.toString();
 	}
 
+	/**
+	 * Devuelve el número de elementos en la lista.
+	 */
 	@Override
 	public int contar() {
 		return lista.size();

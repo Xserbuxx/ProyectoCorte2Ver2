@@ -8,11 +8,17 @@ public class MusicaDAO implements DAO<Musica> {
 	private ArrayList<Musica> lista;
 	private String SERIAL_FILE_NAME = "musica.secn";
 
+	/**
+	 * Constructor que inicializa la lista y carga el archivo serializado.
+	 */
 	public MusicaDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
 
+	/**
+	 * Carga la lista desde el archivo serializado.
+	 */
 	@Override
 	public void cargarArchivoSerializado() {
 		try {
@@ -27,17 +33,26 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 
+	/**
+	 * Escribe la lista en el archivo serializado.
+	 */
 	@Override
 	public void escribirArchivoSerializado() {
 		FileHandler.escribirArchivoSerializado(SERIAL_FILE_NAME, lista);
 	}
 
+	/**
+	 * Crea un nuevo registro de Musica y persiste el cambio.
+	 */
 	@Override
 	public void crear(Musica nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
+	/**
+	 * Actualiza un registro en la posición indicada.
+	 */
 	@Override
 	public boolean actualizar(int indice, Musica actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -49,6 +64,9 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 
+	/**
+	 * Elimina el registro en la posición indicada.
+	 */
 	@Override
 	public boolean eliminar(int indice) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -60,6 +78,9 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 	
+	/**
+	 * Elimina el producto indicado de la lista.
+	 */
 	public boolean eliminar(Musica producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -70,6 +91,9 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 	
+	/**
+	 * Disminuye en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean bajarUnidades(Musica producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -81,6 +105,9 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 	
+	/**
+	 * Aumenta en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean subirUnidades(Musica producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -92,6 +119,9 @@ public class MusicaDAO implements DAO<Musica> {
 		}
 	}
 
+	/**
+	 * Devuelve el contenido de la lista como texto (una línea por producto).
+	 */
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
@@ -101,6 +131,9 @@ public class MusicaDAO implements DAO<Musica> {
 		return contenido.toString();
 	}
 
+	/**
+	 * Devuelve el número de elementos en la lista.
+	 */
 	@Override
 	public int contar() {
 		return lista.size();

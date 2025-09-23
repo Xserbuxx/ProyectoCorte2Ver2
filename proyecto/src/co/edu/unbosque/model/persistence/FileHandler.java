@@ -26,7 +26,9 @@ public class FileHandler {
 	public static Properties prop;
 
 
-	public static void escribirEnArchivoTexto(String url, String contenido) {
+	/**
+	 * Escribe contenido en un archivo de texto (sobrescribe).
+	 */	public static void escribirEnArchivoTexto(String url, String contenido) {
 		try {
 			archivo = new File(url);
 			if (!archivo.exists()) {
@@ -42,31 +44,18 @@ public class FileHandler {
 		}
 	}
 
-	public static String leerArchivoTexto(String url) {
-		try {
-			archivo = new File(url);
-			if (!archivo.exists()) {
-				archivo.createNewFile();
-			}
+	/**
+	 * Lee todo el contenido de un archivo de texto y devuelve como String.
+	 */	public static String leerArchivoTexto(String url) {		try {			archivo = new File(url);			if (!archivo.exists()) {				archivo.createNewFile();			}
+			lector = new Scanner(archivo);
+			String contenido = "";
+			while (lector.hasNext()) {				contenido += lector.nextLine() + "\n";			}
+			lector.close();			return contenido;
+		} catch (IOException e) {			System.out.println("Error al crear y leer el archivo de texto" + "\n" + e.getMessage());			return null;		}	}
 
-			lector = new Scanner(archivo);
-
-			String contenido = "";
-
-			while (lector.hasNext()) {
-				contenido += lector.nextLine() + "\n";
-			}
-
-			lector.close();
-			return contenido;
-
-		} catch (IOException e) {
-			System.out.println("Error al crear y leer el archivo de texto" + "\n" + e.getMessage());
-			return null;
-		}
-	}
-
-	public static void escribirArchivoSerializado(String url, Object contenido) {
+	/**
+	 * Escribe un objeto serializado en disco.
+	 */	public static void escribirArchivoSerializado(String url, Object contenido) {
 		try {
 			archivo = new File(url);
 			if (!archivo.exists()) {
@@ -83,64 +72,9 @@ public class FileHandler {
 			System.out.println("Error al crear y escribir el archivo serializado" + "\n" );
 			e.printStackTrace();
 		}
-	}
-	
-	public static Object leerArchivoSerializado(String url) {
-		try {
-			archivo = new File(url);
-			if (!archivo.exists()) {
-				archivo.createNewFile();
-			}
-
-			fis = new FileInputStream(archivo);
-			ois = new ObjectInputStream(fis);
-			Object contenido = ois.readObject();
-			ois.close();
-			fis.close();
-			return contenido;
-
-		} catch (EOFException e) {
-			return null;
-		} catch (ClassNotFoundException e) {
-			System.out.println("Error al deserializar los datos del archivo: " + "\n");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("Error al leer archivo deserializado" + "\n");
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static Properties cargarArchivoDePropiedades(String url) {
-		try {
-			archivo = new File(url);
-			if (!archivo.exists()) {
-				archivo.createNewFile();
-			}
-			
-			prop = new Properties();
-			prop.load(new FileInputStream(archivo));
-			return prop;
-		} catch (Exception e) {
-			System.out.println("Error al cargar el archivo de propiedades");
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static void escribirArchivoDePropiedades(String url, Properties propiedades) {
-		try {
-			archivo = new File(url);
-			if (!archivo.exists()) {
-				archivo.createNewFile();
-			}
-			
-			prop = new Properties();
-			prop.load(new FileInputStream(archivo));
-		} catch (Exception e) {
-			System.out.println("Error al cargar el archivo de propiedades");
-			e.printStackTrace();
-		}
-	}
-
+	}	/**
+	 * Lee y devuelve un objeto deserializado desde disco; devuelve null si el archivo está vacío.	 */	public static Object leerArchivoSerializado(String url) {		try {			archivo = new File(url);			if (!archivo.exists()) {				archivo.createNewFile();			}
+			fis = new FileInputStream(archivo);			ois = new ObjectInputStream(fis);			Object contenido = ois.readObject();			ois.close();			fis.close();			return contenido;
+		} catch (EOFException e) {			return null;		} catch (ClassNotFoundException e) {			System.out.println("Error al deserializar los datos del archivo: " + "\n");			e.printStackTrace();		} catch (IOException e) {			System.out.println("Error al leer archivo deserializado" + "\n");			e.printStackTrace();		}		return null;	}	/**
+	 * Carga un archivo de propiedades y lo devuelve como Properties.	 */	public static Properties cargarArchivoDePropiedades(String url) {		try {			archivo = new File(url);			if (!archivo.exists()) {				archivo.createNewFile();			}						prop = new Properties();			prop.load(new FileInputStream(archivo));			return prop;		} catch (Exception e) {			System.out.println("Error al cargar el archivo de propiedades");			e.printStackTrace();		}		return null;	}
 }

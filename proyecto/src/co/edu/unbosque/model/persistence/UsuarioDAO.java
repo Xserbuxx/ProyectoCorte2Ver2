@@ -8,11 +8,17 @@ public class UsuarioDAO implements DAO<Usuario> {
 	private ArrayList<Usuario> lista;
 	private String SERIAL_FILE_NAME = "usuario.secn";
 
+	/**
+	 * Constructor que inicializa la lista y carga el archivo serializado.
+	 */
 	public UsuarioDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
 
+	/**
+	 * Carga la lista desde el archivo serializado.
+	 */
 	@Override
 	public void cargarArchivoSerializado() {
 		try {
@@ -27,17 +33,26 @@ public class UsuarioDAO implements DAO<Usuario> {
 		}
 	}
 
+	/**
+	 * Escribe la lista en el archivo serializado.
+	 */
 	@Override
 	public void escribirArchivoSerializado() {
 		FileHandler.escribirArchivoSerializado(SERIAL_FILE_NAME, lista);
 	}
 
+	/**
+	 * Crea un nuevo usuario y persiste el cambio.
+	 */
 	@Override
 	public void crear(Usuario nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
+	/**
+	 * Actualiza un usuario en la posición indicada.
+	 */
 	@Override
 	public boolean actualizar(int indice, Usuario actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -49,6 +64,9 @@ public class UsuarioDAO implements DAO<Usuario> {
 		}
 	}
 
+	/**
+	 * Elimina el usuario en la posición indicada.
+	 */
 	@Override
 	public boolean eliminar(int indice) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -60,6 +78,9 @@ public class UsuarioDAO implements DAO<Usuario> {
 		}
 	}
 
+	/**
+	 * Devuelve la representación en texto de todos los usuarios.
+	 */
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
@@ -69,6 +90,9 @@ public class UsuarioDAO implements DAO<Usuario> {
 		return contenido.toString();
 	}
 
+	/**
+	 * Devuelve el número de usuarios almacenados.
+	 */
 	@Override
 	public int contar() {
 		return lista.size();

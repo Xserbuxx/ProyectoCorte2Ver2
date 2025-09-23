@@ -9,11 +9,17 @@ public class BellezaDAO implements DAO<Belleza> {
 	private ArrayList<Belleza> lista;
 	private String SERIAL_FILE_NAME = "belleza.secn";
 
+	/**
+	 * Constructor que inicializa la lista y carga el archivo serializado.
+	 */
 	public BellezaDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
 
+	/**
+	 * Carga la lista desde el archivo serializado.
+	 */
 	@Override
 	public void cargarArchivoSerializado() {
 		
@@ -29,11 +35,17 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 
+	/**
+	 * Escribe la lista en el archivo serializado.
+	 */
 	@Override
 	public void escribirArchivoSerializado() {
 		FileHandler.escribirArchivoSerializado(SERIAL_FILE_NAME, lista);
 	}
 
+	/**
+	 * Crea un nuevo registro de Belleza y persiste el cambio.
+	 */
 	@Override
 	public void crear(Belleza nuevoDato) {
 		lista.add(nuevoDato);
@@ -41,6 +53,9 @@ public class BellezaDAO implements DAO<Belleza> {
 
 	}
 
+	/**
+	 * Actualiza un registro en la posición indicada.
+	 */
 	@Override
 	public boolean actualizar(int indice, Belleza actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -52,6 +67,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 
+	/**
+	 * Elimina el registro en la posición indicada.
+	 */
 	@Override
 	public boolean eliminar(int indice) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -63,6 +81,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 	
+	/**
+	 * Elimina el producto indicado de la lista.
+	 */
 	public boolean eliminar(Belleza producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -73,6 +94,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 	
+	/**
+	 * Disminuye en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean bajarUnidades(Belleza producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -84,6 +108,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 	
+	/**
+	 * Aumenta en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean subirUnidades(Belleza producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -95,6 +122,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		}
 	}
 
+	/**
+	 * Devuelve el contenido de la lista como texto (una línea por producto).
+	 */
 	@Override
 	public String mostrarDatos() {
 		String contenido = "";
@@ -105,6 +135,9 @@ public class BellezaDAO implements DAO<Belleza> {
 		return contenido;
 	}
 
+	/**
+	 * Devuelve el número de elementos en la lista.
+	 */
 	@Override
 	public int contar() {
 		return lista.size();

@@ -8,11 +8,17 @@ public class DeporteDAO implements DAO<Deporte> {
 	private ArrayList<Deporte> lista;
 	private String SERIAL_FILE_NAME = "deporte.secn";
 
+	/**
+	 * Constructor que inicializa la lista y carga el archivo serializado.
+	 */
 	public DeporteDAO() {
 		lista = new ArrayList<>();
 		cargarArchivoSerializado();
 	}
 
+	/**
+	 * Carga la lista desde el archivo serializado.
+	 */
 	@Override
 	public void cargarArchivoSerializado() {
 		try {
@@ -27,17 +33,26 @@ public class DeporteDAO implements DAO<Deporte> {
 		}
 	}
 
+	/**
+	 * Escribe la lista en el archivo serializado.
+	 */
 	@Override
 	public void escribirArchivoSerializado() {
 		FileHandler.escribirArchivoSerializado(SERIAL_FILE_NAME, lista);
 	}
 
+	/**
+	 * Crea un nuevo registro de Deporte y persiste el cambio.
+	 */
 	@Override
 	public void crear(Deporte nuevoDato) {
 		lista.add(nuevoDato);
 		escribirArchivoSerializado();
 	}
 
+	/**
+	 * Actualiza un registro en la posición indicada.
+	 */
 	@Override
 	public boolean actualizar(int indice, Deporte actualizarDato) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -49,6 +64,9 @@ public class DeporteDAO implements DAO<Deporte> {
 		}
 	}
 
+	/**
+	 * Elimina el registro en la posición indicada.
+	 */
 	@Override
 	public boolean eliminar(int indice) {
 		if (indice < 0 || indice >= lista.size()) {
@@ -59,7 +77,10 @@ public class DeporteDAO implements DAO<Deporte> {
 			return true;
 		}
 	}
-	
+
+	/**
+	 * Elimina el producto indicado de la lista.
+	 */
 	public boolean eliminar(Deporte producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -69,7 +90,10 @@ public class DeporteDAO implements DAO<Deporte> {
 			return true;
 		}
 	}
-	
+
+	/**
+	 * Disminuye en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean bajarUnidades(Deporte producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -80,7 +104,10 @@ public class DeporteDAO implements DAO<Deporte> {
 			return true;
 		}
 	}
-	
+
+	/**
+	 * Aumenta en una unidad el stock del producto indicado y persiste el cambio.
+	 */
 	public boolean subirUnidades(Deporte producto) {
 		if (producto == null || !lista.contains(producto)) {
 			return false;
@@ -92,6 +119,9 @@ public class DeporteDAO implements DAO<Deporte> {
 		}
 	}
 
+	/**
+	 * Devuelve el contenido de la lista como texto (una línea por producto).
+	 */
 	@Override
 	public String mostrarDatos() {
 		StringBuilder contenido = new StringBuilder();
@@ -101,6 +131,9 @@ public class DeporteDAO implements DAO<Deporte> {
 		return contenido.toString();
 	}
 
+	/**
+	 * Devuelve el número de elementos en la lista.
+	 */
 	@Override
 	public int contar() {
 		return lista.size();
