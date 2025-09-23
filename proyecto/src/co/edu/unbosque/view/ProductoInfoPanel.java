@@ -10,16 +10,25 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Panel que muestra la información detallada de un producto y permite agregarlo al carrito.
+ */
 public class ProductoInfoPanel extends JPanel {
 
 	private JButton volver;
 	private JButton agregarCarrito;
 	private JPanel cajaFondoProducto;
 
+	/**
+	 * Crea el panel y configura los componentes iniciales.
+	 */
 	public ProductoInfoPanel() {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa los componentes visuales del panel.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -60,6 +69,9 @@ public class ProductoInfoPanel extends JPanel {
 		this.add(mercadoLibre);
 	}
 
+	/**
+	 * Muestra los detalles del producto en el panel.
+	 */
 	public void mostrarProductoInfo(double precio, String nombre, String descripcion, int unidades, String url,
 			String atributo1, String atributo2, String informacion, String unidadesLabel) {
 		cajaFondoProducto.removeAll();
@@ -85,12 +97,18 @@ public class ProductoInfoPanel extends JPanel {
 		cajaFondoProducto.repaint();
 	}
 
+	/**
+	 * Establece los textos de los botones.
+	 */
 	public void iniciarLabels(String volver, String agregarCarrito) {
 		this.volver.setText(volver);
 		this.agregarCarrito.setText(agregarCarrito);
 
 	}
 
+	/**
+	 * Crea y añade una etiqueta al contenedor del producto.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -99,16 +117,21 @@ public class ProductoInfoPanel extends JPanel {
 		cajaFondoProducto.add(label);
 	}
 
+	/**
+	 * Limpia las etiquetas del panel de producto.
+	 */
 	public void limpiarLabels() {
 		cajaFondoProducto.removeAll();
 		cajaFondoProducto.revalidate();
 		cajaFondoProducto.repaint();
 	}
 
+	/** Devuelve el botón volver. */
 	public JButton getVolver() {
 		return volver;
 	}
 
+	/** Devuelve el botón agregarCarrito. */
 	public JButton getAgregarCarrito() {
 		return agregarCarrito;
 	}

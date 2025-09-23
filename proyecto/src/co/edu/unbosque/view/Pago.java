@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+/**
+ * Panel que muestra el formulario de pago.
+ */
 public class Pago extends JPanel {
 
 	private JButton volver;
@@ -18,6 +21,9 @@ public class Pago extends JPanel {
 	private JTextField fechaVencimiento;
 	private JTextField codigoSeguridad;
 
+	/**
+	 * Crea la vista de pago y configura los componentes.
+	 */
 	public Pago() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -34,35 +40,36 @@ public class Pago extends JPanel {
 		volver.setBackground(Color.WHITE);
 		volver.setFocusPainted(false);
 		volver.setBorderPainted(false);
-		
+
 		pagar = new JButton();
 		pagar.setBounds(600, 410, 100, 40);
 		pagar.setFont(new Font("Arial", Font.BOLD, 16));
 		pagar.setBackground(new Color(255, 230, 0));
 		pagar.setFocusPainted(false);
 		pagar.setBorderPainted(false);
-		
+
 		numeroTarjeta = new JTextField();
 		numeroTarjeta.setBounds(475, 275, 350, 40);
-		
+
 		fechaVencimiento = new JTextField();
 		fechaVencimiento.setBounds(475, 350, 150, 40);
-		
-		codigoSeguridad  = new JTextField();
-		codigoSeguridad.setBounds(675, 350, 150, 40);	
-		
-		
+
+		codigoSeguridad = new JTextField();
+		codigoSeguridad.setBounds(675, 350, 150, 40);
+
 		this.add(volver);
 		this.add(pagar);
 		this.add(numeroTarjeta);
 		this.add(fechaVencimiento);
 		this.add(codigoSeguridad);
 		this.add(arriba);
-		
-		
 	}
-	
-	public void iniciarLabels(String pagarLabel, String ingreseDatos, String numeroTarjeta, String fechaVencimiento, String codigoSeguridad) {
+
+	/**
+	 * Inicializa los textos visibles del formulario.
+	 */
+	public void iniciarLabels(String pagarLabel, String ingreseDatos, String numeroTarjeta, String fechaVencimiento,
+			String codigoSeguridad) {
 		pagar.setText(pagarLabel);
 		crearLabel(ingreseDatos, 475, 200, 400, 30, Color.BLACK, 20);
 		crearLabel(numeroTarjeta, 475, 235, 200, 40, Color.BLACK, 16);
@@ -70,6 +77,9 @@ public class Pago extends JPanel {
 		crearLabel(codigoSeguridad, 675, 315, 200, 40, Color.BLACK, 16);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al panel.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -79,45 +89,54 @@ public class Pago extends JPanel {
 		this.setComponentZOrder(label, 0);
 	}
 
+	/** Devuelve el botón volver. */
 	public JButton getVolver() {
 		return volver;
 	}
 
+	/** Establece el botón volver. */
 	public void setVolver(JButton volver) {
 		this.volver = volver;
 	}
 
+	/** Devuelve el botón pagar. */
 	public JButton getPagar() {
 		return pagar;
 	}
 
+	/** Establece el botón pagar. */
 	public void setPagar(JButton pagar) {
 		this.pagar = pagar;
 	}
 
+	/** Devuelve el campo número de tarjeta. */
 	public JTextField getNumeroTarjeta() {
 		return numeroTarjeta;
 	}
 
+	/** Establece el campo númeroTarjeta. */
 	public void setNumeroTarjeta(JTextField numeroTarjeta) {
 		this.numeroTarjeta = numeroTarjeta;
 	}
 
+	/** Devuelve el campo fecha de vencimiento. */
 	public JTextField getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
+	/** Establece el campo fechaVencimiento. */
 	public void setFechaVencimiento(JTextField fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
+	/** Devuelve el campo código de seguridad. */
 	public JTextField getCodigoSeguridad() {
 		return codigoSeguridad;
 	}
 
+	/** Establece el campo codigoSeguridad. */
 	public void setCodigoSeguridad(JTextField codigoSeguridad) {
 		this.codigoSeguridad = codigoSeguridad;
 	}
-	
-	
+
 }

@@ -9,10 +9,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Panel utilizado en la vista para mostrar un producto y permitir agregarlo al carrito.
+ */
 public class CarritoPanelAgregarACarrito extends JPanel {
 
 	private JButton selec;
 
+	/**
+	 * Constructor que crea el panel con el nombre del producto y el listener.
+	 */
 	public CarritoPanelAgregarACarrito(String nombre, ActionListener e) {
 		this.setPreferredSize(new Dimension(483, 100));
 		this.setBackground(Color.WHITE);
@@ -34,6 +40,9 @@ public class CarritoPanelAgregarACarrito extends JPanel {
 		this.add(selec);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al panel.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);

@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+/**
+ * Panel para crear un nuevo carrito desde la vista.
+ */
 public class CrearCarrito extends JPanel{
 	
 	private JButton volver;
@@ -20,6 +23,9 @@ public class CrearCarrito extends JPanel{
 		iniciarComponentes();
 	}
 	
+	/**
+	 * Inicializa los componentes visuales del panel.
+	 */
 	private void iniciarComponentes() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -57,11 +63,17 @@ public class CrearCarrito extends JPanel{
 		this.add(arriba);
 	}
 	
+	/**
+	 * Configura los textos visibles del panel.
+	 */
 	public void iniciarLabels(String crearCarrito, String nombre) {
 		crearLabel(nombre, 420, 200, 460, 50, Color.black, 20);
 		this.crearCarrito.setText(crearCarrito);
 	}
 	
+	/**
+	 * Crea y añade una etiqueta al panel.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -69,30 +81,4 @@ public class CrearCarrito extends JPanel{
 		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
 		this.add(label);
 		this.setComponentZOrder(label, 0);
-	}
-
-	public JButton getVolver() {
-		return volver;
-	}
-
-	public void setVolver(JButton volver) {
-		this.volver = volver;
-	}
-
-	public JButton getCrearCarrito() {
-		return crearCarrito;
-	}
-
-	public void setCrearCarrito(JButton crearCarrito) {
-		this.crearCarrito = crearCarrito;
-	}
-
-	public JTextField getNombreC() {
-		return nombreC;
-	}
-
-	public void setNombreC(JTextField nombreC) {
-		this.nombreC = nombreC;
-	}
-	
-}
+	}	/**	 * Devuelve el botón volver.	 */	public JButton getVolver() { return volver; }	/**	 * Configura el botón volver.	 */	public void setVolver(JButton volver) { this.volver = volver; }	/**	 * Devuelve el botón para crear el carrito.	 */	public JButton getCrearCarrito() { return crearCarrito; }	/**	 * Configura el botón crearCarrito.	 */	public void setCrearCarrito(JButton crearCarrito) { this.crearCarrito = crearCarrito; }	/**	 * Devuelve el campo de nombre del carrito.	 */	public JTextField getNombreC() { return nombreC; }	/**	 * Configura el campo nombreC.	 */	public void setNombreC(JTextField nombreC) { this.nombreC = nombreC; }	}

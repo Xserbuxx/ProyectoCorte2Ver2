@@ -12,12 +12,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
+/**
+ * Panel que muestra el recibo de la compra y lista de productos.
+ */
 public class Recibo extends JPanel {
 
 	private JPanel panelProductos;
 	private JScrollPane scroll;
 	private JButton volver;
 
+	/**
+	 * Crea la vista del recibo inicializando componentes.
+	 */
 	public Recibo() {
 
 		this.setBounds(0, 0, 1280, 720);
@@ -59,13 +65,19 @@ public class Recibo extends JPanel {
 		this.add(scroll);
 		this.add(volver);
 	}
-	
+
+	/**
+	 * Inicializa los textos de cabecera del recibo.
+	 */
 	public void iniciarLabels(String recivocompra, String producto, String precio) {
 		crearLabel(recivocompra, 490, 60, 300, 30, Color.BLACK, 20);
 		crearLabel(producto, 480, 110, 200, 30, Color.BLACK, 16);
 		crearLabel(precio, 720, 110, 200, 30, Color.BLACK, 16);
 	}
 
+	/**
+	 * Muestra el total de la compra en la interfaz.
+	 */
 	public void mostrarTotal(double total, String totalLabel) {
 
 		crearLabel(totalLabel+ total, 480, 490, 300, 50, new Color(51, 51, 51), 20);
@@ -73,22 +85,31 @@ public class Recibo extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-	
+
+	/**
+	 * Elimina el label del total si existe.
+	 */
 	public void eliminarTotal() {
 		if(((JLabel) this.getComponents()[0]).getText().contains("Precio total: $")) {
 			this.remove(0);
-			
+
 		}
 		this.revalidate();
 		this.repaint();
 	}
 
+	/**
+	 * Elimina los productos listados en el recibo.
+	 */
 	public void eliminarProductos() {
 		panelProductos.removeAll();
 		scroll.revalidate();
 		scroll.repaint();
 	}
 
+	/**
+	 * Añade un producto al listado del recibo.
+	 */
 	public void agregarProducto(String nombre, double precio) {
 		JPanel productoPanel = new JPanel();
 		productoPanel.setLayout(null);
@@ -111,6 +132,9 @@ public class Recibo extends JPanel {
 		scroll.repaint();
 	}
 
+	/**
+	 * Crea y añade una etiqueta al panel principal.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -120,28 +144,28 @@ public class Recibo extends JPanel {
 		this.setComponentZOrder(label, 0);
 	}
 
+	/** Devuelve el panel de productos. */
 	public JPanel getPanelProductos() {
 		return panelProductos;
 	}
-
+	/** Establece el panel de productos. */
 	public void setPanelProductos(JPanel panelProductos) {
 		this.panelProductos = panelProductos;
 	}
-
+	/** Devuelve el JScrollPane. */
 	public JScrollPane getScroll() {
 		return scroll;
 	}
-
+	/** Establece el JScrollPane. */
 	public void setScroll(JScrollPane scroll) {
 		this.scroll = scroll;
 	}
-
+	/** Devuelve el botón volver. */
 	public JButton getVolver() {
 		return volver;
 	}
-
+	/** Establece el botón volver. */
 	public void setVolver(JButton volver) {
 		this.volver = volver;
 	}
-	
 }

@@ -11,15 +11,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+/**
+ * Panel que muestra la confirmación para eliminar un carrito.
+ */
 public class ConfirmarEliminar extends JPanel {
 
 	private JButton volver;
 	private JButton eliminar;
 
+	/**
+	 * Inicializa el panel de confirmación de eliminación.
+	 */
 	public ConfirmarEliminar() {
 		iniciarComponentes();
 	}
 
+	/**
+	 * Crea y posiciona los componentes del panel.
+	 */
 	private void iniciarComponentes() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -41,12 +50,18 @@ public class ConfirmarEliminar extends JPanel {
 		this.add(arriba);
 	}
 
+	/**
+	 * Establece el texto del mensaje de confirmación.
+	 */
 	public void iniciarLabels(String mensaje) {
 		crearLabel(mensaje, 425, 260, 460, 50, Color.black, 20);
 	}
 
+	/**
+	 * Crea y muestra el botón de eliminar con la acción indicada.
+	 */
 	public void crearBotonEliminar(String nombre, String eliminarC, ActionListener e) {
-		if (this.getComponents()[2].equals(eliminar)) {
+		if (this.getComponents().length > 2 && this.getComponents()[2].equals(eliminar)) {
 			this.remove(eliminar);
 		}
 		eliminar = new JButton(eliminarC + nombre.split("_")[0]);
@@ -60,6 +75,9 @@ public class ConfirmarEliminar extends JPanel {
 		this.add(eliminar);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al panel.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -69,18 +87,30 @@ public class ConfirmarEliminar extends JPanel {
 		this.setComponentZOrder(label, 0);
 	}
 
+	/**
+	 * Devuelve el botón volver.
+	 */
 	public JButton getVolver() {
 		return volver;
 	}
 
+	/**
+	 * Establece el botón volver.
+	 */
 	public void setVolver(JButton volver) {
 		this.volver = volver;
 	}
 
+	/**
+	 * Devuelve el botón eliminar.
+	 */
 	public JButton getEliminar() {
 		return eliminar;
 	}
 
+	/**
+	 * Establece el botón eliminar.
+	 */
 	public void setEliminar(JButton eliminar) {
 		this.eliminar = eliminar;
 	}

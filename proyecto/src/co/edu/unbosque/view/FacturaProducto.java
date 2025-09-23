@@ -12,7 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Componente visual que representa un producto dentro de la factura.
+ */
 public class FacturaProducto extends JPanel {
+	/**
+	 * Crea el componente de producto para la factura.
+	 */
 	public FacturaProducto(String nombre, double precio, String ruta, int id, ActionListener e) {
 		this.setPreferredSize(new Dimension(500, 100));
 		this.setBackground(Color.WHITE);
@@ -41,6 +47,9 @@ public class FacturaProducto extends JPanel {
 		this.add(icono);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al componente.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);

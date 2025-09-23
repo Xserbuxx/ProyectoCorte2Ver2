@@ -1,9 +1,12 @@
 package co.edu.unbosque.util.exception;
 
-public class UnidadesProductoException extends Exception {
-
+/**
+ * Excepción que indica que no hay unidades disponibles para un producto.
+ */
+public class UnidadesProductoException extends Exception {	/**
+	 * Crea la excepción con un mensaje describiendo el error.
+	 */
 	public UnidadesProductoException(String message) {
 		super(message);
 	}
-
-}
+}

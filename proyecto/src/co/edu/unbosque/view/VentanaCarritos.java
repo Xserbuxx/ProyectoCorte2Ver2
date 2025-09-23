@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+/**
+ * Panel que muestra y gestiona la lista de carritos.
+ */
 public class VentanaCarritos extends JPanel {
 
 	private JButton volver;
@@ -28,6 +31,9 @@ public class VentanaCarritos extends JPanel {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa los componentes de la ventana de carritos.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -89,16 +95,25 @@ public class VentanaCarritos extends JPanel {
 		this.add(abajo);
 	}
 
+	/**
+	 * Añade un carrito visual a la lista.
+	 */
 	public void mostrarProductos(String nombre, ActionListener e) {
 		panelProductos.add(new CarritoPanelVentanaCarritos(nombre, e));
 	}
 
+	/**
+	 * Elimina todos los carritos mostrados.
+	 */
 	public void eliminarCarritos() {
 		panelProductos.removeAll();
 		scroll.revalidate();
 		scroll.repaint();
 	}
 
+	/**
+	 * Desactiva los botones de los carritos listados.
+	 */
 	public void limpiarBotones() {
 		for (Component comp : panelProductos.getComponents()) {
 			for (Component com : ((JPanel) comp).getComponents()) {
@@ -111,6 +126,9 @@ public class VentanaCarritos extends JPanel {
 		scroll.repaint();
 	}
 
+	/**
+	 * Inicializa los textos visibles y botones de la vista.
+	 */
 	public void iniciarLabels(String carritos, String volverLabel, String crearCarritoLabel, String filtrarLabel) {
 		crearLabel(carritos, 180, 20, 300, 40, Color.BLACK, 28);
 		
@@ -119,6 +137,9 @@ public class VentanaCarritos extends JPanel {
 		filtrar.setText(filtrarLabel);
 	}
 
+	/**
+	 * Crea y añade una etiqueta a la cabecera.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -127,50 +148,51 @@ public class VentanaCarritos extends JPanel {
 		mercadoLibre.add(label);
 	}
 
+	/** Devuelve el botón volver. */
 	public JButton getVolver() {
 		return volver;
 	}
-
+	/** Establece el botón volver. */
 	public void setVolver(JButton volver) {
 		this.volver = volver;
 	}
-
+	/** Devuelve el JScrollPane. */
 	public JScrollPane getScroll() {
 		return scroll;
 	}
-
+	/** Establece el JScrollPane. */
 	public void setScroll(JScrollPane scroll) {
 		this.scroll = scroll;
 	}
-
+	/** Devuelve panelProductos. */
 	public JPanel getPanelProductos() {
 		return panelProductos;
 	}
-
+	/** Establece panelProductos. */
 	public void setPanelProductos(JPanel panelProductos) {
 		this.panelProductos = panelProductos;
 	}
-
+	/** Devuelve crearCarrito. */
 	public JButton getCrearCarrito() {
 		return crearCarrito;
 	}
-
+	/** Establece crearCarrito. */
 	public void setCrearCarrito(JButton crearCarrito) {
 		this.crearCarrito = crearCarrito;
 	}
-
+	/** Devuelve filtro. */
 	public JTextField getFiltro() {
 		return filtro;
 	}
-
+	/** Establece filtro. */
 	public void setFiltro(JTextField filtro) {
 		this.filtro = filtro;
 	}
-
+	/** Devuelve filtrar. */
 	public JButton getFiltrar() {
 		return filtrar;
 	}
-
+	/** Establece filtrar. */
 	public void setFiltrar(JButton filtrar) {
 		this.filtrar = filtrar;
 	}

@@ -3,181 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.CardLayout;
 
 import javax.swing.JPanel;
-
-public class ManejarPanel extends JPanel{
-	
-	private CardLayout cl;
-	private InicioSesion vis;
-	private Registrarse reg;
-	private VentanaCompra com;
-	private VentanaVenta ven;
-	private ProductoInfoPanel pip;
-	private VentanaCarritos car;
-	private AgregarACarrito aca;
-	private CrearCarrito crc;
-	private VentanaFactura fac;
-	private ConfirmarEliminar ce;
-	private ConfirmarCompra cc;
-	private Pago pa;;
-	private Recibo rec;
-	private SeleccionarIdioma si;
-	
-	public ManejarPanel() {
-		iniciarComponentes();
-	}
-	
-	private void iniciarComponentes() {
-		
-		cl = new CardLayout();
-		this.setLayout(cl);
-		
-		vis = new InicioSesion();
-		reg = new Registrarse();
-		com = new VentanaCompra();
-		ven = new VentanaVenta();
-		pip = new ProductoInfoPanel();
-		car = new VentanaCarritos();
-		aca = new AgregarACarrito();
-		crc = new CrearCarrito();
-		fac = new VentanaFactura();
-		ce = new ConfirmarEliminar();
-		cc = new ConfirmarCompra();
-		pa = new Pago();
-		rec = new Recibo();
-		si = new SeleccionarIdioma();
-		
-		this.add(vis, "vis");
-		this.add(reg, "reg");
-		this.add(com, "com");
-		this.add(ven, "ven");
-		this.add(pip, "pip");
-		this.add(car, "car");
-		this.add(fac, "fac");
-		
-	}
-	
-	public void mostrarPanel(String nombre) {
-		cl.show(this, nombre);
-	}
-
-	public CardLayout getCl() {
-		return cl;
-	}
-
-	public void setCl(CardLayout cl) {
-		this.cl = cl;
-	}
-
-	public InicioSesion getVis() {
-		return vis;
-	}
-
-	public void setVis(InicioSesion vis) {
-		this.vis = vis;
-	}
-
-	public Registrarse getReg() {
-		return reg;
-	}
-
-	public void setReg(Registrarse reg) {
-		this.reg = reg;
-	}
-
-	public VentanaCompra getCom() {
-		return com;
-	}
-
-	public void setCom(VentanaCompra com) {
-		this.com = com;
-	}
-
-	public VentanaVenta getVen() {
-		return ven;
-	}
-
-	public void setVen(VentanaVenta ven) {
-		this.ven = ven;
-	}
-
-	public ProductoInfoPanel getPip() {
-		return pip;
-	}
-
-	public void setPip(ProductoInfoPanel pip) {
-		this.pip = pip;
-	}
-
-	public VentanaCarritos getCar() {
-		return car;
-	}
-
-	public void setCar(VentanaCarritos car) {
-		this.car = car;
-	}
-
-	public AgregarACarrito getAca() {
-		return aca;
-	}
-
-	public void setAca(AgregarACarrito aca) {
-		this.aca = aca;
-	}
-
-	public CrearCarrito getCrc() {
-		return crc;
-	}
-
-	public void setCrc(CrearCarrito crc) {
-		this.crc = crc;
-	}
-
-	public VentanaFactura getFac() {
-		return fac;
-	}
-
-	public void setFac(VentanaFactura fac) {
-		this.fac = fac;
-	}
-
-	public ConfirmarEliminar getCe() {
-		return ce;
-	}
-
-	public void setCe(ConfirmarEliminar ce) {
-		this.ce = ce;
-	}
-
-	public ConfirmarCompra getCc() {
-		return cc;
-	}
-
-	public void setCc(ConfirmarCompra cc) {
-		this.cc = cc;
-	}
-
-	public Pago getPa() {
-		return pa;
-	}
-
-	public void setPa(Pago pa) {
-		this.pa = pa;
-	}
-
-	public Recibo getRec() {
-		return rec;
-	}
-
-	public void setRec(Recibo rec) {
-		this.rec = rec;
-	}
-
-	public SeleccionarIdioma getSi() {
-		return si;
-	}
-
-	public void setSi(SeleccionarIdioma si) {
-		this.si = si;
-	}
-	
-}
+/**
+ * Contenedor principal que maneja los distintos paneles de la aplicación mediante CardLayout.
+ */
+public class ManejarPanel extends JPanel{		private CardLayout cl;	private InicioSesion vis;	private Registrarse reg;	private VentanaCompra com;	private VentanaVenta ven;	private ProductoInfoPanel pip;	private VentanaCarritos car;	private AgregarACarrito aca;	private CrearCarrito crc;	private VentanaFactura fac;	private ConfirmarEliminar ce;	private ConfirmarCompra cc;	private Pago pa;;	private Recibo rec;	private SeleccionarIdioma si;		public ManejarPanel() {		iniciarComponentes();	}		/**	 * Inicializa y registra los paneles manejados por el CardLayout.	 */	private void iniciarComponentes() {				cl = new CardLayout();		this.setLayout(cl);				vis = new InicioSesion();		reg = new Registrarse();		com = new VentanaCompra();		ven = new VentanaVenta();		pip = new ProductoInfoPanel();		car = new VentanaCarritos();		aca = new AgregarACarrito();		crc = new CrearCarrito();		fac = new VentanaFactura();		ce = new ConfirmarEliminar();		cc = new ConfirmarCompra();		pa = new Pago();		rec = new Recibo();		si = new SeleccionarIdioma();				this.add(vis, "vis");		this.add(reg, "reg");		this.add(com, "com");		this.add(ven, "ven");		this.add(pip, "pip");		this.add(car, "car");		this.add(fac, "fac");			}		/**	 * Muestra el panel identificado por nombre.	 */	public void mostrarPanel(String nombre) {		cl.show(this, nombre);	}	/** Devuelve el CardLayout. */	public CardLayout getCl() { return cl; }	/** Establece el CardLayout. */	public void setCl(CardLayout cl) { this.cl = cl; }	/** Devuelve el panel de inicio. */	public InicioSesion getVis() { return vis; }	/** Establece el panel de inicio. */	public void setVis(InicioSesion vis) { this.vis = vis; }	/** Devuelve el panel de registro. */	public Registrarse getReg() { return reg; }	/** Establece el panel de registro. */	public void setReg(Registrarse reg) { this.reg = reg; }	/** Devuelve VentanaCompra. */	public VentanaCompra getCom() { return com; }	/** Establece VentanaCompra. */	public void setCom(VentanaCompra com) { this.com = com; }	/** Devuelve VentanaVenta. */	public VentanaVenta getVen() { return ven; }	/** Establece VentanaVenta. */	public void setVen(VentanaVenta ven) { this.ven = ven; }	/** Devuelve ProductoInfoPanel. */	public ProductoInfoPanel getPip() { return pip; }	/** Establece ProductoInfoPanel. */	public void setPip(ProductoInfoPanel pip) { this.pip = pip; }	/** Devuelve VentanaCarritos. */	public VentanaCarritos getCar() { return car; }	/** Establece VentanaCarritos. */	public void setCar(VentanaCarritos car) { this.car = car; }	/** Devuelve AgregarACarrito. */	public AgregarACarrito getAca() { return aca; }	/** Establece AgregarACarrito. */	public void setAca(AgregarACarrito aca) { this.aca = aca; }	/** Devuelve CrearCarrito. */	public CrearCarrito getCrc() { return crc; }	/** Establece CrearCarrito. */	public void setCrc(CrearCarrito crc) { this.crc = crc; }	/** Devuelve VentanaFactura. */	public VentanaFactura getFac() { return fac; }	/** Establece VentanaFactura. */	public void setFac(VentanaFactura fac) { this.fac = fac; }	/** Devuelve ConfirmarEliminar. */	public ConfirmarEliminar getCe() { return ce; }	/** Establece ConfirmarEliminar. */	public void setCe(ConfirmarEliminar ce) { this.ce = ce; }	/** Devuelve ConfirmarCompra. */	public ConfirmarCompra getCc() { return cc; }	/** Establece ConfirmarCompra. */	public void setCc(ConfirmarCompra cc) { this.cc = cc; }	/** Devuelve Pago. */	public Pago getPa() { return pa; }	/** Establece Pago. */	public void setPa(Pago pa) { this.pa = pa; }	/** Devuelve Recibo. */	public Recibo getRec() { return rec; }	/** Establece Recibo. */	public void setRec(Recibo rec) { this.rec = rec; }	/** Devuelve SeleccionarIdioma. */	public SeleccionarIdioma getSi() { return si; }	/** Establece SeleccionarIdioma. */	public void setSi(SeleccionarIdioma si) { this.si = si; }	}

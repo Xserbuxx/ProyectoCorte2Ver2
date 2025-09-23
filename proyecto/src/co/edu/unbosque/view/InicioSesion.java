@@ -24,6 +24,9 @@ public class InicioSesion extends JPanel {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa los componentes de la pantalla de inicio de sesión.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -82,6 +85,9 @@ public class InicioSesion extends JPanel {
 		this.add(cajaFondoInicio);
 	}
 
+	/**
+	 * Crea y añade una etiqueta dentro del contenedor de inicio.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -91,6 +97,9 @@ public class InicioSesion extends JPanel {
 		cajaFondoInicio.setComponentZOrder(label, 0);
 	}
 
+	/**
+	 * Establece los textos visibles del formulario de inicio.
+	 */
 	public void mostrarLabels(String inicioDeSesion, String usuario, String contrasena, String noCuenta, String iniciarSesion,String registrarse) {
 		crearLabel(inicioDeSesion, 140, 30, 300, 40, Color.BLACK, 26);
 		crearLabel(usuario, 40, 100, 200, 25, Color.BLACK, 16);
@@ -100,39 +109,66 @@ public class InicioSesion extends JPanel {
 		botonRegistrarse.setText(registrarse);
 	}
 
+	/**
+	 * Limpia los campos de texto del formulario.
+	 */
 	public void limpiarCampos() {
 		usuario.setText("");
 		contrasena.setText("");
 	}
 
+	/**
+	 * Devuelve el campo de usuario.
+	 */
 	public JTextField getUsuario() {
 		return usuario;
 	}
 
+	/**
+	 * Establece el campo de usuario.
+	 */
 	public void setUsuario(JTextField usuario) {
 		this.usuario = usuario;
 	}
 
+	/**
+	 * Devuelve el campo de contraseña.
+	 */
 	public JTextField getContrasena() {
 		return contrasena;
 	}
 
+	/**
+	 * Establece el campo de contraseña.
+	 */
 	public void setContrasena(JTextField contrasena) {
 		this.contrasena = contrasena;
 	}
 
+	/**
+	 * Devuelve el botón de registrarse.
+	 */
 	public JButton getBotonRegistrarse() {
 		return botonRegistrarse;
 	}
 
+	/**
+	 * Establece el botón de registrarse.
+	 */
 	public void setBotonRegistrarse(JButton botonRegistrarse) {
 		this.botonRegistrarse = botonRegistrarse;
 	}
 
+	/**
+	 * Devuelve el botón de inicio.
+	 */
 	public JButton getBotonInicio() {
 		return botonInicio;
 	}
 
+	/**
+	 * Establece el botón de inicio.
+	 */
 	public void setBotonInicio(JButton botonInicio) {
 		this.botonInicio = botonInicio;
 	}

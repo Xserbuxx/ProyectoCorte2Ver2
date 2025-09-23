@@ -11,18 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class VentanaFactura extends JPanel {
-	private JButton volver;
-	private JPanel panelProductos;
-	private JScrollPane scroll;
-	private JButton comprar;
-	private JPanel derecha;
-
-	public VentanaFactura() {
-		iniciarComponentes();
-	}
-
-	private void iniciarComponentes() {
+/**
+ * Panel que muestra la factura y los productos a comprar.
+ */
+public class VentanaFactura extends JPanel {	private JButton volver;	private JPanel panelProductos;	private JScrollPane scroll;	private JButton comprar;	private JPanel derecha;	/**	 * Crea la vista de factura y sus componentes.	 */	public VentanaFactura() {		iniciarComponentes();	}	/**	 * Inicializa y posiciona los componentes del panel de factura.	 */	private void iniciarComponentes() {
 
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -62,71 +54,4 @@ public class VentanaFactura extends JPanel {
 		
 		this.add(scroll);
 		this.add(derecha);
-	}
-	
-	public void iniciarLabels(String comprarLabel, String volverLabel) {
-		comprar.setText(comprarLabel);
-		volver.setText(volverLabel);
-	}
-
-	public void mostrarTotal(String total, String preciototal) {
-		
-		crearLabel(preciototal + total, 50, 40, 300, 40, new Color(51, 51, 51), 20);
-		
-		this.revalidate();
-		this.repaint();
-	}
-
-	public void limpiarBotones() {
-		for (Component comp : panelProductos.getComponents()) {
-			for (Component com : ((JPanel) comp).getComponents()) {
-				if (com instanceof JButton) {
-					com.setEnabled(false);
-				}
-			}
-		}
-		scroll.revalidate();
-		scroll.repaint();
-	}
-	
-	public void limpiarLabels() {
-		for (Component comp : derecha.getComponents()) {
-			if (comp instanceof JLabel) {
-				derecha.remove(comp);
-			}
-		}
-	}
-
-	public void mostrarProductos(String nombre, double precio, String ruta, int id, ActionListener e) {
-		panelProductos.add(new FacturaProducto(nombre, precio, ruta, id, e));
-	}
-
-	public void limpiarProductos() {
-		panelProductos.removeAll();
-	}
-	
-	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
-		JLabel label = new JLabel(texto);
-		label.setBounds(x, y, ancho, alto);
-		label.setForeground(color);
-		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));
-		derecha.add(label);
-	}
-
-	// Getters y setters
-	public JButton getVolver() {
-		return volver;
-	}
-
-	public JPanel getPanelProductos() {
-		return panelProductos;
-	}
-
-	public JScrollPane getScroll() {
-		return scroll;
-	}
-
-	public JButton getComprar() {
-		return comprar;
-	}
-}
+	}	/**	 * Inicializa los textos de los botones principales.	 */	public void iniciarLabels(String comprarLabel, String volverLabel) {		comprar.setText(comprarLabel);		volver.setText(volverLabel);	}	/**	 * Muestra el total de la factura en la columna derecha.	 */	public void mostrarTotal(String total, String preciototal) {		crearLabel(preciototal + total, 50, 40, 300, 40, new Color(51, 51, 51), 20);		this.revalidate();		this.repaint();	}	/**	 * Desactiva los botones de los productos listados.	 */	public void limpiarBotones() {		for (Component comp : panelProductos.getComponents()) {			for (Component com : ((JPanel) comp).getComponents()) {				if (com instanceof JButton) {					com.setEnabled(false);				}			}		}		scroll.revalidate();		scroll.repaint();	}	/**	 * Elimina las etiquetas dinámicas en la columna derecha.	 */	public void limpiarLabels() {		for (Component comp : derecha.getComponents()) {			if (comp instanceof JLabel) {				derecha.remove(comp);			}		}	}	/**	 * Añade un producto a la factura (visual).	 */	public void mostrarProductos(String nombre, double precio, String ruta, int id, ActionListener e) {		panelProductos.add(new FacturaProducto(nombre, precio, ruta, id, e));	}	/**	 * Elimina todos los productos de la factura.	 */	public void limpiarProductos() {		panelProductos.removeAll();	}	/**	 * Crea y añade una etiqueta en la columna derecha.	 */	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {		JLabel label = new JLabel(texto);		label.setBounds(x, y, ancho, alto);		label.setForeground(color);		label.setFont(new Font("Arial", Font.BOLD, tamañoTexto));		derecha.add(label);	}	/** Devuelve el botón volver. */	public JButton getVolver() { return volver; }	/** Devuelve el panel de productos. */	public JPanel getPanelProductos() { return panelProductos; }	/** Devuelve el scroll. */	public JScrollPane getScroll() { return scroll; }	/** Devuelve el botón comprar. */	public JButton getComprar() { return comprar; }}

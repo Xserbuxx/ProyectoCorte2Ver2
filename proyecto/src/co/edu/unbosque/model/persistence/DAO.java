@@ -2,7 +2,6 @@ package co.edu.unbosque.model.persistence;
 
 /**
  * Interfaz generica DAO.
- * @param <E>
  */
 public interface DAO <E>{
 		

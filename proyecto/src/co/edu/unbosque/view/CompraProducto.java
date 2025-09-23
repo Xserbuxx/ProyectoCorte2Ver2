@@ -12,10 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Componente visual que representa un producto para la pantalla de compra.
+ */
 public class CompraProducto extends JPanel {
 
 	private JButton info;
 
+	/**
+	 * Crea el componente visual con la información del producto.
+	 */
 	public CompraProducto(String nombre, double precio, String rutaFoto, int id, ActionListener e) {
 
 		this.setPreferredSize(new Dimension(250, 370));
@@ -43,6 +49,9 @@ public class CompraProducto extends JPanel {
 		this.add(info);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al componente.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -51,10 +60,16 @@ public class CompraProducto extends JPanel {
 		this.add(label);
 	}
 
+	/**
+	 * Devuelve el botón de información del producto.
+	 */
 	public JButton getInfo() {
 		return info;
 	}
 
+	/**
+	 * Configura el botón de información del producto.
+	 */
 	public void setInfo(JButton info) {
 		this.info = info;
 	}

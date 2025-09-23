@@ -15,6 +15,9 @@ public class ConfirmarCompra extends JPanel {
 	private JButton comprar;
 	private JLabel precioLabel;
 
+	/**
+	 * Crea el panel de confirmación de compra.
+	 */
 	public ConfirmarCompra() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -42,11 +45,17 @@ public class ConfirmarCompra extends JPanel {
 		this.add(volver);
 		this.add(arriba);
 	}
-	
+
+	/**
+	 * Inicializa el texto del botón comprar.
+	 */
 	public void iniciarLabels(String comprarCarrito) {
 		this.comprar.setText(comprarCarrito);
 	}
 
+	/**
+	 * Muestra el título y el precio a pagar.
+	 */
 	public void mostrarTitulo(double precio ,String  mensaje) {
 		if (precioLabel != null) {
 			this.remove(precioLabel);
@@ -64,6 +73,9 @@ public class ConfirmarCompra extends JPanel {
 		this.setComponentZOrder(precioLabel, 0);
 	}
 
+	/**
+	 * Crea y añade una etiqueta al panel.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -73,18 +85,30 @@ public class ConfirmarCompra extends JPanel {
 		this.setComponentZOrder(label, 0);
 	}
 
+	/**
+	 * Establece el botón volver.
+	 */
 	public void setVolver(JButton volver) {
 		this.volver = volver;
 	}
 
+	/**
+	 * Establece el botón comprar.
+	 */
 	public void setComprar(JButton comprar) {
 		this.comprar = comprar;
 	}
 
+	/**
+	 * Devuelve el botón volver.
+	 */
 	public JButton getVolver() {
 		return volver;
 	}
 
+	/**
+	 * Devuelve el botón comprar.
+	 */
 	public JButton getComprar() {
 		return comprar;
 	}

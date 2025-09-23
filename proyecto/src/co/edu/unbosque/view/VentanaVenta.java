@@ -65,6 +65,9 @@ public class VentanaVenta extends JPanel {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa los componentes de la ventana de venta.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -116,6 +119,9 @@ public class VentanaVenta extends JPanel {
 		this.add(mercadoLibre);
 	}
 
+	/**
+	 * Crea y muestra los campos básicos del formulario de venta.
+	 */
 	public void mostrarCampos() {
 		precio = new JTextField();
 		precio.setBounds(120, 150, 430, 50);
@@ -155,6 +161,9 @@ public class VentanaVenta extends JPanel {
 
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Belleza.
+	 */
 	public void mostrarBelleza(String tipoProducto, String fecha) {
 
 		mostrarCampos();
@@ -178,6 +187,9 @@ public class VentanaVenta extends JPanel {
 
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Deportes.
+	 */
 	public void mostrarDeportes(String tipodeporte, String marca) {
 
 		mostrarCampos();
@@ -200,6 +212,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Hogar.
+	 */
 	public void mostrarHogar(String tipomaterial, String tipoproducto) {
 
 		mostrarCampos();
@@ -222,6 +237,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Juguetes.
+	 */
 	public void mostrarJuguetes(String edadrecomendada, String material) {
 
 		mostrarCampos();
@@ -244,6 +262,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Libros.
+	 */
 	public void mostrarLibros(String autorLabel, String isbnLabel) {
 
 		mostrarCampos();
@@ -266,6 +287,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Mascotas.
+	 */
 	public void mostrarMascotas(String tipoanimal, String tamanoLabel) {
 
 		mostrarCampos();
@@ -288,6 +312,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Música.
+	 */
 	public void mostrarMusica(String artistaLabel, String formatoLabel) {
 		mostrarCampos();
 		formato = new JTextField();
@@ -309,6 +336,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Ropa.
+	 */
 	public void mostrarRopa(String tallaLabel, String colorLabel) {
 		mostrarCampos();
 		talla = new JTextField();
@@ -330,6 +360,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Tecnología.
+	 */
 	public void mostrarTecnologia(String marca, String modelo) {
 		mostrarCampos();
 		marcaTec = new JTextField();
@@ -351,6 +384,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Muestra los campos específicos para la categoría Vehículos.
+	 */
 	public void mostrarVehiculos(String anoLabel, String modelo) {
 		mostrarCampos();
 		ano = new JTextField();
@@ -372,6 +408,9 @@ public class VentanaVenta extends JPanel {
 		categorias.repaint();
 	}
 
+	/**
+	 * Limpia las etiquetas dinámicas que no coincidan con los textos pasados.
+	 */
 	public void limpiarLabels(String categoria, String precio, String nombre, String descripcion, String unidades,
 			String rutaFoto, String id, String comprador, String registrarproducto, String examinar) {
 		for (Component comp : this.getComponents()) {
@@ -387,6 +426,9 @@ public class VentanaVenta extends JPanel {
 
 	}
 
+	/**
+	 * Elimina los campos de texto dinámicos del panel.
+	 */
 	public void limpiarCampos() {
 		for (Component comp : this.getComponents()) {
 			if (comp instanceof JTextField) {
@@ -395,6 +437,9 @@ public class VentanaVenta extends JPanel {
 		}
 	}
 
+	/**
+	 * Inicializa los textos y acciones de las etiquetas y botones principales.
+	 */
 	public void iniciarLabels(String precio, String nombre, String descripcion, String unidades, String rutaFoto,
 			String id, String categoria, String todo, String belleza, String deportes, String hogar, String juguetes,
 			String libros, String mascotas, String musica, String ropa, String tecnologia, String vehiculos,
@@ -442,6 +487,9 @@ public class VentanaVenta extends JPanel {
 		this.repaint();
 	}
 
+	/**
+	 * Crea y añade un JLabel al panel con el texto especificado.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -451,246 +499,307 @@ public class VentanaVenta extends JPanel {
 		this.setComponentZOrder(label, 0);
 	}
 
+	/** Devuelve el botón para cambiar modo. */
 	public JButton getCambiarModo() {
 		return cambiarModo;
 	}
 
+	/** Configura el botón de cambiar modo. */
 	public void setCambiarModo(JButton cambiarModo) {
 		this.cambiarModo = cambiarModo;
 	}
 
+	/** Devuelve el botón de cerrar sesión. */
 	public JButton getCerrarSesion() {
 		return cerrarSesion;
 	}
 
+	/** Configura el botón de cerrar sesión. */
 	public void setCerrarSesion(JButton cerrarSesion) {
 		this.cerrarSesion = cerrarSesion;
 	}
 
+	/** Devuelve el botón de registrar producto. */
 	public JButton getRegistrarProducto() {
 		return registrarProducto;
 	}
 
+	/** Configura el botón de registrar producto. */
 	public void setRegistrarProducto(JButton registrarProducto) {
 		this.registrarProducto = registrarProducto;
 	}
 
+	/** Devuelve el combo de categorías. */
 	public JComboBox<String> getCategorias() {
 		return categorias;
 	}
 
+	/** Configura el combo de categorías. */
 	public void setCategorias(JComboBox<String> categorias) {
 		this.categorias = categorias;
 	}
 
+	/** Devuelve el campo precio. */
 	public JTextField getPrecio() {
 		return precio;
 	}
 
+	/** Configura el campo precio. */
 	public void setPrecio(JTextField precio) {
 		this.precio = precio;
 	}
 
+	/** Devuelve el campo nombre. */
 	public JTextField getNombre() {
 		return nombre;
 	}
 
+	/** Configura el campo nombre. */
 	public void setNombre(JTextField nombre) {
 		this.nombre = nombre;
 	}
 
+	/** Devuelve la descripción. */
 	public JTextField getDescripcion() {
 		return descripcion;
 	}
 
+	/** Configura la descripción. */
 	public void setDescripcion(JTextField descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	/** Devuelve el campo unidades. */
 	public JTextField getUnidades() {
 		return unidades;
 	}
 
+	/** Configura el campo unidades. */
 	public void setUnidades(JTextField unidades) {
 		this.unidades = unidades;
 	}
 
+	/** Devuelve el campo ruta foto. */
 	public JTextField getRutaFoto() {
 		return rutaFoto;
 	}
 
+	/** Configura el campo ruta foto. */
 	public void setRutaFoto(JTextField rutaFoto) {
 		this.rutaFoto = rutaFoto;
 	}
 
+	/** Devuelve el campo id. */
 	public JTextField getId() {
 		return id;
 	}
 
+	/** Configura el campo id. */
 	public void setId(JTextField id) {
 		this.id = id;
 	}
 
+	/** Devuelve el campo tipoProductoBe. */
 	public JTextField getTipoProductoBe() {
 		return tipoProductoBe;
 	}
 
+	/** Configura el campo tipoProductoBe. */
 	public void setTipoProductoBe(JTextField tipoProductoBe) {
 		this.tipoProductoBe = tipoProductoBe;
 	}
 
+	/** Devuelve el campo fechaExpiracion. */
 	public JTextField getFechaExpiracion() {
 		return fechaExpiracion;
 	}
 
+	/** Configura el campo fechaExpiracion. */
 	public void setFechaExpiracion(JTextField fechaExpiracion) {
 		this.fechaExpiracion = fechaExpiracion;
 	}
 
+	/** Devuelve el campo tipoDeporte. */
 	public JTextField getTipoDeporte() {
 		return tipoDeporte;
 	}
 
+	/** Configura el campo tipoDeporte. */
 	public void setTipoDeporte(JTextField tipoDeporte) {
 		this.tipoDeporte = tipoDeporte;
 	}
 
+	/** Devuelve la marcaDe. */
 	public JTextField getMarcaDe() {
 		return marcaDe;
 	}
 
+	/** Configura marcaDe. */
 	public void setMaterialDe(JTextField marcaDe) {
 		this.marcaDe = marcaDe;
 	}
 
+	/** Devuelve materialHo. */
 	public JTextField getMaterialHo() {
 		return materialHo;
 	}
 
+	/** Configura materialHo. */
 	public void setMaterialHo(JTextField tipoMaterialHo) {
 		this.materialHo = tipoMaterialHo;
 	}
 
+	/** Devuelve tipoProductoHo. */
 	public JTextField getTipoProductoHo() {
 		return tipoProductoHo;
 	}
 
+	/** Configura tipoProductoHo. */
 	public void setTipoProductoHo(JTextField tipoProductoHo) {
 		this.tipoProductoHo = tipoProductoHo;
 	}
 
+	/** Devuelve edadRecomendada. */
 	public JTextField getEdadRecomendada() {
 		return edadRecomendada;
 	}
 
+	/** Configura edadRecomendada. */
 	public void setEdadRecomendada(JTextField edadRecomendada) {
 		this.edadRecomendada = edadRecomendada;
 	}
 
+	/** Devuelve materialJu. */
 	public JTextField getMaterialJu() {
 		return materialJu;
 	}
 
+	/** Configura materialJu. */
 	public void setMaterialJu(JTextField materialJu) {
 		this.materialJu = materialJu;
 	}
 
+	/** Devuelve autor. */
 	public JTextField getAutor() {
 		return autor;
 	}
 
+	/** Configura autor. */
 	public void setAutor(JTextField autor) {
 		this.autor = autor;
 	}
 
+	/** Devuelve isbn. */
 	public JTextField getIsbn() {
 		return isbn;
 	}
 
+	/** Configura isbn. */
 	public void setIsbn(JTextField isbn) {
 		this.isbn = isbn;
 	}
 
+	/** Devuelve tipoAnimal. */
 	public JTextField getTipoAnimal() {
 		return tipoAnimal;
 	}
 
+	/** Configura tipoAnimal. */
 	public void setTipoAnimal(JTextField tipoAnimal) {
 		this.tipoAnimal = tipoAnimal;
 	}
 
+	/** Devuelve tamano. */
 	public JTextField getTamano() {
 		return tamano;
 	}
 
+	/** Configura tamano. */
 	public void setTamano(JTextField tamano) {
 		this.tamano = tamano;
 	}
 
+	/** Devuelve formato. */
 	public JTextField getFormato() {
 		return formato;
 	}
 
+	/** Configura formato. */
 	public void setFormato(JTextField formato) {
 		this.formato = formato;
 	}
 
+	/** Devuelve artista. */
 	public JTextField getArtista() {
 		return artista;
 	}
 
+	/** Configura artista. */
 	public void setArtista(JTextField artista) {
 		this.artista = artista;
 	}
 
+	/** Devuelve talla. */
 	public JTextField getTalla() {
 		return talla;
 	}
 
+	/** Configura talla. */
 	public void setTalla(JTextField talla) {
 		this.talla = talla;
 	}
 
+	/** Devuelve color. */
 	public JTextField getColor() {
 		return color;
 	}
 
+	/** Configura color. */
 	public void setColor(JTextField color) {
 		this.color = color;
 	}
 
+	/** Devuelve marcaTec. */
 	public JTextField getMarcaTec() {
 		return marcaTec;
 	}
 
+	/** Configura marcaTec. */
 	public void setMarcaTec(JTextField marcaTec) {
 		this.marcaTec = marcaTec;
 	}
 
+	/** Devuelve modeloTec. */
 	public JTextField getModeloTec() {
 		return modeloTec;
 	}
 
+	/** Configura modeloTec. */
 	public void setModeloTec(JTextField modeloTec) {
 		this.modeloTec = modeloTec;
 	}
 
+	/** Devuelve ano. */
 	public JTextField getAno() {
 		return ano;
 	}
 
+	/** Configura ano. */
 	public void setAno(JTextField ano) {
 		this.ano = ano;
 	}
 
+	/** Devuelve modeloVE. */
 	public JTextField getModeloVE() {
 		return modeloVE;
 	}
 
+	/** Configura modeloVE. */
 	public void setModeloVE(JTextField modeloVE) {
 		this.modeloVE = modeloVE;
 	}
 
+	/** Devuelve el botón examinar. */
 	public JButton getBtnExaminar() {
 		return btnExaminar;
 	}

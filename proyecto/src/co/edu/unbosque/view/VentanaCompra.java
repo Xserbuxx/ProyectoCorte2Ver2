@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * Panel que muestra los productos para compra y permite navegación.
+ */
 public class VentanaCompra extends JPanel {
 
 	private JComboBox<String> categorias;
@@ -22,10 +25,16 @@ public class VentanaCompra extends JPanel {
 	private JButton carritos;
 	private JPanel mercadoLibre;
 
+	/**
+	 * Crea la vista de compra e inicializa sus componentes.
+	 */
 	public VentanaCompra() {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa y posiciona los componentes visuales.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -83,14 +92,23 @@ public class VentanaCompra extends JPanel {
 		this.add(mercadoLibre);
 	}
 
+	/**
+	 * Añade un producto visual a la lista de productos.
+	 */
 	public void mostrarProductos(String nombre, double precio, String ruta, int id, ActionListener e) {
 		panelProductos.add(new CompraProducto(nombre, precio, ruta, id, e));
 	}
 
+	/**
+	 * Elimina todos los productos mostrados.
+	 */
 	public void limpiarProductos() {
 		panelProductos.removeAll();
 	}
 
+	/**
+	 * Inicializa los textos visibles y categorías del combo.
+	 */
 	public void mostrarLabels(String categoria, String todo, String belleza, String deportes, String hogar,
 			String juguetes, String libros, String mascotas, String musica, String ropa, String tecnologia,
 			String vehiculos, String vendedor) {
@@ -115,6 +133,9 @@ public class VentanaCompra extends JPanel {
 
 	}
 
+	/**
+	 * Crea y añade una etiqueta en la cabecera.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -123,50 +144,62 @@ public class VentanaCompra extends JPanel {
 		mercadoLibre.add(label);
 	}
 
+	/** Devuelve el combo de categorías. */
 	public JComboBox<String> getCategorias() {
 		return categorias;
 	}
 
+	/** Establece el combo de categorías. */
 	public void setCategorias(JComboBox<String> categorias) {
 		this.categorias = categorias;
 	}
 
+	/** Devuelve el JScrollPane. */
 	public JScrollPane getScroll() {
 		return scroll;
 	}
 
+	/** Establece el JScrollPane. */
 	public void setScroll(JScrollPane scroll) {
 		this.scroll = scroll;
 	}
 
+	/** Devuelve panelProductos. */
 	public JPanel getPanelProductos() {
 		return panelProductos;
 	}
 
+	/** Establece panelProductos. */
 	public void setPanelProductos(JPanel panelProductos) {
 		this.panelProductos = panelProductos;
 	}
 
+	/** Devuelve cambiarModo. */
 	public JButton getCambiarModo() {
 		return cambiarModo;
 	}
 
+	/** Establece cambiarModo. */
 	public void setCambiarModo(JButton cambiarModo) {
 		this.cambiarModo = cambiarModo;
 	}
 
+	/** Devuelve cerrarSesion. */
 	public JButton getCerrarSesion() {
 		return cerrarSesion;
 	}
 
+	/** Establece cerrarSesion. */
 	public void setCerrarSesion(JButton cerrarSesion) {
 		this.cerrarSesion = cerrarSesion;
 	}
 
+	/** Devuelve carritos. */
 	public JButton getCarritos() {
 		return carritos;
 	}
 
+	/** Establece carritos. */
 	public void setCarritos(JButton carritos) {
 		this.carritos = carritos;
 	}

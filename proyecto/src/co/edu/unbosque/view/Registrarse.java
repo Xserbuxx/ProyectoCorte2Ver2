@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Panel para registrar un nuevo usuario en la aplicación.
+ */
 public class Registrarse extends JPanel {
 
 	private JTextField usuario;
@@ -24,6 +27,9 @@ public class Registrarse extends JPanel {
 		iniciarComponente();
 	}
 
+	/**
+	 * Inicializa los componentes visuales del panel de registro.
+	 */
 	private void iniciarComponente() {
 		this.setBounds(0, 0, 1280, 720);
 		this.setLayout(null);
@@ -82,6 +88,9 @@ public class Registrarse extends JPanel {
 		this.add(cajaFondoRegistro);
 	}
 
+	/**
+	 * Crea y añade una etiqueta dentro del contenedor de registro.
+	 */
 	private void crearLabel(String texto, int x, int y, int ancho, int alto, Color color, int tamañoTexto) {
 		JLabel label = new JLabel(texto);
 		label.setBounds(x, y, ancho, alto);
@@ -90,6 +99,9 @@ public class Registrarse extends JPanel {
 		cajaFondoRegistro.add(label);
 	}
 
+	/**
+	 * Inicializa los textos visibles del formulario de registro.
+	 */
 	public void mostrarLabels(String registrarse, String usuario, String contrasena, String tieneCuenta,
 			String registro, String iniciarsesion) {
 		crearLabel(registrarse, 140, 30, 300, 40, Color.BLACK, 26);
@@ -100,39 +112,66 @@ public class Registrarse extends JPanel {
 		botonInicioSesion.setText(iniciarsesion);
 	}
 
+	/**
+	 * Limpia los campos de texto del formulario.
+	 */
 	public void limpiarCampos() {
 		usuario.setText("");
 		contrasena.setText("");
 	}
 
+	/**
+	 * Devuelve el campo usuario.
+	 */
 	public JTextField getUsuario() {
 		return usuario;
 	}
 
+	/**
+	 * Establece el campo usuario.
+	 */
 	public void setUsuario(JTextField usuario) {
 		this.usuario = usuario;
 	}
 
+	/**
+	 * Devuelve el campo contrasena.
+	 */
 	public JTextField getContrasena() {
 		return contrasena;
 	}
 
+	/**
+	 * Establece el campo contrasena.
+	 */
 	public void setContrasena(JTextField contrasena) {
 		this.contrasena = contrasena;
 	}
 
+	/**
+	 * Devuelve el botón para ir a inicio de sesión.
+	 */
 	public JButton getBotonInicioSesion() {
 		return botonInicioSesion;
 	}
 
+	/**
+	 * Establece el botón de inicio de sesión.
+	 */
 	public void setBotonInicioSesion(JButton botonInicioSesion) {
 		this.botonInicioSesion = botonInicioSesion;
 	}
 
+	/**
+	 * Devuelve el botón de registro.
+	 */
 	public JButton getBotonRegistro() {
 		return botonRegistro;
 	}
 
+	/**
+	 * Establece el botón de registro.
+	 */
 	public void setBotonRegistro(JButton botonRegistro) {
 		this.botonRegistro = botonRegistro;
 	}
